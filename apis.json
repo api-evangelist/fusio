@@ -1,0 +1,53 @@
+{
+    "name": "Fusio",
+    "description": "<p>Fusio is an open source API management platform which helps to build and manage REST APIs. Fusio provides all tools to create an API without writing any backend code still it is possible to easily extend the API if the complexity rises.<\/p>",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/logos\/Fusio_-_Open_source_API_management_platform.png",
+    "tags": [
+        "api service provider",
+        "have api",
+        "management"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/fusio\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "Fusio",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/logos\/Fusio_-_Open_source_API_management_platform.png",
+            "humanURL": "http:\/\/www.fusio-project.org\/",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/fusio-openapi.json"
+                },
+                {
+                    "type": "x-postman-collecction",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/fusio-postman-collection.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Blog",
+            "url": "http:\/\/www.fusio-project.org\/blog"
+        },
+        {
+            "type": "Github",
+            "url": "https:\/\/github.com\/apioo"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/FusioAPI"
+        },
+        {
+            "type": "Website",
+            "url": "http:\/\/www.fusio-project.org\/"
+        }
+    ]
+}
