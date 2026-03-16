@@ -1,0 +1,40 @@
+aid: fusio
+name: Fusio
+description: >-
+  Fusio is an open source API management platform which helps to build and
+  manage REST APIs. Fusio provides capabilities for creating, managing, and
+  documenting APIs.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+created: '2026-03-16'
+modified: '2026-03-16'
+position: Consumer
+tags:
+  - API
+  - API Management
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/fusio/refs/heads/main/apis.yml
+specificationVersion: '0.19'
+apis:
+  - aid: fusio:fusio
+    name: Fusio
+    tags:
+      - API Management
+    humanURL: https://www.fusio-project.org/
+    properties:
+      - url: https://docs.fusio-project.org/
+        type: Documentation
+    description: >-
+      Fusio is an open source API management platform which helps to build and
+      manage REST APIs.
+common:
+  - type: Website
+    url: https://www.fusio-project.org/
+  - type: Documentation
+    url: https://docs.fusio-project.org/
+  - type: GitHub Organization
+    url: https://github.com/apioo
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
