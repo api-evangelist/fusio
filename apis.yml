@@ -11,7 +11,6 @@ created: '2026-03-16'
 modified: '2026-03-18'
 position: Consumer
 tags:
-  - API
   - API Management
 url: >-
   https://raw.githubusercontent.com/api-evangelist/fusio/refs/heads/main/apis.yml
@@ -21,8 +20,8 @@ apis:
     name: Fusio
     tags:
       - API Management
-      - REST API
       - Open Source
+      - REST API
     humanURL: https://www.fusio-project.org/
     properties:
       - url: https://docs.fusio-project.org/
@@ -47,9 +46,9 @@ apis:
     baseURL: https://www.fusio-project.org/
     tags:
       - Backend
+      - Configuration
       - Management
       - REST API
-      - Configuration
     properties:
       - type: Documentation
         url: https://docs.fusio-project.org/docs/use_cases/api_product/
@@ -65,9 +64,9 @@ apis:
     humanURL: https://docs.fusio-project.org/docs/backend/consumer/user/
     baseURL: https://www.fusio-project.org/
     tags:
+      - Authentication
       - Consumer
       - Developer Portal
-      - Authentication
       - REST API
     properties:
       - type: Documentation
@@ -87,10 +86,10 @@ apis:
     humanURL: https://docs.fusio-project.org/docs/concepts/worker_api
     baseURL: https://www.fusio-project.org/
     tags:
-      - Worker
-      - Serverless
       - Multi-Language
       - REST API
+      - Serverless
+      - Worker
     properties:
       - type: Documentation
         url: https://docs.fusio-project.org/docs/concepts/worker_api
