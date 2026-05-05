@@ -1,0 +1,13 @@
+{
+  "repo": "fusio",
+  "feeds": [
+    {
+      "source": "https://www.fusio-project.org/blog",
+      "feed_url": "https://www.fusio-project.org/feed",
+      "saved": 10,
+      "title": "Blog | Fusio"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:28:05Z"
+}
