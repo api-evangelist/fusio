@@ -2,12 +2,20 @@
   "repo": "fusio",
   "feeds": [
     {
-      "source": "https://www.fusio-project.org/blog",
+      "source": "https://www.fusio-project.org/blog/feed",
       "feed_url": "https://www.fusio-project.org/blog/feed",
-      "title": "Blog | Fusio",
-      "saved": 30
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://docs.fusio-project.org/docs/bootstrap",
+      "feed_url": "https://docs.fusio-project.org/docs/bootstrap",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 40,
-  "fetched": "2026-05-17T20:20:35Z"
+  "post_count": 41,
+  "fetched": "2026-06-01T23:35:02Z"
 }
