@@ -96,7 +96,7 @@ common:
     url: https://discord.com/invite/eMrMgwsc6e
   - type: Marketplace
     url: https://www.fusio-project.org/marketplace
-  - type: SDK
+  - type: SDKs
     url: https://docs.fusio-project.org/docs/backend/development/sdk
   - type: Features
     data:
