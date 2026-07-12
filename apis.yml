@@ -80,6 +80,8 @@ apis:
       - type: GitHubRepository
         url: https://github.com/apioo/fusio-worker-php
 common:
+  - type: DomainSecurity
+    url: security/fusio-domain-security.yml
   - type: Documentation
     url: https://docs.fusio-project.org/
   - type: GettingStarted
