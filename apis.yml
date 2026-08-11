@@ -92,6 +92,15 @@ apis:
       - type: GitHubRepository
         url: https://github.com/apioo/fusio-worker-php
 common:
+  - type: IssueTracker
+    url: https://github.com/apioo/fusio/issues
+  - type: Releases
+    url: https://github.com/apioo/fusio/releases
+  - type: ContributionGuide
+    url: https://github.com/apioo/fusio/blob/master/CONTRIBUTING.md
+  - type: License
+    name: Apache-2.0
+    url: https://github.com/apioo/fusio/blob/master/LICENSE
   - type: DomainSecurity
     url: security/fusio-domain-security.yml
   - type: Documentation
