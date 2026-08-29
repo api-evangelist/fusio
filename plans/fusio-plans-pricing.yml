@@ -3,153 +3,69 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
 provider: Fusio
 providerId: fusio
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://www.fusio-project.org/ (no pricing route exists; /pricing returns HTTP 404),
+  https://github.com/apioo/fusio/blob/master/LICENSE,
+  https://github.com/apioo/fusio/blob/master/composer.json (funding block)
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-08-29'
 tags:
   - API Management
   - Open Source
-  - REST API
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
-plans:
-  - id: fusio-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Fusio API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://www.fusio-project.org/
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://www.fusio-project.org/
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Fusio Backend API
-      - name: Fusio Consumer API
-      - name: Fusio Worker API
-  - id: fusio-pro
-    name: Professional
-    type: paid
-    description: Production tier for Fusio. Provides higher quotas, priority support, and access to the
-      broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://www.fusio-project.org/
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://www.fusio-project.org/
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://www.fusio-project.org/
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Fusio Backend API
-      - name: Fusio Consumer API
-      - name: Fusio Worker API
-  - id: fusio-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Fusio. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://www.fusio-project.org/
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://www.fusio-project.org/
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Fusio Backend API
-      - name: Fusio Consumer API
-      - name: Fusio Worker API
+  - Self-Hosted
+plan_count: 0
+pricing_model: none
+description: >-
+  Fusio publishes no plans and no prices, and that is the finding rather than a gap in our search.
+  Fusio is Apache-2.0 software that the operator installs and runs; there is no vendor-hosted tier
+  to buy, no free/pro/enterprise ladder, and no per-request billing relationship with the project.
+  The website has no pricing route at all - https://www.fusio-project.org/pricing returns the Fusio
+  404 envelope, and there is no pricing link in the site navigation or footer. Revenue for the
+  project comes from voluntary sponsorship, not from plans.
+plans: []
+supersedes: >-
+  This file replaces a 2026-05-04 bulk-sweep scaffold that invented three tiers (Free / Professional
+  / Enterprise) with invented quotas of 1,000 and 100,000 requests per month. None of that was ever
+  published by Fusio. It has been removed rather than carried forward.
+evidence:
+  - url: https://www.fusio-project.org/pricing
+    status: 404
+  - url: https://www.fusio-project.org/
+    status: 200
+    note: No pricing entry in navigation or footer.
+  - url: https://github.com/apioo/fusio/blob/master/LICENSE
+    status: 200
+    note: Apache-2.0.
+funding:
+  model: sponsorship
+  channels:
+    - type: GitHub Sponsors
+      url: https://github.com/sponsors/chriskapp
+    - type: Patreon
+      url: https://www.patreon.com/fusio
+    - type: PayPal
+      url: https://www.paypal.me/fusioapi
+    - type: Partner program
+      url: https://www.fusio-project.org/partner
+      note: 'Named partners contributing to sustainability; one listed at time of probe (JetBrains, P-001).'
+monetization_feature:
+  note: >-
+    Do not confuse this with Fusio's PLAN FEATURE. Fusio gives OPERATORS a monetization system so
+    that THEY can sell plans for the APIs they build - a plan has a name, description, price,
+    points and a one-time or subscription period, with an external_id that maps to a Stripe price
+    id, and consumers spend points per operation call. That is a capability Fusio ships, not a
+    price Fusio charges.
+  docs: https://docs.fusio-project.org/docs/backend/monetization/plan
+  operations:
+    - backend.plan.getAll
+    - backend.plan.create
+    - consumer.plan.getAll
+    - consumer.payment.checkout
+    - consumer.payment.portal
+    - consumer.transaction.getAll
+    - system.payment.webhook
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

@@ -1,0 +1,307 @@
+generated: '2026-08-29'
+method: derived
+source: >-
+  openapi/fusio-backend.json and openapi/fusio-consumer.json - components.schemas $ref links plus
+  integer *Id reference fields
+provider: Fusio
+providerId: fusio
+description: >-
+  The entity-relationship graph of a Fusio instance's own configuration model, derived from the
+  harvested contracts. Reading it top-down tells you what Fusio actually is: an OPERATION is the
+  unit of publication, and it hangs off an ACTION (the logic), a SCHEMA (the shape), a SCOPE (who
+  may call it) and a RATE (how often). A CONNECTION feeds the action its data source. An APP holds
+  TOKENS for a USER. Everything below is that graph.
+identifier_style: >-
+  Integer surrogate keys. Path parameters accept either the numeric id or, on many endpoints, a
+  name preceded by "~" (the routing pattern in the TypeAPI document is
+  $action_id<[0-9]+|^~>), so entities are addressable by name as well as by id.
+core_entities:
+  - name: Backend_Operation
+    description: "The unit of publication - one HTTP method + path bound to an action, a schema, scopes and a stability state."
+    relationships:
+      - kind: has_one
+        target: Backend_OperationParameters
+        via: parameters
+      - kind: has_one
+        target: Backend_OperationThrows
+        via: throws
+      - kind: has_one
+        target: Common_Metadata
+        via: metadata
+  - name: Backend_Action
+    description: "The logic executed by an operation; a class plus a config, or a worker call."
+    relationships:
+      - kind: has_one
+        target: Backend_ActionConfig
+        via: config
+      - kind: has_one
+        target: Common_Metadata
+        via: metadata
+  - name: Backend_Schema
+    description: "A TypeSchema definition describing a request or response shape."
+    relationships:
+      - kind: has_one
+        target: Backend_SchemaSource
+        via: source
+      - kind: has_one
+        target: Common_Metadata
+        via: metadata
+  - name: Backend_Scope
+    description: "An OAuth2 scope; operations declare the scopes required to call them."
+    relationships:
+      - kind: has_many
+        target: Backend_ScopeOperation
+        via: operations
+      - kind: has_one
+        target: Common_Metadata
+        via: metadata
+  - name: Backend_Rate
+    description: "A rate limit with allocations narrowing it to a user, app, operation or plan."
+    relationships:
+      - kind: has_many
+        target: Backend_RateAllocation
+        via: allocation
+      - kind: has_one
+        target: Common_Metadata
+        via: metadata
+  - name: Backend_Connection
+    description: "A configured connection to a data source - SQL, MongoDB, HTTP, Redis, SMTP, an AI provider."
+    relationships:
+      - kind: has_one
+        target: Backend_ConnectionConfig
+        via: config
+      - kind: has_one
+        target: Common_Metadata
+        via: metadata
+  - name: Backend_App
+    description: "An OAuth2 client belonging to a user; holds tokens."
+    relationships:
+      - kind: belongs_to
+        target: user
+        via: userId
+      - kind: has_one
+        target: Common_Metadata
+        via: metadata
+      - kind: has_many
+        target: Backend_Token
+        via: tokens
+  - name: Backend_User
+    description: "An account, with a role and a set of scopes."
+    relationships:
+      - kind: belongs_to
+        target: role
+        via: roleId
+      - kind: belongs_to
+        target: plan
+        via: planId
+      - kind: has_many
+        target: Backend_App
+        via: apps
+      - kind: has_one
+        target: Common_Metadata
+        via: metadata
+  - name: Backend_Token
+    description: "An issued access token."
+  - name: Backend_Event
+    description: "A named event with a payload schema; the unit of the webhook system."
+    relationships:
+      - kind: has_one
+        target: Common_Metadata
+        via: metadata
+  - name: Backend_Webhook
+    description: "A subscription binding a user endpoint to an event."
+    relationships:
+      - kind: belongs_to
+        target: event
+        via: eventId
+      - kind: belongs_to
+        target: user
+        via: userId
+      - kind: has_many
+        target: Backend_WebhookResponse
+        via: responses
+  - name: Backend_Trigger
+    description: "Binds an event to an action, so an event can drive internal work."
+    relationships:
+      - kind: has_one
+        target: Common_Metadata
+        via: metadata
+  - name: Backend_Cronjob
+    description: "A scheduled action execution, with an error log."
+    relationships:
+      - kind: has_one
+        target: Common_Metadata
+        via: metadata
+      - kind: has_many
+        target: Backend_CronjobError
+        via: errors
+  - name: Backend_Plan
+    description: "A monetization plan an operator sells - price, points, period, external payment id."
+    relationships:
+      - kind: has_one
+        target: Common_Metadata
+        via: metadata
+  - name: Backend_Transaction
+    description: "A recorded plan purchase."
+    relationships:
+      - kind: belongs_to
+        target: user
+        via: userId
+      - kind: belongs_to
+        target: plan
+        via: planId
+  - name: Backend_Role
+    description: "A named permission set within a category."
+    relationships:
+      - kind: belongs_to
+        target: category
+        via: categoryId
+  - name: Backend_Category
+    description: "A grouping of operations - backend, consumer, system, authorization, default."
+  - name: Backend_Identity
+    description: "An external OIDC identity provider bound to an app and a role."
+    relationships:
+      - kind: belongs_to
+        target: app
+        via: appId
+      - kind: belongs_to
+        target: role
+        via: roleId
+      - kind: has_one
+        target: Backend_IdentityConfig
+        via: config
+  - name: Backend_Agent
+    description: "An LLM agent definition - model, temperature, costs, tools."
+    relationships:
+      - kind: has_one
+        target: Common_Metadata
+        via: metadata
+  - name: Backend_Page
+    description: "A developer-portal content page."
+    relationships:
+      - kind: has_one
+        target: Common_Metadata
+        via: metadata
+  - name: Backend_Form
+    description: "A form definition bound to an operation."
+    relationships:
+      - kind: belongs_to
+        target: operation
+        via: operationId
+      - kind: has_one
+        target: Common_Metadata
+        via: metadata
+  - name: Backend_Firewall
+    description: "An IP allow/deny rule."
+    relationships:
+      - kind: has_one
+        target: Common_Metadata
+        via: metadata
+  - name: Backend_Log
+    description: "A request log entry, with attached errors."
+    relationships:
+      - kind: has_many
+        target: Backend_LogError
+        via: errors
+  - name: Backend_Audit
+    description: "A change record naming the app, user and changed content."
+    relationships:
+      - kind: has_one
+        target: Backend_App
+        via: app
+      - kind: has_one
+        target: Backend_User
+        via: user
+      - kind: has_one
+        target: Backend_AuditObject
+        via: content
+  - name: Backend_Taxonomy
+    description: "The 7.0.0 classification system for organizing operations."
+    relationships:
+      - kind: belongs_to
+        target: parent
+        via: parentId
+  - name: Backend_Bundle
+    description: "A marketplace bundle of installable configuration."
+    relationships:
+      - kind: has_one
+        target: Backend_BundleConfig
+        via: config
+relationship_count: 77
+entity_count: 63
+all_entities:
+  - Agent_ItemToolCallFunction
+  - Agent_Output
+  - Backend_Action
+  - Backend_ActionCommit
+  - Backend_Agent
+  - Backend_AgentMessage
+  - Backend_App
+  - Backend_Audit
+  - Backend_Bundle
+  - Backend_Category
+  - Backend_Config
+  - Backend_Connection
+  - Backend_Cronjob
+  - Backend_Event
+  - Backend_File
+  - Backend_Firewall
+  - Backend_Form
+  - Backend_Identity
+  - Backend_Log
+  - Backend_LogError
+  - Backend_Operation
+  - Backend_Page
+  - Backend_Plan
+  - Backend_Rate
+  - Backend_RateAllocation
+  - Backend_Role
+  - Backend_Schema
+  - Backend_SchemaCommit
+  - Backend_Scope
+  - Backend_ScopeCategory
+  - Backend_ScopeCategoryScope
+  - Backend_Taxonomy
+  - Backend_Test
+  - Backend_Token
+  - Backend_Transaction
+  - Backend_TrashData
+  - Backend_TrashRestore
+  - Backend_Trigger
+  - Backend_User
+  - Backend_Webhook
+  - Backend_WebhookResponse
+  - Common_Message
+  - Consumer_Agent
+  - Consumer_AgentMessage
+  - Consumer_App
+  - Consumer_Event
+  - Consumer_Form
+  - Consumer_Grant
+  - Consumer_Identity
+  - Consumer_Log
+  - Consumer_Page
+  - Consumer_Plan
+  - Consumer_Scope
+  - Consumer_ScopeCategory
+  - Consumer_ScopeCategoryScope
+  - Consumer_Token
+  - Consumer_Transaction
+  - Consumer_UserAccount
+  - Consumer_UserPlan
+  - Consumer_Webhook
+  - MarketplaceMessage
+  - MarketplaceObject
+  - MarketplaceUser
+shared_types:
+  - name: Common_Metadata
+    note: >-
+      A free-form key/value object attached to almost every backend entity, so operators can carry
+      their own data alongside Fusio's model. It is the single most-referenced type in the graph.
+  - name: Common_Message
+    note: The universal response/error envelope.
+  - name: Common_Collection
+    note: 'The pagination envelope every collection response shares - totalResults, startIndex, itemsPerPage, entry.'
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

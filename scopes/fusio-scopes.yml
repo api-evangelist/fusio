@@ -1,0 +1,417 @@
+generated: '2026-08-29'
+method: searched
+source: openapi/fusio-authorization.json, openapi/fusio-backend.json, openapi/fusio-consumer.json, openapi/fusio-system.json;
+  scope semantics from https://docs.fusio-project.org/docs/security/authorization, https://docs.fusio-project.org/docs/security/personal_access_token
+  and https://docs.fusio-project.org/docs/backend/system/role
+schemes:
+- name: app
+  source: openapi/fusio-authorization.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://demo.fusio-project.org/authorization/token
+  - flow: authorizationCode
+    authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+    tokenUrl: https://demo.fusio-project.org/authorization/token
+- name: app
+  source: openapi/fusio-backend.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://demo.fusio-project.org/authorization/token
+  - flow: authorizationCode
+    authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+    tokenUrl: https://demo.fusio-project.org/authorization/token
+- name: app
+  source: openapi/fusio-consumer.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://demo.fusio-project.org/authorization/token
+  - flow: authorizationCode
+    authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+    tokenUrl: https://demo.fusio-project.org/authorization/token
+- name: app
+  source: openapi/fusio-system.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://demo.fusio-project.org/authorization/token
+  - flow: authorizationCode
+    authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+    tokenUrl: https://demo.fusio-project.org/authorization/token
+scopes:
+- scope: authorization
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-authorization.json
+- scope: backend
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.account
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.action
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.agent
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.app
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.audit
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.backup
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.bundle
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.category
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.config
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.connection
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.cronjob
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.dashboard
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.event
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.firewall
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.form
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.generator
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.identity
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.log
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.marketplace
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.operation
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.page
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.plan
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.rate
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.role
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.schema
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.scope
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.sdk
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.specification
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.statistic
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.taxonomy
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.tenant
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.test
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.token
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.transaction
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.trash
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.trigger
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.user
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: backend.webhook
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-backend.json
+- scope: consumer
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-consumer.json
+- scope: consumer.account
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-consumer.json
+- scope: consumer.agent
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-consumer.json
+- scope: consumer.app
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-consumer.json
+- scope: consumer.event
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-consumer.json
+- scope: consumer.form
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-consumer.json
+- scope: consumer.grant
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-consumer.json
+- scope: consumer.identity
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-consumer.json
+- scope: consumer.log
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-consumer.json
+- scope: consumer.page
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-consumer.json
+- scope: consumer.payment
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-consumer.json
+- scope: consumer.plan
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-consumer.json
+- scope: consumer.scope
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-consumer.json
+- scope: consumer.token
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-consumer.json
+- scope: consumer.transaction
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-consumer.json
+- scope: consumer.webhook
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-consumer.json
+- scope: openid
+  description: OpenID scope
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-authorization.json
+- scope: system
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/fusio-system.json
+provider: Fusio
+providerId: fusio
+docs: https://docs.fusio-project.org/docs/security/authorization
+description: 'Fusio''s scope model is namespaced by category and then by resource: ''backend'' grants
+  the whole backend surface, ''backend.operation'' grants only the operation resource within it, and the
+  same shape repeats for ''consumer''. Scopes are instance data, not product constants - an operator creates
+  their own alongside these through backend.scope.create - so this list is the 58 scopes Fusio''s own
+  reference instance defines for its management surface. Personal access tokens can be issued against
+  any subset.'
+namespaces:
+- prefix: backend
+  grants: the entire backend management surface
+  narrower: backend.<resource>
+- prefix: consumer
+  grants: the entire developer-portal surface
+  narrower: consumer.<resource>
+- prefix: system
+  grants: meta, health, route table and spec generation
+- prefix: authorization
+  grants: token introspection and revocation
+- prefix: openid
+  grants: OIDC claims when Fusio acts as an identity provider
+- prefix: default
+  grants: the scope every app receives; the only one advertised anonymously
+roles_note: Scopes are granted to a user through a ROLE (backend.role.*), and a role belongs to a category.
+  An operator assigns scopes to roles rather than to users directly.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

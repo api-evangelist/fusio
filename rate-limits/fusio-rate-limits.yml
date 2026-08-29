@@ -3,98 +3,105 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: Fusio
 providerId: fusio
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://docs.fusio-project.org/docs/backend/consumer/rate,
+  https://github.com/apioo/fusio-impl/blob/master/src/Service/Rate/Limiter.php
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-08-29'
 tags:
   - API Management
   - Open Source
-  - REST API
   - Rate Limiting
-  - Quotas
   - Throttling
-description: Machine-readable rate limit definitions for the Fusio API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+limit_count: 1
+description: >-
+  Fusio publishes no fixed numeric rate limits, because it does not operate the API - the operator
+  does. What Fusio publishes instead, and what actually matters to an agent, is the RUNTIME SIGNAL:
+  the exact response headers a Fusio-served API emits, the status code on exhaustion, and the
+  allocation model that decides which limit applies. Those are recorded below and they are the same
+  on every Fusio instance in the world.
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
+  limit: RateLimit-Limit
+  remaining: RateLimit-Remaining
+  reset: null
   retryAfter: Retry-After
-  policy: RateLimit-Policy
+  policy: null
+  observed: true
+  note: >-
+    IETF-draft naming, no X- prefix. Verified in the provider's own Limiter service, which sets
+    RateLimit-Limit and RateLimit-Remaining on the response whenever a rate allocation matches the
+    request. No reset or policy header is emitted, so a client can see how much budget is left but
+    not when the window rolls over.
+  evidence: https://github.com/apioo/fusio-impl/blob/master/src/Service/Rate/Limiter.php
 responseCodes:
   throttled: 429
   quotaExceeded: 429
-  serviceUnavailable: 503
+retry_after_seconds: 900
+retry_after_note: >-
+  The TooManyRequestsException is raised with a 900-second (15 minute) retry interval, which is
+  fixed in the implementation and not derived from the configured window.
+model:
+  configurable_per_instance: true
+  docs: https://docs.fusio-project.org/docs/backend/consumer/rate
+  subject:
+    authenticated: 'request count is attributed to the APP'
+    anonymous: 'request count is attributed to the IP address'
+  configuration_fields:
+    - name: name
+      description: The name of the rate.
+    - name: priority
+      description: Higher priorities are evaluated first when several rates could apply.
+    - name: throughput
+      description: How many requests are allowed per interval.
+    - name: timespan
+      description: The interval over which requests are counted.
+    - name: allocations
+      description: >-
+        Which requests this rate applies to - it can be narrowed to a specific user, app,
+        operation, scope or authentication state.
+  counting: >-
+    The request count is read from the instance's own request log over the rate's timespan, so the
+    window is a rolling lookback rather than a fixed bucket.
+  api_surface:
+    - backend.rate.getAll
+    - backend.rate.create
+    - backend.rate.get
+    - backend.rate.update
+    - backend.rate.delete
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Fusio Backend API
-      - Fusio Consumer API
-      - Fusio Worker API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Fusio Backend API
-      - Fusio Consumer API
-      - Fusio Worker API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Fusio Backend API
-      - Fusio Consumer API
-      - Fusio Worker API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Fusio Backend API
-      - Fusio Consumer API
-      - Fusio Worker API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Fusio Backend API
-      - Fusio Consumer API
-      - Fusio Worker API
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Reference instance anonymous limit
+    scope: per-ip
+    metric: requests
+    limit: 900
+    window: unknown
+    method: probed
+    observed_on: https://demo.fusio-project.org/
+    observed_headers: 'ratelimit-limit: 900, ratelimit-remaining: 894'
+    note: >-
+      Observed live on the project's own reference instance, which does have a rate allocation
+      configured. The window is not recoverable from the response because Fusio emits no reset or
+      policy header, and the 15-minute Retry-After is a fixed implementation constant rather than
+      the configured timespan. This is the demo instance's own configuration, not a Fusio default -
+      a fresh install ships no rate allocation at all.
+limits_note: >-
+  Fusio ships no default rate allocation; a fresh instance applies no limit until the operator
+  creates one. The single entry above is what the provider's own public instance is configured
+  with, read from live response headers.
+supersedes: >-
+  This file replaces a 2026-05-04 bulk-sweep scaffold that invented five limits across free,
+  professional and enterprise tiers (10/min, 1,000/month, 100/min, 100,000/month, 1,000/min) and
+  claimed X-RateLimit-* headers Fusio does not emit. Fusio has no tiers and uses the unprefixed
+  RateLimit-* names. The invented values have been removed rather than carried forward.
+evidence:
+  - url: https://docs.fusio-project.org/docs/backend/consumer/rate
+    status: 200
+  - url: https://demo.fusio-project.org/
+    status: 200
+    note: >-
+      Anonymous GET returned "ratelimit-limit: 900" and "ratelimit-remaining: 894", decrementing
+      across successive calls - the headers are live, not documentation-only.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

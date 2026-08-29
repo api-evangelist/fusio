@@ -1,0 +1,44 @@
+generated: '2026-08-29'
+method: generated
+source: openapi/fusio-backend.json, openapi/fusio-consumer.json, openapi/fusio-authorization.json + docs.fusio-project.org
+provider: Fusio
+providerId: fusio
+description: >-
+  Packaged Agent Skills for operating a Fusio instance. Every operationId referenced in these
+  skills was verified against the OpenAPI harvested live from Fusio's own reference instance;
+  none was invented. The skills deliberately foreground the two runtime facts an agent cannot
+  learn from the contract - that Fusio has no idempotency key, and that its deletes are soft with
+  no published retention window.
+provider_published_skills: none
+provider_published_agents_md: none
+skills:
+  - name: fusio-publish-an-operation
+    file: fusio-publish-an-operation.md
+    api: Fusio Backend API
+    summary: Define a schema, create and rehearse an action, bind an operation, scope it, promote it.
+    operations: 10
+  - name: fusio-onboard-a-consumer
+    file: fusio-onboard-a-consumer.md
+    api: Fusio Backend API / Consumer API
+    summary: Create a user, grant scopes, create the OAuth2 app, issue and revoke tokens.
+    operations: 10
+  - name: fusio-events-and-webhooks
+    file: fusio-events-and-webhooks.md
+    api: Fusio Backend API / Consumer API
+    summary: Register an event, subscribe a webhook, dispatch, read delivery outcomes.
+    operations: 9
+  - name: fusio-restore-a-deleted-record
+    file: fusio-restore-a-deleted-record.md
+    api: Fusio Backend API
+    summary: Find and restore a soft-deleted record through the trash.
+    operations: 3
+related:
+  conventions: conventions/fusio-conventions.yml
+  errors: errors/fusio-problem-types.yml
+  authentication: authentication/fusio-authentication.yml
+  scopes: scopes/fusio-scopes.yml
+  lifecycle: lifecycle/fusio-lifecycle.yml
+  mcp: mcp/fusio-mcp.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

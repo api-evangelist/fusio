@@ -1,0 +1,96 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://packagist.org/packages/fusio/cli,
+  https://github.com/apioo/fusio-impl/tree/master/src/Command,
+  https://docs.fusio-project.org/docs/development/deployment_system,
+  https://docs.fusio-project.org/docs/protocol/mcp
+provider: Fusio
+providerId: fusio
+name: Fusio CLI
+binary: bin/fusio
+description: >-
+  Fusio ships a first-party Symfony-console CLI. It arrives two ways: as bin/fusio inside every
+  Fusio installation, and as the standalone fusio/cli Composer package that talks to a remote
+  Fusio instance over its own REST API. The remote form is the interesting one - it means the CLI
+  is a first-class API client, not just a local admin tool, and it is what the deployment system
+  and CI pipelines drive.
+install:
+  - method: bundled
+    detail: Present as bin/fusio in every Fusio installation.
+  - method: composer
+    package: fusio/cli
+    command: composer require fusio/cli
+    registry: packagist
+    version: 4.4.2
+    published: '2026-07-30'
+    downloads_total: 24304
+  - method: docker
+    image: fusio/fusio
+    detail: docker exec into the container and run bin/fusio.
+    url: https://hub.docker.com/r/fusio/fusio
+command_groups:
+  - group: system
+    commands:
+      - name: system:check
+        note: Checks the state of the installation.
+      - name: system:health
+        note: Runs the health checks that back GET /system/health.
+      - name: system:clean
+      - name: system:clear_cache
+      - name: system:cronjob_execute
+      - name: system:log_rotate
+      - name: system:mail_test
+      - name: system:mcp
+        aliases: [mcp]
+        description: Starts the MCP server
+        argument: 'access_token (optional)'
+      - name: system:register
+      - name: system:restore
+      - name: system:token
+      - name: system:upgrade
+      - name: system:user_add
+      - name: system:wait_for
+  - group: marketplace
+    commands:
+      - name: marketplace:install
+      - name: marketplace:list
+      - name: marketplace:update
+      - name: marketplace:env
+  - group: deployment
+    commands:
+      - name: deploy
+        note: >-
+          Reads the .yaml deployment configuration files and pushes the whole instance
+          configuration through the internal REST API, so a Fusio installation can be reproduced
+          from version control without sharing a database.
+        docs: https://docs.fusio-project.org/docs/development/deployment_system
+      - name: migrate
+        note: Runs the database migrations. Used in the provider's own CI.
+  - group: api
+    commands:
+      - name: 'api:push'
+        note: >-
+          Pushes the instance specification to TypeHub, from which the six client SDKs are
+          generated.
+        flags: ['--client_id', '--client_secret', '--filter', '--standalone']
+        evidence: https://github.com/apioo/fusio-impl/blob/master/.github/workflows/typehub.yml
+key_flows:
+  - name: Reproduce an instance from version control
+    steps:
+      - php bin/fusio migrate
+      - php bin/fusio deploy
+  - name: Serve the instance to an agent over MCP
+    steps:
+      - php bin/fusio mcp
+  - name: Publish the instance spec and regenerate SDKs
+    steps:
+      - 'php bin/fusio api:push sdk --filter=<name> --standalone'
+note: >-
+  Command names were read from the registered Symfony console names in the provider's own source
+  (setName calls in src/Command/**), not inferred from class names. The provider publishes no
+  single CLI reference page, so this artifact is assembled from the source plus the deployment,
+  MCP and TypeHub-workflow documentation.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,82 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://github.com/apioo, https://www.npmjs.com/package/ngx-fusio-sdk,
+  https://docs.fusio-project.org/docs/frontend/angular_integration,
+  https://docs.fusio-project.org/docs/developer_portal/
+provider: Fusio
+providerId: fusio
+description: >-
+  Fusio's client-side surface is unusual for an API management product: the backend admin console
+  and the developer portal are not baked into the server, they are separate Angular applications
+  that talk to the Fusio API like any other client. That means an operator can fork, rebrand or
+  replace either one, and the ngx-fusio-sdk package exists specifically so they can build their own
+  against the same components.
+families:
+  - name: Hosted applications
+    description: >-
+      Prebuilt single-page apps a Fusio instance serves at /apps/<name>. Each is a normal API
+      consumer authenticating through the same OAuth2 endpoints.
+    components:
+      - name: Fusio Backend
+        path: /apps/fusio
+        repo: https://github.com/apioo/fusio-apps-backend
+        framework: Angular
+        live: https://demo.fusio-project.org/apps/fusio
+        description: The administrative console - operations, schemas, actions, connections, users, analytics.
+      - name: Developer Portal
+        path: /apps/developer
+        repo: https://github.com/apioo/fusio-apps-developer
+        framework: Angular
+        live: https://demo.fusio-project.org/apps/developer
+        description: >-
+          The consumer-facing storefront - registration, app and token management, documentation,
+          plan purchase, webhook subscriptions.
+        docs: https://docs.fusio-project.org/docs/developer_portal/
+      - name: Account
+        repo: https://github.com/apioo/fusio-apps-account
+        framework: Angular
+        description: Account self-service surface.
+      - name: ReDoc reference
+        path: /apps/redoc
+        live: https://demo.fusio-project.org/apps/redoc
+        description: >-
+          Auto-generated ReDoc rendering of the instance OpenAPI. Every instance gets an API
+          reference for free because the spec is generated live.
+        docs: https://docs.fusio-project.org/docs/developer_portal/redoc
+  - name: Loader / integration libraries
+    description: Packages for embedding Fusio surfaces into an operator's own application.
+    components:
+      - name: ngx-fusio-sdk
+        registry: npm
+        url: https://www.npmjs.com/package/ngx-fusio-sdk
+        version: 8.1.1
+        published: '2026-06-05'
+        repo: https://github.com/apioo/fusio-sdk-javascript-angular
+        framework: Angular
+        description: >-
+          The Angular integration layer the hosted apps themselves are built on - the way to build a
+          custom backend or portal instead of using the shipped one.
+        docs: https://docs.fusio-project.org/docs/frontend/angular_integration
+      - name: typeschema-angular-editor
+        repo: https://github.com/apioo/typeschema-angular-editor
+        framework: Angular
+        description: >-
+          The embeddable TypeSchema editor component used for authoring request and response models.
+  - name: Desktop and editor tooling
+    description: Not embeddable components, but first-party client surfaces worth recording alongside them.
+    components:
+      - name: Fusio Tools (Electron)
+        repo: https://github.com/apioo/fusio-tools-electron
+        description: The Fusio backend packaged as a desktop Electron application.
+      - name: Fusio Tools (VS Code)
+        repo: https://github.com/apioo/fusio-tools-vscode
+        description: VS Code extension for working with a Fusio instance.
+note: >-
+  Versions for the Angular applications themselves are not published to a registry - they ship as
+  built assets inside the Fusio distribution - so no version/published fields are recorded for them.
+  ngx-fusio-sdk is the one component here with registry metadata, and it is recorded from
+  registry.npmjs.org.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

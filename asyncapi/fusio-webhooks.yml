@@ -1,0 +1,116 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://docs.fusio-project.org/docs/backend/api/event,
+  https://docs.fusio-project.org/docs/backend/consumer/webhook,
+  https://docs.fusio-project.org/docs/backend/api/trigger,
+  derived from openapi/fusio-backend.json and openapi/fusio-consumer.json
+provider: Fusio
+providerId: fusio
+type: webhooks
+asyncapi_published: false
+asyncapi_note: >-
+  Fusio publishes no AsyncAPI document, and there is a structural reason rather than an oversight:
+  the event catalog is not Fusio's, it is the operator's. Fusio ships the webhook MACHINERY -
+  event registry, subscription API, delivery with retries, per-subscription delivery log - and each
+  instance defines its own events with its own TypeSchema payloads. A vendor-published AsyncAPI
+  would have nothing to describe. What CAN be published, and is not, is an AsyncAPI generator
+  alongside the existing spec-openapi / spec-typeapi / spec-openrpc generators, which would give
+  every instance a machine-readable event contract the same way it already gets a machine-readable
+  REST contract. That is a concrete, well-shaped gap worth raising with the provider.
+description: >-
+  Fusio's event system is a first-class, consumer-subscribable webhook surface. An operator
+  registers named events with a payload schema; a consumer POSTs a subscription to /consumer/webhook
+  naming the event and their endpoint; an action dispatches the event and Fusio delivers it.
+model:
+  event_registry:
+    docs: https://docs.fusio-project.org/docs/backend/api/event
+    fields: [name, description, schema]
+    schema_language: TypeSchema
+    note: The schema field describes the payload the event will carry, per event.
+  subscription:
+    docs: https://docs.fusio-project.org/docs/backend/consumer/webhook
+    endpoint: POST /consumer/webhook
+    payload: '{"event": "my_event", "endpoint": "http://my-app.com/callback"}'
+    fields: [name, event, user, endpoint]
+  dispatch:
+    from_action: '$this->dispatcher->dispatch(''my_event'', [''foo'' => ''bar''])'
+    from_builtin_action: Util-Dispatch-Event
+    docs: https://docs.fusio-project.org/docs/backend/api/action/util-dispatch-event
+  delivery:
+    method: POST
+    content_type: application/json
+    user_agent: 'Fusio/<version>@<commit>'
+    example_request: |
+      POST /callback HTTP/1.1
+      Host: my-app.com
+      Content-Type: application/json
+      User-Agent: Fusio/4.0.2@916a81045349cc0e149873b5b794777bb5f29a30
+
+      {"foo": "bar"}
+    retries: 3
+    retry_rule: >-
+      If the subscriber endpoint returns a non-successful status code, Fusio retries the message up
+      to 3 times.
+    signing: none
+    signing_note: >-
+      No HMAC signature, no timestamp header and no shared secret is documented on the callback.
+      A subscriber cannot verify that a delivery actually came from the Fusio instance. This is the
+      most significant gap in the webhook surface.
+    delivery_log:
+      schema: Consumer_WebhookResponse
+      fields: [status, code, attempts, executeDate]
+      note: >-
+        Delivery outcomes are readable per subscription through consumer.webhook.get - a subscriber
+        can see the HTTP code, attempt count and execution date of past deliveries, which is better
+        observability than most webhook providers expose to the subscriber.
+  triggers:
+    docs: https://docs.fusio-project.org/docs/backend/api/trigger
+    note: >-
+      The inbound counterpart, added in 6.1.0 (#359): a trigger invokes an ACTION when an event
+      fires, so events drive internal work as well as outbound webhooks.
+operations:
+  backend:
+    - backend.event.getAll
+    - backend.event.create
+    - backend.event.get
+    - backend.event.update
+    - backend.event.delete
+    - backend.webhook.getAll
+    - backend.webhook.create
+    - backend.webhook.get
+    - backend.webhook.update
+    - backend.webhook.delete
+    - backend.trigger.getAll
+    - backend.trigger.create
+    - backend.trigger.get
+    - backend.trigger.update
+    - backend.trigger.delete
+  consumer:
+    - consumer.event.getAll
+    - consumer.event.get
+    - consumer.webhook.getAll
+    - consumer.webhook.create
+    - consumer.webhook.get
+    - consumer.webhook.update
+    - consumer.webhook.delete
+inbound_webhooks:
+  - name: Payment provider callback
+    operationId: system.payment.webhook
+    http: POST /system/payment/{provider}/webhook
+    note: >-
+      The one event catalog Fusio does define itself - the callback a payment provider (Stripe)
+      posts after a consumer purchases a plan.
+events_catalog:
+  vendor_defined: []
+  note: >-
+    Fusio ships no vendor-defined outbound events. The catalog on any given instance is whatever
+    the operator registered, readable at GET /backend/event or GET /consumer/event. The reference
+    instance's catalog requires authentication and was not read.
+gaps:
+  - No AsyncAPI document and no spec-asyncapi generator.
+  - No signature, timestamp or shared secret on webhook deliveries.
+  - Retry policy is a fixed count of 3 with no documented backoff schedule.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

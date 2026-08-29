@@ -1,0 +1,109 @@
+generated: '2026-08-29'
+method: searched
+source: https://docs.fusio-project.org/docs/protocol/mcp
+provider: Fusio
+providerId: fusio
+name: Fusio MCP Server
+status: published
+description: >-
+  Fusio ships a first-party Model Context Protocol server inside the product itself. It is not a
+  separate package or a hosted vendor endpoint: every Fusio instance can expose its own operations
+  as MCP tools. Two things are exposed through it. First, the Fusio management API itself, so an
+  agent can create and configure operations, schemas, actions, connections, users and apps in the
+  instance through natural language. Second, whatever API the operator has BUILT with Fusio, so an
+  API published through Fusio becomes an MCP surface without extra work.
+deployment:
+  mode: both
+  endpoint: https://{your-fusio-instance}/mcp
+  install: php bin/fusio mcp
+  package: https://github.com/apioo/fusio
+  auth: oauth
+  verified: probed
+  note: >-
+    Fusio is self-hosted, so there is no single vendor-operated MCP URL to point an agent at; the
+    endpoint is the /mcp path on the operator's own instance. The path itself was verified by
+    probe against the project's own reference instance: POST https://demo.fusio-project.org/mcp
+    returned HTTP 503 with the body {"message":"MCP service is not enabled"} - the McpController's
+    own guard, which proves the route is registered and that the transport is off by default. The
+    STDIO form is verbatim from the provider docs; passing a user id ("php bin/fusio mcp [user_id]")
+    limits the exposed tools to that user's permissions.
+transports:
+  - name: stdio
+    default: true
+    command: php bin/fusio mcp
+    registered_command: system:mcp (alias "mcp")
+    argument: 'access_token (optional) - the token whose permissions scope the exposed tools'
+    note: >-
+      The supported default. Every active operation is exposed; passing an access token scopes the
+      tool set to that user's permissions. Note a docs/implementation divergence worth reporting:
+      the documentation describes the argument as "php bin/fusio mcp [user_id]", while McpCommand
+      declares the argument as access_token and falls back to the CLI authenticator's token when
+      it is omitted.
+  - name: streamable-http
+    default: false
+    path: /mcp
+    methods: [GET, POST, DELETE]
+    enable_with: set the "fusio_mcp" configuration value to true
+    experimental: true
+    note: >-
+      Marked experimental by the provider ("use it with caution") and disabled by default.
+      Implemented with the official mcp/sdk PHP StreamableHttpTransport.
+capabilities:
+  tools: true
+  toolsListChanged: true
+  resources: true
+  resourcesListChanged: true
+  resourcesSubscribe: false
+  prompts: true
+  promptsListChanged: true
+  logging: true
+  completions: true
+  pagination_limit: 50
+  source: https://github.com/apioo/fusio-impl/blob/master/src/Service/Mcp.php
+tools:
+  model: dynamic
+  count: 275
+  count_basis: >-
+    the operations Fusio's own reference instance publishes across its backend, consumer, system
+    and authorization categories; a real deployment exposes its own operation set instead
+  naming: operation name with "." replaced by "-" (e.g. backend.operation.getAll -> backend-operation-getAll)
+  input_schema: generated per operation by InputSchemaBuilder from parameters + request body
+  output_schema: generated per operation by OutputSchemaBuilder from the response schema
+  annotations:
+    readOnlyHint: set on GET operations
+    destructiveHint: set on DELETE operations
+    idempotentHint: set on GET, PUT and DELETE operations
+  crosswalk: mcp/fusio-tool-crosswalk.yml
+  caveat: >-
+    Operations whose generated input schema is empty are skipped by the loader. Because the HTTP
+    transport is disabled on the public reference instance, a live tools/list could not be
+    performed; the tool list here is bound mechanically from the harvested OpenAPI, not read from
+    a running server.
+clients_documented:
+  - name: VS Code
+    mode: stdio
+    note: >-
+      The provider documents adding the server through "MCP: Add Server" -> "Command (stdio)" with
+      "php [path_to_fusio]/bin/fusio mcp", and warns that VS Code caps at 128 tools while Fusio
+      registers every operation, so tools must be deselected.
+history:
+  - version: 6.0.0
+    date: '2025-09-06'
+    change: MCP server added (#626)
+  - version: 6.3.0
+    date: '2026-02-01'
+    change: Migrated from logiscape/mcp-sdk-php to the official mcp/sdk (#651)
+  - version: 7.1.1
+    date: '2026-08-16'
+    change: Updated mcp/sdk to fix advisory PKSA-p9gd-j6gr-6f9t
+evidence:
+  - url: https://docs.fusio-project.org/docs/protocol/mcp
+    status: 200
+  - url: https://demo.fusio-project.org/mcp
+    status: 503
+    note: 'POST tools/list -> {"success":false,"title":"Internal Server Error","message":"MCP service is not enabled"}'
+  - url: https://github.com/apioo/fusio-impl/blob/master/src/Controller/McpController.php
+    status: 200
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

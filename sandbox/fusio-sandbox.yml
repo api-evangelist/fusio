@@ -1,0 +1,85 @@
+generated: '2026-08-29'
+method: searched
+source: https://www.fusio-project.org/demo
+provider: Fusio
+providerId: fusio
+name: Fusio hosted demo instance
+description: >-
+  Fusio runs a fully hosted, publicly credentialed instance of itself and publishes the login on
+  its own website. That makes it an unusually complete sandbox for self-hosted software: rather
+  than a fake key against a mock, a caller gets a real Fusio deployment with a real backend app, a
+  real developer portal, a real ReDoc API reference and a live API root, and can call it before
+  installing anything. Every spec in this repo's openapi/ directory was harvested from it.
+public: true
+signup_required: false
+base_url: https://demo.fusio-project.org
+credentials:
+  published_by_provider: true
+  source: https://www.fusio-project.org/demo
+  username: test
+  password: FRsNh1zKCXlB
+  note: >-
+    Published verbatim on the provider's own demo page and saved here as published. These are
+    public shared demo credentials for a throwaway instance, not a secret.
+surfaces:
+  - name: Fusio Backend
+    url: https://demo.fusio-project.org/apps/fusio
+    status: 200
+    description: The administrative dashboard - operations, schemas, actions, connections, users.
+  - name: Developer Portal
+    url: https://demo.fusio-project.org/apps/developer
+    status: 200
+    description: The consumer-facing storefront where developers register and manage keys.
+  - name: API Engine root
+    url: https://demo.fusio-project.org/
+    status: 200
+    description: The live API root; returns the instance meta document with discovery links.
+  - name: ReDoc API reference
+    url: https://demo.fusio-project.org/apps/redoc
+    status: 200
+    description: Auto-generated ReDoc rendering of the instance OpenAPI.
+  - name: OpenAPI generator
+    url: https://demo.fusio-project.org/system/generator/spec-openapi
+    status: 200
+    description: >-
+      Live OpenAPI 3.0.3 generation. Accepts a ?filter= category (backend, consumer, system,
+      authorization) to widen the anonymous default of three public operations to the full set.
+  - name: Health
+    url: https://demo.fusio-project.org/system/health
+    status: 200
+disabled_on_demo:
+  - surface: MCP over HTTP
+    path: /mcp
+    status: 503
+    reason: MCP service is not enabled
+  - surface: GraphQL
+    path: /graphql
+    status: 503
+    reason: GraphQL service is not enabled
+local_testing:
+  description: >-
+    Beyond the hosted demo, Fusio ships an in-product test surface for the APIs an operator
+    builds: a test record per operation, a run-all command, and a test-coverage statistic.
+  operations:
+    - backend.test.getAll
+    - backend.test.get
+    - backend.test.update
+    - backend.test.refresh
+    - backend.test.run
+    - backend.statistic.getTestCoverage
+  docs: https://docs.fusio-project.org/docs/development/testing
+  install_paths:
+    - method: docker
+      command: docker run -p 8080:80 fusio/fusio
+      url: https://hub.docker.com/r/fusio/fusio
+    - method: docs
+      url: https://docs.fusio-project.org/docs/installation/
+test_data:
+  cards: null
+  magic_values: null
+  note: >-
+    Fusio is API infrastructure, not a payments or messaging provider, so there are no test cards
+    or magic identifiers. Its equivalent is the throwaway hosted instance above.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

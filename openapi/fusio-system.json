@@ -1,0 +1,489 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Fusio",
+        "description": "Self-Hosted API Management for Builders.",
+        "version": "1"
+    },
+    "servers": [
+        {
+            "url": "https://demo.fusio-project.org"
+        }
+    ],
+    "paths": {
+        "/system/connection/{name}/callback": {
+            "get": {
+                "description": "Connection OAuth2 callback to authorize a connection",
+                "operationId": "system.connection.callback",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "name",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/system/about": {
+            "get": {
+                "description": "Returns meta information and links about the current installed Fusio version",
+                "operationId": "system.meta.getAbout",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/System_About"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/system/debug": {
+            "post": {
+                "description": "Debug endpoint which returns the provided data",
+                "operationId": "system.meta.getDebug",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Passthru"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Passthru"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/system/health": {
+            "get": {
+                "description": "Health check endpoint which returns information about the health status of the system",
+                "operationId": "system.meta.getHealth",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/System_HealthCheck"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/system/route": {
+            "get": {
+                "description": "Returns all available routes",
+                "operationId": "system.meta.getRoutes",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/System_Route"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/system/schema/{name}": {
+            "get": {
+                "description": "Returns details of a specific schema",
+                "operationId": "system.meta.getSchema",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/System_Schema"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "name",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/system/payment/{provider}/webhook": {
+            "post": {
+                "description": "Payment webhook endpoint after successful purchase of a plan",
+                "operationId": "system.payment.webhook",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "provider",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "Common_Message": {
+                "description": "Common error message",
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Passthru": {
+                "description": "No schema information available",
+                "type": "object",
+                "additionalProperties": {}
+            },
+            "System_About": {
+                "type": "object",
+                "properties": {
+                    "apiVersion": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "termsOfService": {
+                        "type": "string"
+                    },
+                    "contactName": {
+                        "type": "string"
+                    },
+                    "contactUrl": {
+                        "type": "string"
+                    },
+                    "contactEmail": {
+                        "type": "string"
+                    },
+                    "licenseName": {
+                        "type": "string"
+                    },
+                    "licenseUrl": {
+                        "type": "string"
+                    },
+                    "paymentCurrency": {
+                        "type": "string"
+                    },
+                    "categories": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "scopes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "apps": {
+                        "$ref": "#/components/schemas/System_AboutApps"
+                    },
+                    "links": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/System_AboutLink"
+                        }
+                    }
+                }
+            },
+            "System_AboutApps": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "string"
+                }
+            },
+            "System_AboutLink": {
+                "type": "object",
+                "properties": {
+                    "rel": {
+                        "type": "string"
+                    },
+                    "href": {
+                        "type": "string"
+                    }
+                }
+            },
+            "System_HealthCheck": {
+                "type": "object",
+                "properties": {
+                    "healthy": {
+                        "type": "boolean"
+                    },
+                    "error": {
+                        "type": "string"
+                    }
+                }
+            },
+            "System_Route": {
+                "type": "object",
+                "properties": {
+                    "routes": {
+                        "$ref": "#/components/schemas/System_RoutePath"
+                    }
+                }
+            },
+            "System_RouteMethod": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "string"
+                }
+            },
+            "System_RoutePath": {
+                "type": "object",
+                "additionalProperties": {
+                    "$ref": "#/components/schemas/System_RouteMethod"
+                }
+            },
+            "System_Schema": {
+                "type": "object",
+                "properties": {
+                    "schema": {
+                        "$ref": "#/components/schemas/System_SchemaTypeSchema"
+                    },
+                    "form": {
+                        "$ref": "#/components/schemas/System_SchemaForm"
+                    }
+                }
+            },
+            "System_SchemaForm": {
+                "type": "object",
+                "additionalProperties": {}
+            },
+            "System_SchemaTypeSchema": {
+                "type": "object",
+                "additionalProperties": {}
+            }
+        },
+        "securitySchemes": {
+            "app": {
+                "type": "oauth2",
+                "flows": {
+                    "clientCredentials": {
+                        "tokenUrl": "https://demo.fusio-project.org/authorization/token",
+                        "refreshUrl": "https://demo.fusio-project.org/authorization/token",
+                        "scopes": {
+                            "system": ""
+                        }
+                    },
+                    "authorizationCode": {
+                        "authorizationUrl": "https://demo.fusio-project.org/authorization/authorize",
+                        "tokenUrl": "https://demo.fusio-project.org/authorization/token",
+                        "refreshUrl": "https://demo.fusio-project.org/authorization/token",
+                        "scopes": {
+                            "system": ""
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

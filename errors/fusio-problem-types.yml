@@ -1,0 +1,95 @@
+generated: '2026-08-29'
+method: derived
+source: >-
+  openapi/fusio-backend.json, openapi/fusio-consumer.json, openapi/fusio-system.json,
+  openapi/fusio-authorization.json (Common_Message schema + 4XX/5XX responses), enriched with
+  error envelopes observed live on https://demo.fusio-project.org
+provider: Fusio
+providerId: fusio
+format: vendor-json
+rfc9457: false
+note: >-
+  Fusio does not use RFC 9457 application/problem+json. It returns a single vendor error envelope
+  as application/json for every failure, and every one of the 275 operations in the harvested
+  contracts declares exactly the same two error responses - a wildcard 4XX and a wildcard 5XX,
+  both carrying Common_Message. That is a real agent-readiness gap: an agent reading the contract
+  cannot tell 401 from 404 from 429 for any individual operation, because no operation enumerates
+  a concrete status code. The concrete codes below were observed on live responses, not read from
+  the contract.
+envelope:
+  media_type: application/json
+  schema: Common_Message
+  fields:
+    - name: success
+      type: boolean
+      description: Always false on an error response.
+    - name: message
+      type: string
+      description: Human-readable failure description.
+    - name: id
+      type: string
+      description: Optional error identifier, used to correlate with the Fusio error log.
+    - name: title
+      type: string
+      description: >-
+        Short error title. Present on every live error body observed, but NOT declared in the
+        Common_Message schema published in the contract - a contract/runtime divergence.
+      declared_in_spec: false
+  example: '{"success": false, "title": "Internal Server Error", "message": "Unknown location"}'
+declared_responses:
+  - code: 4XX
+    schema: Common_Message
+    operations: 275
+  - code: 5XX
+    schema: Common_Message
+    operations: 275
+problem_types:
+  - status: 404
+    title: Internal Server Error
+    message: Unknown location
+    meaning: No operation is routed at the requested path on this instance.
+    method: probed
+    evidence: https://www.fusio-project.org/llms.txt
+    remediation: Check the instance route table at GET /system/route or the api-catalog linkset.
+  - status: 503
+    title: Internal Server Error
+    message: MCP service is not enabled
+    meaning: An optional protocol surface (MCP) is present but switched off in the instance config.
+    method: probed
+    evidence: https://demo.fusio-project.org/mcp
+    remediation: Set the fusio_mcp configuration value to true on the instance.
+  - status: 503
+    title: Internal Server Error
+    message: GraphQL service is not enabled
+    meaning: The GraphQL protocol surface is present but switched off in the instance config.
+    method: probed
+    evidence: https://demo.fusio-project.org/graphql
+    remediation: Enable the GraphQL server in the instance configuration.
+  - status: 429
+    title: Rate limit exceeded
+    meaning: The rate allocation that applies to this app, user or IP has been exhausted.
+    method: derived
+    evidence: https://github.com/apioo/fusio-impl/blob/master/src/Service/Rate/Limiter.php
+    retry_after_seconds: 900
+    remediation: >-
+      Back off for the Retry-After interval. Read RateLimit-Limit / RateLimit-Remaining on
+      successful responses to avoid reaching the threshold.
+  - status: 401
+    meaning: Missing, expired or revoked OAuth2 access token.
+    method: derived
+    evidence: https://docs.fusio-project.org/docs/security/authorization
+    remediation: >-
+      Obtain a new access token from /authorization/token or refresh it with the refresh_token
+      grant; tokens always carry an expiry.
+gaps:
+  - >-
+    No published error-code reference page exists in the documentation; the docs sitemap has no
+    error or status-code page.
+  - >-
+    Every operation declares only wildcard 4XX/5XX responses, so per-operation failure modes are
+    not machine-readable.
+  - >-
+    The "title" field returned on every live error body is absent from the Common_Message schema.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

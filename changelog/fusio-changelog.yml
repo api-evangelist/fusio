@@ -1,0 +1,97 @@
+generated: '2026-08-29'
+method: searched
+source: https://github.com/apioo/fusio/blob/master/CHANGELOG.md
+provider: Fusio
+providerId: fusio
+scheme: semver
+current_version: 7.1.1
+current_version_date: '2026-08-16'
+format: markdown
+feeds:
+  - type: GitHub releases
+    url: https://github.com/apioo/fusio/releases
+  - type: Changelog file
+    url: https://github.com/apioo/fusio/blob/master/CHANGELOG.md
+  - type: Release blog
+    url: https://www.fusio-project.org/blog
+note: >-
+  Dates below are the GitHub release publication dates, which are authoritative. The CHANGELOG.md
+  file carries its own dates for the same tags and they are consistently one year earlier
+  (the file dates 7.1.0 as 2025-07-28 where the tag was published 2026-07-18) - a provider-side
+  typo worth reporting rather than a second release history.
+entries:
+  - version: 7.1.1
+    date: '2026-08-16'
+    breaking: false
+    highlights:
+      - Updated mcp/sdk to fix security advisory PKSA-p9gd-j6gr-6f9t
+      - Updated the symfony/ai package
+      - Fixed CLI agent deployment to detect the correct connection
+  - version: 7.1.0
+    date: '2026-07-18'
+    breaking: false
+    additions:
+      - Consumer agent, with an option to mark an agent public
+      - Configurable temperature and costs per agent
+      - Agent message dialog in the developer portal
+      - Agents included in deployment
+      - All SDKgen generators available without credentials
+      - TypeHub integration can create a tag and show the changelog
+      - Action config frozen on specification tag
+      - Api-Version request header is honoured, loading the matching frozen config
+  - version: 7.0.0
+    date: '2026-05-23'
+    breaking: true
+    additions:
+      - New taxonomy system (#666)
+      - Action and schema commit log; production config frozen
+      - New agent concept for building custom agents
+      - AgentCall action for exposing a custom agent as an API endpoint
+      - New backend filter query language
+      - Four internal agents - architect, action, schema and database
+      - Connection intents migrated to the agent designer
+      - Migrated to Angular 21
+      - Development specification panel
+  - version: 6.3.0
+    date: '2026-02-01'
+    breaking: false
+    additions:
+      - AI adapter and agent connection (#657)
+      - Agent designer for building actions with an agent connection
+      - Migrated from logiscape/mcp-sdk-php to the official mcp/sdk (#651)
+      - Action execution wrapped in a transaction
+  - version: 6.2.0
+    date: '2026-01-01'
+    breaking: false
+    additions:
+      - Backend app migrated from Angular 18 to 20
+      - Backend code editor view with improved code completion
+      - Marketplace bundle
+      - New requests-per-ip, per-operation and per-user statistics
+      - Removed FQDN from the OAuth2 username (#655)
+  - version: 6.1.0
+    date: '2025-10-10'
+    breaking: false
+    additions:
+      - Trigger concept to invoke an action from an event (#359)
+      - JSON-RPC server (#650)
+      - GraphQL server (#649)
+      - OIDC discovery (#648)
+      - OpenRPC specification support (#306)
+  - version: 6.0.0
+    date: '2025-09-06'
+    breaking: true
+    additions:
+      - MCP server (#626)
+      - OAuth2 authorization server (#245)
+      - Fusio identity provider using the internal authorization server
+      - RFC 9728 well-known OAuth protected resource endpoint
+      - Backend filesystem, HTTP and SDK API and panel (#609)
+    breaking_changes:
+      - Backend database endpoint moved under connection
+  - version: 5.2.5
+    date: '2025-06-21'
+    breaking: false
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

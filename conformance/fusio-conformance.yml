@@ -1,0 +1,183 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  live probes of https://demo.fusio-project.org/.well-known/*, the harvested
+  openapi/*.json and typeapi/*.json contracts, and
+  https://github.com/apioo/fusio/blob/master/CHANGELOG.md
+provider: Fusio
+providerId: fusio
+description: >-
+  Standards Fusio implements. This is an unusually dense list because Fusio is API infrastructure -
+  implementing the specs IS the product - and almost every entry below was verified by fetching the
+  document from the provider's own reference instance rather than by reading a marketing claim.
+conformance:
+  - id: oauth2
+    name: OAuth 2.0 (RFC 6749)
+    conforms: true
+    evidence:
+      - 'https://demo.fusio-project.org/.well-known/oauth-authorization-server -> 200'
+      - 'grant_types_supported: authorization_code, client_credentials, password, refresh_token'
+      - 'securitySchemes.app is type oauth2 with clientCredentials and authorizationCode flows in every harvested contract'
+    note: Fusio ships its own OAuth2 authorization server, added in 6.0.0 (#245).
+  - id: rfc8414
+    name: OAuth 2.0 Authorization Server Metadata (RFC 8414)
+    conforms: true
+    evidence:
+      - 'https://demo.fusio-project.org/.well-known/oauth-authorization-server -> 200 application/json'
+      - well-known/fusio-oauth-authorization-server.json
+  - id: rfc9728
+    name: OAuth 2.0 Protected Resource Metadata (RFC 9728)
+    conforms: true
+    evidence:
+      - 'https://demo.fusio-project.org/.well-known/oauth-protected-resource -> 200'
+      - well-known/fusio-oauth-protected-resource.json
+      - 'CHANGELOG 6.0.0: "Added well-known oauth protected resource endpoint RFC9728"'
+  - id: rfc6750
+    name: OAuth 2.0 Bearer Token Usage (RFC 6750)
+    conforms: true
+    evidence:
+      - 'bearer_methods_supported: ["header"] in the protected-resource document'
+  - id: oidc
+    name: OpenID Connect Discovery 1.0
+    conforms: true
+    evidence:
+      - 'https://demo.fusio-project.org/.well-known/openid-configuration -> 200'
+      - 'claims_supported: iss, sub, iat, exp, name, preferred_username, aud, email'
+      - 'CHANGELOG 6.1.0: "Added OIDC discovery" (#648)'
+    note: >-
+      Fusio is both an OIDC provider (its own identity provider, added 6.0.0) and an OIDC relying
+      party (external identity providers such as Keycloak configured under System / Identity).
+  - id: rfc9727
+    name: API Catalog / linkset (RFC 9727)
+    conforms: true
+    evidence:
+      - 'https://demo.fusio-project.org/.well-known/api-catalog -> 200 with Content-Type application/linkset+json; profile="https://www.rfc-editor.org/info/rfc9727"'
+      - well-known/fusio-api-catalog.json
+    note: >-
+      The linkset advertises service-desc (the OpenAPI), service-doc (ReDoc), service-meta and
+      status (the health endpoint) - a complete, correctly typed catalog entry, which is rare.
+  - id: rfc9116
+    name: security.txt (RFC 9116)
+    conforms: true
+    evidence:
+      - 'https://demo.fusio-project.org/.well-known/security.txt -> 200 text/plain'
+      - well-known/fusio-security.txt
+  - id: openapi
+    name: OpenAPI 3.0.3
+    conforms: true
+    evidence:
+      - 'https://demo.fusio-project.org/system/generator/spec-openapi -> 200, openapi 3.0.3'
+      - openapi/fusio-backend.json (121 paths, 215 operations, 219 schemas)
+    note: >-
+      Generated live from the instance rather than hand-written, so it cannot drift from the
+      running API.
+  - id: openrpc
+    name: OpenRPC 1.3.0
+    conforms: true
+    evidence:
+      - 'https://demo.fusio-project.org/system/generator/spec-openrpc?filter=backend -> 200, openrpc 1.3.0, 215 methods'
+      - typeapi/fusio-backend-openrpc.json
+      - 'CHANGELOG 6.1.0: "Implemented OpenRPC specification" (#306)'
+  - id: jsonrpc
+    name: JSON-RPC 2.0
+    conforms: true
+    evidence:
+      - 'CHANGELOG 6.1.0: "Added JsonRPC server" (#650)'
+    note: Route not enabled on the reference instance (/jsonrpc returned 404).
+  - id: graphql
+    name: GraphQL
+    conforms: true
+    evidence:
+      - 'CHANGELOG 6.1.0: "Added GraphQL server" (#649)'
+      - 'https://demo.fusio-project.org/graphql -> 503 "GraphQL service is not enabled"'
+    note: >-
+      Present in the product but disabled by default, so no SDL could be introspected. Fusio also
+      ships a GraphQL adapter for consuming upstream GraphQL APIs.
+  - id: mcp
+    name: Model Context Protocol
+    conforms: true
+    evidence:
+      - https://docs.fusio-project.org/docs/protocol/mcp
+      - 'https://demo.fusio-project.org/mcp -> 503 "MCP service is not enabled" (route registered, transport off)'
+      - 'built on the official mcp/sdk PHP implementation since 6.3.0 (#651)'
+    detail: mcp/fusio-mcp.yml
+  - id: rfc9457
+    name: Problem Details for HTTP APIs (RFC 9457)
+    conforms: false
+    evidence:
+      - 'error responses are application/json with a vendor envelope {success,title,message,id}, not application/problem+json'
+    detail: errors/fusio-problem-types.yml
+  - id: idempotency
+    name: Idempotency keys
+    conforms: false
+    evidence:
+      - 'no header parameter of any kind is declared on any of the 275 harvested operations'
+      - 'no documentation page mentions idempotency'
+  - id: pagination
+    name: Offset pagination
+    conforms: true
+    evidence:
+      - 'startIndex declared on 66 operations, count on 63'
+      - 'collection envelope: totalResults, startIndex, itemsPerPage, entry'
+  - id: rfc8594
+    name: Sunset / Deprecation headers (RFC 8594)
+    conforms: false
+    evidence:
+      - 'no Sunset or Deprecation response header is emitted or documented'
+    note: >-
+      Fusio signals deprecation through its own undocumented X-Stability response header and
+      through deprecated markers in the generated SDKs instead.
+domain_standards:
+  market: API management and API gateway platforms
+  note: >-
+    In this market the domain standard is the API description format itself, and it is the axis on
+    which a buyer decides whether they need a bespoke connector. Fusio does not merely accept
+    OpenAPI - it EMITS the contract in four description languages from one running instance, and
+    ships two of those languages itself.
+  standards:
+    - id: openapi-3.0.3
+      name: OpenAPI 3.0.3
+      declared_in_contract: true
+      location: 'openapi field of https://demo.fusio-project.org/system/generator/spec-openapi'
+      direction: both
+      note: >-
+        Emitted live per instance, and imported - Fusio's generator can build an API surface FROM
+        an uploaded OpenAPI (docs/generator/create_api_import_openapi).
+    - id: openrpc-1.3.0
+      name: OpenRPC 1.3.0
+      declared_in_contract: true
+      location: 'openrpc field of https://demo.fusio-project.org/system/generator/spec-openrpc'
+      direction: emit
+    - id: typeapi
+      name: TypeAPI
+      declared_in_contract: true
+      location: 'https://demo.fusio-project.org/system/generator/spec-typeapi, saved as typeapi/fusio-backend-typeapi.json'
+      direction: emit
+      steward: apioo (the same author as Fusio) - https://typeapi.org
+      note: >-
+        TypeAPI is Fusio's own OpenAPI alternative for type-safe code generation, and it is the
+        format the six first-party SDKs are actually generated from, via TypeHub.
+    - id: typeschema
+      name: TypeSchema
+      declared_in_contract: true
+      location: 'the definitions block of typeapi/fusio-backend-typeapi.json (221 definitions)'
+      direction: emit
+      steward: apioo - https://typeschema.org
+      note: The schema language Fusio operators author request and response models in.
+    - id: postman-collection
+      name: Postman Collection
+      declared_in_contract: false
+      direction: import
+      note: >-
+        Fusio can build an API surface from an imported Postman collection
+        (docs/generator/create_api_import_postman), and ships a Postman generator provider. It does
+        not publish a Postman collection of its own API.
+compliance:
+  certifications_published: false
+  note: >-
+    No SOC 2, ISO 27001, PCI, HIPAA or FedRAMP claim is published, and none would be expected -
+    Fusio is software an operator runs on their own infrastructure, so compliance attaches to the
+    operator's deployment rather than to the project. There is no trust center.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

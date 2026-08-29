@@ -1,0 +1,202 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://docs.fusio-project.org/docs/security/authorization,
+  https://docs.fusio-project.org/docs/operation/versioning,
+  https://docs.fusio-project.org/docs/backend/consumer/rate,
+  https://docs.fusio-project.org/docs/backend/system/trash,
+  derived from openapi/*.json harvested from the Fusio reference instance
+provider: Fusio
+providerId: fusio
+description: >-
+  Cross-cutting runtime semantics for the APIs a Fusio instance serves - both Fusio's own
+  management surface and the APIs an operator builds with it. Fusio is self-hosted, so these
+  conventions describe what the SOFTWARE does; an operator can change most of them per instance.
+authentication:
+  style: oauth2-bearer
+  header: 'Authorization: Bearer <access_token>'
+  token_endpoint: /authorization/token
+  simple_login: POST /consumer/login (username + password, returns a JWT access token)
+  grants: [authorization_code, password, client_credentials, refresh_token]
+  personal_access_tokens: true
+  scoped_tokens: true
+  detail: authentication/fusio-authentication.yml
+  scopes: scopes/fusio-scopes.yml
+idempotency:
+  supported: false
+  idempotency_key_header: null
+  detail: >-
+    Fusio publishes no idempotency key mechanism. No operation in any of the four harvested
+    contracts declares a header parameter of any kind, and no documentation page mentions
+    idempotency. Safe retry of a POST is therefore the caller's problem.
+  method_semantics: >-
+    Fusio does expose HTTP-method-level idempotency semantics to agents: its MCP ToolLoader stamps
+    idempotentHint on every GET, PUT and DELETE tool and destructiveHint on every DELETE tool, so
+    an MCP client can at least tell a repeatable call from a one-shot one.
+  evidence: https://github.com/apioo/fusio-impl/blob/master/src/Service/Mcp/ToolLoader.php
+pagination:
+  style: offset
+  params:
+    offset: startIndex
+    limit: count
+    search: search
+  usage: 66 of 275 operations declare startIndex, 63 declare count
+  response_fields: [totalResults, startIndex, itemsPerPage, entry]
+  note: >-
+    Collection responses follow the OpenSearch-style envelope Fusio generates for every collection
+    endpoint. No cursor or link-header pagination is offered.
+filtering:
+  note: >-
+    Fusio 7.0.0 introduced a backend filter query language for the backend collection endpoints;
+    collection operations additionally accept a free-text "search" parameter.
+  evidence: https://github.com/apioo/fusio/blob/master/CHANGELOG.md
+versioning:
+  scheme: path-and-header
+  path: 'Operators version operations through the path, e.g. /v1/my/operation'
+  header: >-
+    Api-Version request header - since 7.1.0 Fusio reads it and loads the matching frozen
+    operation configuration.
+  operation_stability: [Experimental, Stable, Deprecated, Legacy]
+  detail: lifecycle/fusio-lifecycle.yml
+  docs: https://docs.fusio-project.org/docs/operation/versioning
+error_envelope:
+  media_type: application/json
+  rfc9457: false
+  shape: '{"success": false, "title": "...", "message": "...", "id": "..."}'
+  detail: errors/fusio-problem-types.yml
+rate_limit_signaling:
+  response_headers:
+    - RateLimit-Limit
+    - RateLimit-Remaining
+  exhausted_status: 429
+  retry_after_seconds: 900
+  note: >-
+    IETF-draft header names (no X- prefix). Headers are only emitted when a rate allocation
+    actually matches the request; an operation with no rate attached returns no rate headers.
+  detail: rate-limits/fusio-rate-limits.yml
+  evidence: https://github.com/apioo/fusio-impl/blob/master/src/Service/Rate/Limiter.php
+request_id_tracing:
+  supported: true
+  method: probed
+  response_headers:
+    - name: X-Request-Id
+      example: 207618ed-0913-4371-8bbf-f639f444dc9c
+      description: A UUID per request, correlating to the instance request log (/backend/log).
+    - name: X-Operation-Id
+      example: meta.getAbout
+      description: >-
+        The operationId that actually served the request, echoed back. This is unusually useful for
+        an agent: it can confirm which contract operation it hit without inferring it from the path.
+    - name: X-Stability
+      example: stable
+      description: >-
+        The lifecycle state of the operation that served the request - experimental, stable,
+        deprecated or legacy. A runtime deprecation signal on every single response.
+    - name: X-Powered-By
+      example: Fusio
+  detail: >-
+    Verified live on https://demo.fusio-project.org/ - these headers are emitted by the product,
+    not configured per instance. Error bodies additionally carry an "id" field correlating to the
+    instance error log (/backend/log/error). None of these headers is documented on any docs page
+    or declared in the OpenAPI, so they are discoverable only by calling.
+  evidence: 'HEAD https://demo.fusio-project.org/ -> 200'
+metadata:
+  supported: true
+  detail: >-
+    Most backend entities carry a free-form "metadata" object (Common_Metadata) so operators can
+    attach their own key/value data to operations, schemas, actions, users and apps.
+dry_run_mode:
+  supported: true
+  grade: documented
+  detail: >-
+    Fusio has no universal dry-run flag, but it ships genuine rehearsal operations on its riskiest
+    write paths. PUT /backend/generator/{provider} "generates a changelog of all potential changes
+    if you execute this generator" - a real preview-the-diff-before-you-apply operation for the
+    generator that can create or replace whole API surfaces. POST /backend/action/execute/{action_id}
+    executes an action against test input specifically so it can be tested before it is wired to an
+    operation, and POST /backend/schema/preview/{schema_id} renders a schema without committing it.
+  operations:
+    - operationId: backend.generator.getChangelog
+      http: PUT /backend/generator/{provider}
+      note: Returns the changelog of everything the generator WOULD change, without executing it.
+    - operationId: backend.action.execute
+      http: POST /backend/action/execute/{action_id}
+      note: Executes an action for testing purposes.
+    - operationId: backend.schema.getPreview
+      http: POST /backend/schema/preview/{schema_id}
+      note: Returns an HTML preview of a schema.
+reversibility:
+  grade: documented
+  applies: true
+  summary: >-
+    Fusio has a real, product-wide undo for destructive writes: DELETE never actually removes a
+    record. The provider states it plainly - "in Fusio it is not possible to directly delete an
+    entry, instead it is only marked as deleted" - and exposes a Trash panel and API to restore or
+    finally purge. What is NOT published is a window: the docs state no retention period after
+    which a soft-deleted record becomes unrecoverable, and none of the trash operations declare
+    one. That is the only thing standing between this and a verified grade, and it is the provider's
+    to state.
+  docs: https://docs.fusio-project.org/docs/backend/system/trash
+  surfaces:
+    - write_surface: 'DELETE /backend/{entity}/{id} (23 soft-delete operations across actions, agents, apps, bundles, categories, connections, cronjobs, events, firewall rules, forms, identities, operations, pages, plans, rates, roles, schemas, scopes, taxonomies, triggers, users and webhooks)'
+      reversal: backend.trash.restore
+      reversal_http: POST /backend/trash/{type}
+      window: null
+      window_stated: false
+      note: >-
+        Deletes are soft. backend.trash.getTypes lists which entity types have recoverable
+        records; backend.trash.getAllByType lists the deleted records of one type; restore brings
+        one back. No retention window is published.
+    - write_surface: 'POST /authorization/token (issue access token)'
+      reversal: authorization.revoke
+      reversal_http: POST /authorization/revoke
+      window: 'until the token expires on its own'
+      window_stated: true
+      note: >-
+        Tokens can be revoked at any time before expiry, and every token carries an expiry set by
+        the instance configuration.
+    - write_surface: 'POST /consumer/app (create app) and app token issuance'
+      reversal: consumer.token.delete / backend.app.deleteToken
+      window: null
+      window_stated: false
+    - write_surface: 'Operation stability transition Experimental -> Stable'
+      reversal: null
+      window: null
+      window_stated: false
+      note: >-
+        This one is NOT reversible and the provider says so: once an operation is marked Stable,
+        Fusio freezes the action and schema version and "it is also no longer possible to make any
+        changes to the operation". An agent promoting an operation to Stable cannot undo it.
+      docs: https://docs.fusio-project.org/docs/operation/versioning
+    - write_surface: 'POST /consumer/payment (plan purchase)'
+      reversal: null
+      window: null
+      window_stated: false
+      note: >-
+        Refunds are handled by the configured external payment provider (Stripe), not by Fusio;
+        Fusio publishes no refund or void operation of its own.
+  gaps:
+    - No retention window is published for the Trash; a caller cannot tell how long a restore stays possible.
+    - Promotion of an operation to Stable is irreversible and has no undo operation.
+expansion:
+  supported: false
+  note: No field expansion or sparse-fieldset parameter is offered.
+protocol_surfaces:
+  - name: REST
+    always_on: true
+  - name: MCP
+    path: /mcp
+    default: disabled
+    detail: mcp/fusio-mcp.yml
+  - name: GraphQL
+    path: /graphql
+    default: disabled
+  - name: JSON-RPC
+    path: /jsonrpc
+    default: disabled
+  - name: OpenRPC
+    path: /system/generator/spec-openrpc
+    default: enabled
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

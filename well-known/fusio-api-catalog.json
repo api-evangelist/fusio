@@ -1,0 +1,23 @@
+{
+    "linkset": [
+        {
+            "anchor": "https:\/\/demo.fusio-project.org\/",
+            "service-desc": {
+                "href": "https:\/\/demo.fusio-project.org\/system\/generator\/spec-openapi",
+                "type": "application\/json"
+            },
+            "service-doc": {
+                "href": "https:\/\/demo.fusio-project.org\/apps\/redoc",
+                "type": "text\/html"
+            },
+            "service-meta": {
+                "href": "https:\/\/demo.fusio-project.org\/system\/health",
+                "type": "application\/json"
+            },
+            "status": {
+                "href": "https:\/\/demo.fusio-project.org\/system\/health",
+                "type": "application\/json"
+            }
+        }
+    ]
+}

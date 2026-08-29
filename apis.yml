@@ -1,10 +1,16 @@
 aid: fusio
 name: Fusio
 description: >-
-  Fusio is an open source API management platform which helps to build and
-  manage REST APIs. It provides capabilities for creating, managing, and
-  documenting APIs with a built-in developer portal, marketplace, and support
-  for multiple programming languages through worker processes.
+  Fusio is Apache-2.0, self-hosted API management from apioo (Christoph Kappestein, Germany).
+  An operator installs it and builds APIs inside it: an operation binds an HTTP method and path
+  to an action (SQL, HTTP, MongoDB, Elasticsearch, an LLM agent, or code running in a JavaScript,
+  Python, Java or PHP worker) and a TypeSchema-defined request and response shape. Every instance
+  then generates its own machine-readable contract live - OpenAPI 3.0.3, OpenRPC 1.3.0 and
+  TypeAPI - and serves an RFC 9727 api-catalog, RFC 8414 and RFC 9728 OAuth metadata, OpenID
+  Connect discovery and an RFC 9116 security.txt out of the box. It ships its own OAuth2
+  authorization server, an Angular developer portal, a rate-limiting and monetization layer, a
+  webhook and trigger system, and an MCP server that turns every published operation into an
+  agent tool. There is no vendor-hosted tier and no pricing: the software is the product.
 type: Index
 deliveryModel:
   model: self-hosted
@@ -33,16 +39,26 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/fusio.png
 access: 3rd-Party
 created: '2026-03-16'
-modified: '2026-04-18'
+modified: '2026-08-29'
 position: Consumer
 tags:
   - API Management
   - Open-Source
   - REST API
+  - API Gateway
+  - Developer Portal
+  - OpenAPI
+  - Self-Hosted
+  - MCP
 tags_raw:
   - API Management
   - Open Source
   - REST API
+  - API Gateway
+  - Developer Portal
+  - OpenAPI
+  - Self-Hosted
+  - MCP
 url: >-
   https://raw.githubusercontent.com/api-evangelist/fusio/refs/heads/main/apis.yml
 specificationVersion: '0.23'
@@ -54,8 +70,8 @@ apis:
       all aspects of a Fusio API management instance. It covers operations,
       routes, schemas, actions, connections, apps, users, and marketplace
       resources used by the Fusio backend application.
-    humanURL: https://docs.fusio-project.org/docs/use_cases/api_product/
-    baseURL: https://www.fusio-project.org/
+    humanURL: https://docs.fusio-project.org/docs/backend/
+    baseURL: https://demo.fusio-project.org
     tags:
       - Backend
       - Configuration
@@ -63,7 +79,17 @@ apis:
       - REST API
     properties:
       - type: Documentation
-        url: https://docs.fusio-project.org/docs/use_cases/api_product/
+        url: https://docs.fusio-project.org/docs/backend/
+      - type: APIReference
+        url: https://demo.fusio-project.org/apps/redoc
+      - type: OpenAPI
+        url: openapi/fusio-backend.json
+      - type: Overlay
+        url: overlays/fusio-backend-overlay.yaml
+      - type: OpenRPC
+        url: typeapi/fusio-backend-openrpc.json
+      - type: TypeAPI
+        url: typeapi/fusio-backend-typeapi.json
       - type: GitHubRepository
         url: https://github.com/apioo/fusio
   - aid: fusio:fusio-consumer-api
@@ -73,8 +99,8 @@ apis:
       enables third-party developers to request access tokens, manage their
       apps, and interact with protected API endpoints. It provides the
       authentication and user management layer for API consumers.
-    humanURL: https://docs.fusio-project.org/docs/backend/consumer/user/
-    baseURL: https://www.fusio-project.org/
+    humanURL: https://docs.fusio-project.org/docs/backend/consumer/
+    baseURL: https://demo.fusio-project.org
     tags:
       - Authentication
       - Consumer
@@ -84,7 +110,11 @@ apis:
       - type: Documentation
         url: https://docs.fusio-project.org/docs/backend/consumer/user/
       - type: APIReference
-        url: https://docs.fusio-project.org/docs/backend/consumer/app
+        url: https://demo.fusio-project.org/apps/redoc
+      - type: OpenAPI
+        url: openapi/fusio-consumer.json
+      - type: Overlay
+        url: overlays/fusio-consumer-overlay.yaml
       - type: GitHubRepository
         url: https://github.com/apioo/fusio
   - aid: fusio:fusio-worker-api
@@ -95,8 +125,8 @@ apis:
       Workers are implemented in the target language (JavaScript, Python, Java,
       PHP, etc.) and communicate with the Fusio core via a simple REST
       interface, enabling serverless deployments.
-    humanURL: https://docs.fusio-project.org/docs/concepts/worker_api
-    baseURL: https://www.fusio-project.org/
+    humanURL: https://docs.fusio-project.org/docs/internal/worker_api
+    baseURL: 'http://{worker_host}:9092'
     tags:
       - Multi-Language
       - REST API
@@ -104,10 +134,136 @@ apis:
       - Worker
     properties:
       - type: Documentation
-        url: https://docs.fusio-project.org/docs/concepts/worker_api
+        url: https://docs.fusio-project.org/docs/internal/worker_api
       - type: GitHubRepository
         url: https://github.com/apioo/fusio-worker-php
+    x-base-url-note: >-
+      Templated on purpose. A worker is a container the operator runs alongside Fusio, so its host
+      is theirs; the port is the one the provider's own docker-compose publishes per language
+      (java 9090, javascript 9091, php 9092, python 9093). This entry tracks the PHP worker.
+  - aid: fusio:fusio-system-api
+    name: Fusio System API
+    description: >-
+      The Fusio System API is the meta surface every Fusio instance exposes without configuration.
+      It carries the discovery document at the root, the health check, the route table, and the
+      specification generator that emits the instance's own OpenAPI, OpenRPC, TypeAPI and client
+      SDK archives on demand. It is what makes a Fusio deployment self-describing: the contract is
+      generated from the running instance rather than maintained beside it.
+    humanURL: https://docs.fusio-project.org/docs/architecture
+    baseURL: https://demo.fusio-project.org
+    tags:
+      - Discovery
+      - Health
+      - Meta
+      - OpenAPI
+      - REST API
+    properties:
+      - type: Documentation
+        url: https://docs.fusio-project.org/docs/architecture
+      - type: OpenAPI
+        url: openapi/fusio-system.json
+      - type: Overlay
+        url: overlays/fusio-system-overlay.yaml
+      - type: APICatalog
+        url: well-known/fusio-api-catalog.json
+      - type: GitHubRepository
+        url: https://github.com/apioo/fusio
+  - aid: fusio:fusio-authorization-api
+    name: Fusio Authorization API
+    description: >-
+      The Fusio Authorization API is the OAuth2 authorization server Fusio ships in the product.
+      It issues and refreshes access tokens across the authorization_code, client_credentials,
+      password and refresh_token grants, resolves the identity behind a token, and revokes tokens.
+      It is advertised through RFC 8414 authorization-server metadata, RFC 9728 protected-resource
+      metadata and an OpenID Connect discovery document served from the same instance.
+    humanURL: https://docs.fusio-project.org/docs/security/authorization
+    baseURL: https://demo.fusio-project.org
+    tags:
+      - Authorization
+      - OAuth2
+      - OpenID Connect
+      - REST API
+      - Security
+    properties:
+      - type: Documentation
+        url: https://docs.fusio-project.org/docs/security/authorization
+      - type: OpenAPI
+        url: openapi/fusio-authorization.json
+      - type: Overlay
+        url: overlays/fusio-authorization-overlay.yaml
+      - type: Authentication
+        url: authentication/fusio-authentication.yml
+      - type: OAuthScopes
+        url: scopes/fusio-scopes.yml
+      - type: OpenIDConnect
+        url: well-known/fusio-openid-configuration.json
+      - type: GitHubRepository
+        url: https://github.com/apioo/fusio
 common:
+  - type: Website
+    url: https://www.fusio-project.org/
+  - type: OpenAPI
+    url: openapi/fusio-backend.json
+  - type: MCPServer
+    url: mcp/fusio-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/fusio-tool-crosswalk.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: WellKnown
+    url: well-known/fusio-well-known.yml
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: SecurityTxt
+    url: well-known/fusio-security.txt
+  - type: Security
+    url: security/fusio-vulnerability-disclosure.yml
+  - type: VulnerabilityDisclosure
+    url: security/fusio-vulnerability-disclosure.yml
+  - type: Conventions
+    url: conventions/fusio-conventions.yml
+  - type: ErrorCatalog
+    url: errors/fusio-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/fusio-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/fusio-lifecycle.yml
+  - type: Conformance
+    url: conformance/fusio-conformance.yml
+  - type: DataModel
+    url: data-model/fusio-data-model.yml
+  - type: Webhooks
+    url: asyncapi/fusio-webhooks.yml
+  - type: Packages
+    url: packages/fusio-packages.yml
+  - type: CLI
+    url: cli/fusio-cli.yml
+  - type: Components
+    url: components/fusio-components.yml
+  - type: Sandbox
+    url: sandbox/fusio-sandbox.yml
+  - type: LLMsTxt
+    url: llms/fusio-llms.txt
+  - type: Overlay
+    url: overlays/fusio-backend-overlay.yaml
+  - type: RateLimits
+    url: rate-limits/fusio-rate-limits.yml
+  - type: Plans
+    url: plans/fusio-plans-pricing.yml
+  - type: ChangeLog
+    url: changelog/fusio-changelog.yml
+  - type: DeveloperPortal
+    url: https://www.fusio-project.org/developers
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: Roadmap
+    url: https://github.com/apioo/fusio/milestones
+  - type: Demo
+    url: https://www.fusio-project.org/demo
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
   - type: IssueTracker
     url: https://github.com/apioo/fusio/issues
   - type: Releases
@@ -180,3 +336,8 @@ common:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-29'
+  status: enriched
+  artifacts_added: 38
+  pass: local-v1

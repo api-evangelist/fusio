@@ -1,0 +1,70 @@
+generated: '2026-08-29'
+method: probed
+source: live GET probes of every /.well-known/ path on the Fusio reference instance and the project website
+provider: Fusio
+providerId: fusio
+note: >-
+  Fusio is self-hosted software, so the /.well-known/ surface is served by each Fusio
+  DEPLOYMENT, not by the marketing website. Fusio ships these documents in the product:
+  the project's own public reference instance at demo.fusio-project.org serves a real
+  RFC 9727 api-catalog linkset, an RFC 8414 OAuth authorization server metadata document,
+  an RFC 9728 OAuth protected resource document, an OpenID Connect discovery document and
+  an RFC 9116 security.txt. The website host www.fusio-project.org serves none of them and
+  answers every /.well-known/ path with the Fusio JSON 404 envelope.
+hosts:
+  - host: demo.fusio-project.org
+    note: Fusio's own public reference instance; the surface every Fusio install serves.
+    documents:
+      - path: /.well-known/api-catalog
+        status: 200
+        content_type: application/linkset+json; profile="https://www.rfc-editor.org/info/rfc9727"
+        file: fusio-api-catalog.json
+        standard: RFC 9727
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: application/json
+        file: fusio-oauth-authorization-server.json
+        standard: RFC 8414
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        content_type: application/json
+        file: fusio-oauth-protected-resource.json
+        standard: RFC 9728
+      - path: /.well-known/openid-configuration
+        status: 200
+        content_type: application/json
+        file: fusio-openid-configuration.json
+        standard: OpenID Connect Discovery 1.0
+      - path: /.well-known/security.txt
+        status: 200
+        content_type: text/plain;charset=UTF-8
+        file: fusio-security.txt
+        standard: RFC 9116
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: www.fusio-project.org
+    note: Project website. Runs on Fusio/PSX but exposes no /.well-known/ documents.
+    documents:
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,15 @@
+{
+    "resource": "https:\/\/demo.fusio-project.org",
+    "authorization_servers": [
+        "https:\/\/demo.fusio-project.org"
+    ],
+    "scopes_supported": [
+        "default"
+    ],
+    "bearer_methods_supported": [
+        "header"
+    ],
+    "resource_signing_alg_values_supported": [
+        "HS256"
+    ]
+}

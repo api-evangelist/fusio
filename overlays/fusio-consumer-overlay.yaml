@@ -1,0 +1,70 @@
+# OpenAPI Overlay capturing API Evangelist enhancements to openapi/fusio-consumer.json
+# The original document is never mutated. Apply with an Overlay 1.0.0 processor.
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Fusio consumer API
+  version: 1.0.0
+x-generated: '2026-08-29'
+x-method: generated
+x-source: openapi/fusio-consumer.json (harvested from https://demo.fusio-project.org/system/generator/spec-openapi?filter=consumer)
+extends: openapi/fusio-consumer.json
+actions:
+  - target: $.info
+    description: >-
+      Add the contact, licence and terms the generated document omits. Fusio generates its OpenAPI
+      live from the running instance and the generator emits only title, description and version,
+      so a consumer of the raw document has no way to reach the maintainer or read the licence.
+    update:
+      contact:
+        name: Fusio Project
+        url: https://www.fusio-project.org/
+        email: security@fusio-project.org
+      license:
+        name: Apache-2.0
+        url: https://github.com/apioo/fusio/blob/master/LICENSE
+  - target: $
+    description: >-
+      Point the document at the project documentation. The instance-generated spec carries no
+      externalDocs at all.
+    update:
+      externalDocs:
+        description: Fusio documentation
+        url: https://docs.fusio-project.org/docs/backend/consumer/
+  - target: $.info
+    description: >-
+      Record which API Evangelist artifacts were derived from this contract, so a downstream reader
+      can find the error catalogue, conventions, scopes and tool crosswalk that go with it.
+    update:
+      x-apievangelist-artifacts:
+        authentication: authentication/fusio-authentication.yml
+        scopes: scopes/fusio-scopes.yml
+        errors: errors/fusio-problem-types.yml
+        conventions: conventions/fusio-conventions.yml
+        lifecycle: lifecycle/fusio-lifecycle.yml
+        rate_limits: rate-limits/fusio-rate-limits.yml
+        data_model: data-model/fusio-data-model.yml
+        mcp: mcp/fusio-mcp.yml
+        tool_crosswalk: mcp/fusio-tool-crosswalk.yml
+        conformance: conformance/fusio-conformance.yml
+  - target: $.info
+    description: >-
+      Record the undocumented response headers every Fusio instance emits, verified live. They are
+      absent from the generated document and from the documentation, but an agent can rely on them.
+    update:
+      x-response-headers:
+        X-Request-Id: UUID correlating to the instance request log
+        X-Operation-Id: the operationId that served the request
+        X-Stability: 'the lifecycle state of that operation - experimental | stable | deprecated | legacy'
+        RateLimit-Limit: emitted when a rate allocation matches the request
+        RateLimit-Remaining: emitted when a rate allocation matches the request
+  - target: $.info
+    description: >-
+      Flag the contract-quality gap this document has, so it is recorded rather than silently
+      inherited: every operation declares only wildcard 4XX and 5XX responses, so no per-operation
+      failure mode is machine-readable.
+    update:
+      x-known-gaps:
+        - Every operation declares only 4XX/5XX wildcard responses carrying Common_Message.
+        - No operation declares a concrete 401, 404 or 429 response.
+        - The "title" field returned on every live error body is absent from the Common_Message schema.
+        - No response examples are present in the document.

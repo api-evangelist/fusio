@@ -1,0 +1,114 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://docs.fusio-project.org/docs/operation/versioning,
+  https://github.com/apioo/fusio/blob/master/CHANGELOG.md,
+  https://api.github.com/repos/apioo/fusio/releases
+provider: Fusio
+providerId: fusio
+description: >-
+  Versioning, deprecation and operational lifecycle for Fusio. Two lifecycles matter here and they
+  are different things: the lifecycle of the FUSIO SOFTWARE (semver releases, changelog, GitHub
+  releases) and the lifecycle Fusio gives to each operation an operator publishes with it
+  (Experimental -> Stable -> Deprecated -> Legacy). The second is unusual and worth naming: most
+  API management products leave deprecation to convention, while Fusio makes it a first-class
+  state on the operation record and propagates it into the generated SDKs.
+software_versioning:
+  scheme: semver
+  current_version: 7.1.1
+  current_version_date: '2026-08-16'
+  release_feed: https://github.com/apioo/fusio/releases
+  changelog: changelog/fusio-changelog.yml
+  cadence: >-
+    Roughly monthly minor/patch releases with major versions two to four times a year;
+    16 tagged releases between 2025-03 and 2026-08.
+  breaking_change_policy: >-
+    Breaking changes are called out in the changelog entry for the release that carries them
+    (e.g. 6.0.0 "Moved backend database endpoint under connection (breaking change)"), but no
+    separate written deprecation or support policy document is published.
+api_versioning:
+  path_based: true
+  path_example: /v1/my/operation
+  header: Api-Version
+  header_since: 7.1.0
+  header_note: >-
+    Since 7.1.0 Fusio reads an Api-Version request header and loads the frozen configuration
+    matching that version.
+  docs: https://docs.fusio-project.org/docs/operation/versioning
+operation_stability:
+  model: four-state
+  docs: https://docs.fusio-project.org/docs/operation/versioning
+  states:
+    - name: Experimental
+      description: >-
+        The initial state of every operation. Changes to schema and action are reflected at the
+        endpoint immediately. For development and testing only.
+    - name: Stable
+      description: >-
+        Production state. On the transition from Experimental, Fusio FREEZES the action and schema
+        version so later edits no longer reach the endpoint, and the operation itself can no longer
+        be changed. This transition is not reversible.
+    - name: Deprecated
+      description: >-
+        Signals the operation is no longer supported. The generated SDK method is automatically
+        marked as deprecated so client developers see it at compile time.
+    - name: Legacy
+      description: >-
+        After a deprecation period the operation is marked Legacy, which means it is no longer
+        available and must not be used.
+  deprecation_signal: >-
+    Two channels, and one of them is undocumented and better than the documented one. Documented:
+    deprecation propagates into the generated client SDKs, so a client developer sees it at compile
+    time. Undocumented but live: every Fusio response carries an X-Stability header naming the
+    lifecycle state of the operation that served it - observed as "x-stability: stable" on
+    https://demo.fusio-project.org/. That means an agent gets a per-response deprecation signal on
+    every call without reading anything, which is a stronger runtime signal than RFC 8594 Sunset
+    headers give. Fusio does not use RFC 8594 Deprecation or Sunset headers, and does not document
+    X-Stability anywhere.
+  runtime_header:
+    name: X-Stability
+    values: [experimental, stable, deprecated, legacy]
+    method: probed
+    evidence: 'HEAD https://demo.fusio-project.org/ -> 200, x-stability: stable'
+    documented: false
+  deprecation_period: not-published
+deprecated_operations:
+  count: 0
+  note: >-
+    None of the 275 operations in the four harvested contracts carries deprecated: true. Fusio's
+    own reference instance runs an all-current operation set.
+status_page:
+  hosted_status_page: false
+  detail: >-
+    Fusio publishes no hosted status page, and there is nothing for one to report on - the product
+    is self-hosted, so uptime belongs to the operator. What Fusio ships INSTEAD is a per-instance
+    health endpoint, and it advertises that endpoint as the "status" relation in its own RFC 9727
+    api-catalog linkset, which is the machine-readable equivalent for a self-hosted product.
+  health_endpoint: /system/health
+  health_operation: system.meta.getHealth
+  reference_instance_health: https://demo.fusio-project.org/system/health
+  reference_instance_status: 200
+  reference_instance_body: '{"healthy": true, "checks": {"System": {"healthy": true}}}'
+  advertised_in: well-known/fusio-api-catalog.json (linkset "status" relation)
+sla:
+  published: false
+  note: Self-hosted Apache-2.0 software; the vendor offers no uptime SLA.
+support:
+  channels:
+    - type: Discord
+      url: https://discord.com/invite/eMrMgwsc6e
+    - type: GitHub Issues
+      url: https://github.com/apioo/fusio/issues
+    - type: Contact form
+      url: https://www.fusio-project.org/contact
+roadmap:
+  published: partial
+  urls:
+    - https://github.com/apioo/fusio/milestones
+    - https://github.com/orgs/apioo/projects
+  note: >-
+    No prose roadmap page. Forward-looking work is visible only as GitHub milestones and org
+    projects.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,112 @@
+# Fusio
+
+> Fusio is open source, self-hosted API management. It is Apache-2.0 software an operator installs
+> and runs; there is no vendor-hosted tier, no pricing page and no vendor API endpoint to call.
+> The base URL of "the Fusio API" is whatever host the operator deployed it on. Fusio generates a
+> live OpenAPI 3.0.3 (and OpenRPC 1.3.0, and TypeAPI) from each running instance, so the contract
+> is never stale, and it can expose that instance to an agent over MCP.
+
+Generated 2026-08-29 by the API Evangelist enrichment pipeline (method: generated) from
+apis.yml and the artifacts in this repository. Fusio publishes no llms.txt of its own
+(https://www.fusio-project.org/llms.txt and https://docs.fusio-project.org/llms.txt both 404).
+
+## What Fusio is
+
+- Author: Christoph Kappestein (apioo), Germany. Licence Apache-2.0. 2,100+ GitHub stars.
+- Current release 7.1.1 (2026-08-16). Roughly monthly releases.
+- Self-hosted: Docker image `fusio/fusio`, or Composer `fusio/fusio`.
+- Reference instance, publicly credentialed: https://demo.fusio-project.org (user `test`).
+
+## APIs
+
+Three surfaces, all served by the same instance:
+
+- **Backend API** - configure and manage the instance. 121 paths, 215 operations, 219 schemas.
+- **Consumer API** - the developer-portal surface: registration, apps, tokens, plans, webhooks.
+  37 paths, 51 operations.
+- **System API** - meta, health, route table, spec generation. 7 paths.
+- **Authorization API** - OAuth2 token, whoami, revoke.
+- **Worker API** - a small REST contract a worker container implements so action logic can run in
+  JavaScript, Python, Java or PHP.
+
+## Machine-readable contracts
+
+- OpenAPI 3.0.3, generated live: `GET /system/generator/spec-openapi?filter={backend|consumer|system|authorization}`
+- OpenRPC 1.3.0: `GET /system/generator/spec-openrpc?filter=backend`
+- TypeAPI: `GET /system/generator/spec-typeapi?filter=backend`
+- Client SDK archives: `GET /system/generator/client-{language}`
+- Saved in this repository under `openapi/` and `typeapi/`.
+
+## Discovery
+
+Every Fusio instance serves:
+
+- `/` - meta document listing every discovery link
+- `/.well-known/api-catalog` - RFC 9727 linkset (service-desc, service-doc, service-meta, status)
+- `/.well-known/oauth-authorization-server` - RFC 8414
+- `/.well-known/oauth-protected-resource` - RFC 9728
+- `/.well-known/openid-configuration` - OIDC Discovery 1.0
+- `/.well-known/security.txt` - RFC 9116
+- `/system/health` - health check
+- `/system/route` - route table
+
+## Authentication
+
+OAuth2 bearer. Token endpoint `/authorization/token`; grants authorization_code,
+client_credentials, password, refresh_token. Simple path: `POST /consumer/login` with username and
+password returns a JWT. Personal access tokens with a chosen scope subset are supported. 58 scopes
+are defined, namespaced `backend.*`, `consumer.*`, `system`, `openid`, `authorization`. External
+OIDC identity providers (Keycloak, Entra ID, Okta) can be bound per app.
+
+## Agent surfaces
+
+- **MCP**: every instance can serve `/mcp` (streamable HTTP, disabled by default and marked
+  experimental) or `php bin/fusio mcp` over stdio. Every active operation becomes one MCP tool,
+  with generated input and output schemas and readOnly/destructive/idempotent annotations. That is
+  275 tools on the reference instance.
+- **GraphQL** at `/graphql` and **JSON-RPC** at `/jsonrpc`, both shipped and both disabled by
+  default.
+- **No A2A agent card.** `/.well-known/agent-card.json` and `/.well-known/agent.json` both 404.
+
+## Runtime facts an agent should know
+
+- Response headers on every call: `X-Request-Id`, `X-Operation-Id` (the operationId that served
+  the request), `X-Stability` (experimental | stable | deprecated | legacy). None are documented.
+- Rate limiting: `RateLimit-Limit` and `RateLimit-Remaining` on responses when an allocation
+  applies; `429` on exhaustion with a fixed 900-second `Retry-After`.
+- **No idempotency key.** Retrying a POST creates a second record.
+- Errors are `application/json` `{"success": false, "title": "...", "message": "...", "id": "..."}`
+  — not RFC 9457. Every operation declares only wildcard 4XX/5XX responses.
+- Pagination is offset-based: `startIndex`, `count`, `search`; responses carry `totalResults`,
+  `startIndex`, `itemsPerPage`, `entry`.
+- **Deletes are soft.** `DELETE /backend/{entity}/{id}` marks the record deleted;
+  `POST /backend/trash/{type}` restores it. No retention window is published.
+- Promoting an operation from Experimental to Stable is **irreversible** — Fusio freezes the
+  action and schema version and the operation can no longer be changed.
+
+## SDKs
+
+Generated from one TypeHub document by SDKgen. JavaScript (`fusio-sdk` 7.0.11), Python
+(`fusio-sdk` 7.0.11), C# (`Fusio.SDK` 7.0.11), PHP (`fusio/sdk` 7.0.11), Go
+(`github.com/apioo/fusio-sdk-go/v6` v6.4.1), Java (`org.fusio-project:sdk` 5.1.8 — two majors and
+two years behind). Angular integration: `ngx-fusio-sdk` 8.1.1.
+
+## Documentation
+
+- Docs: https://docs.fusio-project.org/
+- Getting started: https://docs.fusio-project.org/docs/bootstrap
+- MCP: https://docs.fusio-project.org/docs/protocol/mcp
+- Authentication: https://docs.fusio-project.org/docs/security/authentication
+- Versioning and operation stability: https://docs.fusio-project.org/docs/operation/versioning
+- Events and webhooks: https://docs.fusio-project.org/docs/backend/api/event
+- Rate: https://docs.fusio-project.org/docs/backend/consumer/rate
+- Trash / restore: https://docs.fusio-project.org/docs/backend/system/trash
+- Changelog: https://github.com/apioo/fusio/blob/master/CHANGELOG.md
+- Source: https://github.com/apioo/fusio
+- Community: https://discord.com/invite/eMrMgwsc6e
+
+## Commercial
+
+No plans, no prices, no vendor-hosted tier. Funding is sponsorship (GitHub Sponsors, Patreon,
+PayPal) and a partner programme. Fusio's own "plan" feature is a monetization capability it gives
+OPERATORS to sell access to the APIs they build, settled through Stripe.

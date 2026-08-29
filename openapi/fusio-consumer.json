@@ -1,0 +1,4324 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Fusio",
+        "description": "Self-Hosted API Management for Builders.",
+        "version": "1"
+    },
+    "servers": [
+        {
+            "url": "https://demo.fusio-project.org"
+        }
+    ],
+    "paths": {
+        "/consumer/activate": {
+            "post": {
+                "tags": [
+                    "account"
+                ],
+                "description": "Activates an previously registered account through a token which was provided to the user via email",
+                "operationId": "consumer.account.activate",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Consumer_UserActivate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/consumer/authorize": {
+            "get": {
+                "tags": [
+                    "account"
+                ],
+                "description": "Returns information about a specific app to start the OAuth2 authorization code flow",
+                "operationId": "consumer.account.getApp",
+                "parameters": [
+                    {
+                        "name": "client_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "scope",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_AuthorizeMeta"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "account"
+                ],
+                "description": "Authorizes the access of a specific app for the authenticated user",
+                "operationId": "consumer.account.authorize",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Consumer_AuthorizeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_AuthorizeResponse"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/consumer/account/change_password": {
+            "put": {
+                "tags": [
+                    "account"
+                ],
+                "description": "Change the password for the authenticated user",
+                "operationId": "consumer.account.changePassword",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Backend_AccountChangePassword"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.account"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/consumer/password_reset": {
+            "put": {
+                "tags": [
+                    "account"
+                ],
+                "description": "Change the password after the password reset flow was started",
+                "operationId": "consumer.account.executePasswordReset",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Consumer_UserPasswordReset"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "account"
+                ],
+                "description": "Start the password reset flow",
+                "operationId": "consumer.account.requestPasswordReset",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Consumer_UserEmail"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/consumer/account": {
+            "get": {
+                "tags": [
+                    "account"
+                ],
+                "description": "Returns a user data for the authenticated user",
+                "operationId": "consumer.account.get",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_UserAccount"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.account"
+                        ]
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "account"
+                ],
+                "description": "Updates user data for the authenticated user",
+                "operationId": "consumer.account.update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Consumer_UserAccount"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.account"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/consumer/login": {
+            "put": {
+                "tags": [
+                    "account"
+                ],
+                "description": "Refresh a previously obtained access token",
+                "operationId": "consumer.account.refresh",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Consumer_UserRefresh"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_UserJWT"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "account"
+                ],
+                "description": "User login by providing a username and password",
+                "operationId": "consumer.account.login",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Consumer_UserLogin"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_UserJWT"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/consumer/register": {
+            "post": {
+                "tags": [
+                    "account"
+                ],
+                "description": "Register a new user account",
+                "operationId": "consumer.account.register",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Consumer_UserRegister"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/consumer/agent/{agent_id}": {
+            "get": {
+                "tags": [
+                    "agent"
+                ],
+                "description": "Returns a specific agent",
+                "operationId": "consumer.agent.get",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_Agent"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.agent"
+                        ]
+                    }
+                ]
+            },
+            "parameters": [
+                {
+                    "name": "agent_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/consumer/agent": {
+            "get": {
+                "tags": [
+                    "agent"
+                ],
+                "description": "Returns a paginated list of agents",
+                "operationId": "consumer.agent.getAll",
+                "parameters": [
+                    {
+                        "name": "startIndex",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_AgentCollection"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.agent"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/consumer/agent/{agent_id}/message": {
+            "get": {
+                "tags": [
+                    "agent"
+                ],
+                "description": "Returns a paginated list of agent messages",
+                "operationId": "consumer.agent.message.getAll",
+                "parameters": [
+                    {
+                        "name": "chat_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_AgentMessageCollection"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.agent"
+                        ]
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "agent"
+                ],
+                "description": "Submits a new agent message",
+                "operationId": "consumer.agent.message.submit",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Agent_Input"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Agent_Output"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.agent"
+                        ]
+                    }
+                ]
+            },
+            "parameters": [
+                {
+                    "name": "agent_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/consumer/app": {
+            "get": {
+                "tags": [
+                    "app"
+                ],
+                "description": "Returns a paginated list of apps which are assigned to the authenticated user",
+                "operationId": "consumer.app.getAll",
+                "parameters": [
+                    {
+                        "name": "startIndex",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_AppCollection"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.app"
+                        ]
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "app"
+                ],
+                "description": "Creates a new app for the authenticated user",
+                "operationId": "consumer.app.create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Consumer_AppCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.app"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/consumer/app/{app_id}": {
+            "get": {
+                "tags": [
+                    "app"
+                ],
+                "description": "Returns a specific app for the authenticated user",
+                "operationId": "consumer.app.get",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_App"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.app"
+                        ]
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "app"
+                ],
+                "description": "Updates an existing app for the authenticated user",
+                "operationId": "consumer.app.update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Consumer_AppUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.app"
+                        ]
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "app"
+                ],
+                "description": "Deletes an existing app for the authenticated user",
+                "operationId": "consumer.app.delete",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.app"
+                        ]
+                    }
+                ]
+            },
+            "parameters": [
+                {
+                    "name": "app_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/consumer/event/{event_id}": {
+            "get": {
+                "tags": [
+                    "event"
+                ],
+                "description": "Returns a specific event for the authenticated user",
+                "operationId": "consumer.event.get",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_Event"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.event"
+                        ]
+                    }
+                ]
+            },
+            "parameters": [
+                {
+                    "name": "event_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/consumer/event": {
+            "get": {
+                "tags": [
+                    "event"
+                ],
+                "description": "Returns a paginated list of apps which are assigned to the authenticated user",
+                "operationId": "consumer.event.getAll",
+                "parameters": [
+                    {
+                        "name": "startIndex",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_EventCollection"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.event"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/consumer/form/{form_id}": {
+            "get": {
+                "tags": [
+                    "form"
+                ],
+                "description": "Returns a specific form for the authenticated user",
+                "operationId": "consumer.form.get",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_Form"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "form_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/consumer/form": {
+            "get": {
+                "tags": [
+                    "form"
+                ],
+                "description": "Returns a paginated list of forms which are relevant to the authenticated user",
+                "operationId": "consumer.form.getAll",
+                "parameters": [
+                    {
+                        "name": "startIndex",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_FormCollection"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/consumer/grant/{grant_id}": {
+            "delete": {
+                "tags": [
+                    "grant"
+                ],
+                "description": "Deletes an existing grant for an app which was created by the authenticated user",
+                "operationId": "consumer.grant.delete",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.grant"
+                        ]
+                    }
+                ]
+            },
+            "parameters": [
+                {
+                    "name": "grant_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/consumer/grant": {
+            "get": {
+                "tags": [
+                    "grant"
+                ],
+                "description": "Returns a paginated list of grants which are assigned to the authenticated user",
+                "operationId": "consumer.grant.getAll",
+                "parameters": [
+                    {
+                        "name": "startIndex",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_GrantCollection"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.grant"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/consumer/identity/{identity}/exchange": {
+            "get": {
+                "tags": [
+                    "identity"
+                ],
+                "description": "Identity callback endpoint to exchange an access token",
+                "operationId": "consumer.identity.exchange",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Passthru"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "identity",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/consumer/identity": {
+            "get": {
+                "tags": [
+                    "identity"
+                ],
+                "description": "Returns a paginated list of identities which are relevant to the authenticated user",
+                "operationId": "consumer.identity.getAll",
+                "parameters": [
+                    {
+                        "name": "appId",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "deprecated": true,
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "appKey",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_IdentityCollection"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/consumer/identity/{identity}/redirect": {
+            "get": {
+                "tags": [
+                    "identity"
+                ],
+                "description": "Redirect the user to the configured identity provider",
+                "operationId": "consumer.identity.redirect",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Passthru"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "identity",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/consumer/log/{log_id}": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Returns a specific log for the authenticated user",
+                "operationId": "consumer.log.get",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_Log"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.log"
+                        ]
+                    }
+                ]
+            },
+            "parameters": [
+                {
+                    "name": "log_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/consumer/log": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Returns a paginated list of logs which are assigned to the authenticated user",
+                "operationId": "consumer.log.getAll",
+                "parameters": [
+                    {
+                        "name": "startIndex",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_LogCollection"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.log"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/consumer/page/{page_id}": {
+            "get": {
+                "tags": [
+                    "page"
+                ],
+                "description": "Returns a specific page for the authenticated user",
+                "operationId": "consumer.page.get",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_Page"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "page_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/consumer/page": {
+            "get": {
+                "tags": [
+                    "page"
+                ],
+                "description": "Returns a paginated list of pages which are relevant to the authenticated user",
+                "operationId": "consumer.page.getAll",
+                "parameters": [
+                    {
+                        "name": "startIndex",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_PageCollection"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/consumer/payment/{provider}/checkout": {
+            "post": {
+                "tags": [
+                    "payment"
+                ],
+                "description": "Start the checkout process for a specific plan",
+                "operationId": "consumer.payment.checkout",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Consumer_PaymentCheckoutRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_PaymentCheckoutResponse"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.payment"
+                        ]
+                    }
+                ]
+            },
+            "parameters": [
+                {
+                    "name": "provider",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/consumer/payment/{provider}/portal": {
+            "post": {
+                "tags": [
+                    "payment"
+                ],
+                "description": "Generates a payment portal link for the authenticated user",
+                "operationId": "consumer.payment.portal",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Consumer_PaymentPortalRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_PaymentPortalResponse"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.payment"
+                        ]
+                    }
+                ]
+            },
+            "parameters": [
+                {
+                    "name": "provider",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/consumer/plan/{plan_id}": {
+            "get": {
+                "tags": [
+                    "plan"
+                ],
+                "description": "Returns a specific plan for the authenticated user",
+                "operationId": "consumer.plan.get",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_Plan"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.plan"
+                        ]
+                    }
+                ]
+            },
+            "parameters": [
+                {
+                    "name": "plan_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/consumer/plan": {
+            "get": {
+                "tags": [
+                    "plan"
+                ],
+                "description": "Returns a paginated list of plans which are relevant to the authenticated user",
+                "operationId": "consumer.plan.getAll",
+                "parameters": [
+                    {
+                        "name": "startIndex",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_PlanCollection"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.plan"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/consumer/scope": {
+            "get": {
+                "tags": [
+                    "scope"
+                ],
+                "description": "Returns a paginated list of scopes which are assigned to the authenticated user",
+                "operationId": "consumer.scope.getAll",
+                "parameters": [
+                    {
+                        "name": "startIndex",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_ScopeCollection"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.scope"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/consumer/scope/categories": {
+            "get": {
+                "tags": [
+                    "scope"
+                ],
+                "description": "Returns all scopes by category",
+                "operationId": "consumer.scope.getCategories",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_ScopeCategories"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.scope"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/consumer/token": {
+            "get": {
+                "tags": [
+                    "token"
+                ],
+                "description": "Returns a paginated list of tokens which are assigned to the authenticated user",
+                "operationId": "consumer.token.getAll",
+                "parameters": [
+                    {
+                        "name": "startIndex",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_TokenCollection"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.token"
+                        ]
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "token"
+                ],
+                "description": "Creates a new token for the authenticated user",
+                "operationId": "consumer.token.create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Consumer_TokenCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_TokenAccessToken"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.token"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/consumer/token/{token_id}": {
+            "get": {
+                "tags": [
+                    "token"
+                ],
+                "description": "Returns a specific token for the authenticated user",
+                "operationId": "consumer.token.get",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_Token"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.token"
+                        ]
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "token"
+                ],
+                "description": "Updates an existing token for the authenticated user",
+                "operationId": "consumer.token.update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Consumer_TokenUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_TokenAccessToken"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.token"
+                        ]
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "token"
+                ],
+                "description": "Deletes an existing token for the authenticated user",
+                "operationId": "consumer.token.delete",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.token"
+                        ]
+                    }
+                ]
+            },
+            "parameters": [
+                {
+                    "name": "token_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/consumer/transaction/{transaction_id}": {
+            "get": {
+                "tags": [
+                    "transaction"
+                ],
+                "description": "Returns a specific transaction for the authenticated user",
+                "operationId": "consumer.transaction.get",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_Transaction"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.transaction"
+                        ]
+                    }
+                ]
+            },
+            "parameters": [
+                {
+                    "name": "transaction_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "/consumer/transaction": {
+            "get": {
+                "tags": [
+                    "transaction"
+                ],
+                "description": "Returns a paginated list of transactions which are assigned to the authenticated user",
+                "operationId": "consumer.transaction.getAll",
+                "parameters": [
+                    {
+                        "name": "startIndex",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_TransactionCollection"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.transaction"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/consumer/webhook": {
+            "get": {
+                "tags": [
+                    "webhook"
+                ],
+                "description": "Returns a paginated list of webhooks which are assigned to the authenticated user",
+                "operationId": "consumer.webhook.getAll",
+                "parameters": [
+                    {
+                        "name": "startIndex",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_WebhookCollection"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.webhook"
+                        ]
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "webhook"
+                ],
+                "description": "Creates a new webhook for the authenticated user",
+                "operationId": "consumer.webhook.create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Consumer_WebhookCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.webhook"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/consumer/webhook/{webhook_id}": {
+            "get": {
+                "tags": [
+                    "webhook"
+                ],
+                "description": "Returns a specific webhook for the authenticated user",
+                "operationId": "consumer.webhook.get",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Consumer_Webhook"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.webhook"
+                        ]
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "webhook"
+                ],
+                "description": "Updates an existing webhook for the authenticated user",
+                "operationId": "consumer.webhook.update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Consumer_WebhookUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.webhook"
+                        ]
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "webhook"
+                ],
+                "description": "Deletes an existing webhook for the authenticated user",
+                "operationId": "consumer.webhook.delete",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    },
+                    "5XX": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Common_Message"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "app": [
+                            "consumer.webhook"
+                        ]
+                    }
+                ]
+            },
+            "parameters": [
+                {
+                    "name": "webhook_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "Agent_Input": {
+                "description": "This object represents an agent input",
+                "type": "object",
+                "properties": {
+                    "previousId": {
+                        "description": "Optional the chat id of this conversation",
+                        "type": "string"
+                    },
+                    "item": {
+                        "$ref": "#/components/schemas/Agent_Item"
+                    }
+                }
+            },
+            "Agent_Item": {
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/Agent_ItemBinary"
+                    },
+                    {
+                        "$ref": "#/components/schemas/Agent_ItemChoice"
+                    },
+                    {
+                        "$ref": "#/components/schemas/Agent_ItemObject"
+                    },
+                    {
+                        "$ref": "#/components/schemas/Agent_ItemText"
+                    },
+                    {
+                        "$ref": "#/components/schemas/Agent_ItemToolCall"
+                    }
+                ],
+                "discriminator": "type",
+                "mapping": {
+                    "binary": "#/components/schemas/Agent_ItemBinary",
+                    "choice": "#/components/schemas/Agent_ItemChoice",
+                    "object": "#/components/schemas/Agent_ItemObject",
+                    "text": "#/components/schemas/Agent_ItemText",
+                    "tool_call": "#/components/schemas/Agent_ItemToolCall"
+                }
+            },
+            "Agent_ItemBinary": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Agent_Item"
+                    },
+                    {
+                        "description": "Binary agent message",
+                        "type": "object",
+                        "properties": {
+                            "mime": {
+                                "description": "The mime of the binary data",
+                                "type": "string"
+                            },
+                            "data": {
+                                "description": "The base64 encoded binary data",
+                                "type": "string"
+                            }
+                        }
+                    }
+                ]
+            },
+            "Agent_ItemChoice": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Agent_Item"
+                    },
+                    {
+                        "description": "Choice agent message",
+                        "type": "object",
+                        "properties": {
+                            "items": {
+                                "description": "Contains multiple agent items",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Agent_Item"
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
+            "Agent_ItemObject": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Agent_Item"
+                    },
+                    {
+                        "description": "Structured agent message",
+                        "type": "object",
+                        "properties": {
+                            "payload": {}
+                        }
+                    }
+                ]
+            },
+            "Agent_ItemText": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Agent_Item"
+                    },
+                    {
+                        "description": "Text agent message",
+                        "type": "object",
+                        "properties": {
+                            "content": {
+                                "description": "The content text",
+                                "type": "string"
+                            }
+                        }
+                    }
+                ]
+            },
+            "Agent_ItemToolCall": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Agent_Item"
+                    },
+                    {
+                        "description": "Tool call agent message",
+                        "type": "object",
+                        "properties": {
+                            "functions": {
+                                "description": "An array of concrete functions",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Agent_ItemToolCallFunction"
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
+            "Agent_ItemToolCallFunction": {
+                "description": "Concrete values for a function tool call",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "arguments": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Agent_Output": {
+                "description": "This object represents an agent output",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Chat id of this conversation",
+                        "type": "string"
+                    },
+                    "item": {
+                        "$ref": "#/components/schemas/Agent_Item"
+                    }
+                }
+            },
+            "Backend_AccountChangePassword": {
+                "type": "object",
+                "properties": {
+                    "oldPassword": {
+                        "description": "The old password",
+                        "type": "string"
+                    },
+                    "newPassword": {
+                        "description": "The new password",
+                        "type": "string"
+                    },
+                    "verifyPassword": {
+                        "description": "To verify the new password must contain the same value as the new password",
+                        "type": "string"
+                    }
+                }
+            },
+            "Common_Message": {
+                "description": "Common error message",
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Common_Metadata": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "string"
+                }
+            },
+            "Consumer_Agent": {
+                "description": "This object represents an agent",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Unique identifier for the object",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "Name of the agent",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Description of the agent",
+                        "type": "string"
+                    }
+                }
+            },
+            "Consumer_AgentCollection": {
+                "description": "Base collection",
+                "type": "object",
+                "properties": {
+                    "totalResults": {
+                        "type": "integer"
+                    },
+                    "startIndex": {
+                        "type": "integer"
+                    },
+                    "itemsPerPage": {
+                        "type": "integer"
+                    },
+                    "entry": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_Agent"
+                        }
+                    }
+                }
+            },
+            "Consumer_AgentMessage": {
+                "description": "This object represents an agent message",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Unique identifier for the object",
+                        "type": "integer"
+                    },
+                    "chatId": {
+                        "description": "The assigned chat id which can be used to load the complete conversation",
+                        "type": "string"
+                    },
+                    "role": {
+                        "description": "The role of this message i.e. user, assistant or system",
+                        "type": "string"
+                    },
+                    "item": {
+                        "$ref": "#/components/schemas/Agent_Item"
+                    },
+                    "insertDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "Consumer_AgentMessageCollection": {
+                "description": "Base collection",
+                "type": "object",
+                "properties": {
+                    "totalResults": {
+                        "type": "integer"
+                    },
+                    "startIndex": {
+                        "type": "integer"
+                    },
+                    "itemsPerPage": {
+                        "type": "integer"
+                    },
+                    "entry": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_AgentMessage"
+                        }
+                    }
+                }
+            },
+            "Consumer_App": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "userId": {
+                        "type": "integer"
+                    },
+                    "status": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    },
+                    "appKey": {
+                        "type": "string"
+                    },
+                    "appSecret": {
+                        "type": "string"
+                    },
+                    "date": {
+                        "type": "string"
+                    },
+                    "scopes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "metadata": {
+                        "$ref": "#/components/schemas/Common_Metadata"
+                    }
+                }
+            },
+            "Consumer_AppCollection": {
+                "description": "Base collection",
+                "type": "object",
+                "properties": {
+                    "totalResults": {
+                        "type": "integer"
+                    },
+                    "startIndex": {
+                        "type": "integer"
+                    },
+                    "itemsPerPage": {
+                        "type": "integer"
+                    },
+                    "entry": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_App"
+                        }
+                    }
+                }
+            },
+            "Consumer_AppCreate": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    },
+                    "scopes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "Consumer_AppUpdate": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    },
+                    "scopes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "Consumer_AuthorizeMeta": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    },
+                    "scopes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_Scope"
+                        }
+                    }
+                }
+            },
+            "Consumer_AuthorizeRequest": {
+                "type": "object",
+                "properties": {
+                    "responseType": {
+                        "type": "string"
+                    },
+                    "clientId": {
+                        "type": "string"
+                    },
+                    "redirectUri": {
+                        "type": "string"
+                    },
+                    "scope": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "allow": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "Consumer_AuthorizeResponse": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "error": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "redirectUri": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Consumer_Event": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "metadata": {
+                        "$ref": "#/components/schemas/Common_Metadata"
+                    }
+                }
+            },
+            "Consumer_EventCollection": {
+                "description": "Base collection",
+                "type": "object",
+                "properties": {
+                    "totalResults": {
+                        "type": "integer"
+                    },
+                    "startIndex": {
+                        "type": "integer"
+                    },
+                    "itemsPerPage": {
+                        "type": "integer"
+                    },
+                    "entry": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_Event"
+                        }
+                    }
+                }
+            },
+            "Consumer_Form": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "action": {
+                        "type": "string"
+                    },
+                    "method": {
+                        "type": "string"
+                    },
+                    "jsonSchema": {},
+                    "uiSchema": {},
+                    "metadata": {
+                        "$ref": "#/components/schemas/Common_Metadata"
+                    }
+                }
+            },
+            "Consumer_FormCollection": {
+                "description": "Base collection",
+                "type": "object",
+                "properties": {
+                    "totalResults": {
+                        "type": "integer"
+                    },
+                    "startIndex": {
+                        "type": "integer"
+                    },
+                    "itemsPerPage": {
+                        "type": "integer"
+                    },
+                    "entry": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_Form"
+                        }
+                    }
+                }
+            },
+            "Consumer_Grant": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "app": {
+                        "$ref": "#/components/schemas/Consumer_App"
+                    },
+                    "createDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "Consumer_GrantCollection": {
+                "description": "Base collection",
+                "type": "object",
+                "properties": {
+                    "totalResults": {
+                        "type": "integer"
+                    },
+                    "startIndex": {
+                        "type": "integer"
+                    },
+                    "itemsPerPage": {
+                        "type": "integer"
+                    },
+                    "entry": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_Grant"
+                        }
+                    }
+                }
+            },
+            "Consumer_Identity": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "icon": {
+                        "type": "string"
+                    },
+                    "redirect": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Consumer_IdentityCollection": {
+                "description": "Base collection",
+                "type": "object",
+                "properties": {
+                    "totalResults": {
+                        "type": "integer"
+                    },
+                    "startIndex": {
+                        "type": "integer"
+                    },
+                    "itemsPerPage": {
+                        "type": "integer"
+                    },
+                    "entry": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_Identity"
+                        }
+                    }
+                }
+            },
+            "Consumer_Log": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "appId": {
+                        "type": "integer"
+                    },
+                    "ip": {
+                        "type": "string"
+                    },
+                    "userAgent": {
+                        "type": "string"
+                    },
+                    "method": {
+                        "type": "string"
+                    },
+                    "path": {
+                        "type": "string"
+                    },
+                    "header": {
+                        "type": "string"
+                    },
+                    "body": {
+                        "type": "string"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "Consumer_LogCollection": {
+                "description": "Base collection",
+                "type": "object",
+                "properties": {
+                    "totalResults": {
+                        "type": "integer"
+                    },
+                    "startIndex": {
+                        "type": "integer"
+                    },
+                    "itemsPerPage": {
+                        "type": "integer"
+                    },
+                    "entry": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_Log"
+                        }
+                    }
+                }
+            },
+            "Consumer_Page": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "content": {
+                        "type": "string"
+                    },
+                    "metadata": {
+                        "$ref": "#/components/schemas/Common_Metadata"
+                    }
+                }
+            },
+            "Consumer_PageCollection": {
+                "description": "Base collection",
+                "type": "object",
+                "properties": {
+                    "totalResults": {
+                        "type": "integer"
+                    },
+                    "startIndex": {
+                        "type": "integer"
+                    },
+                    "itemsPerPage": {
+                        "type": "integer"
+                    },
+                    "entry": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_Page"
+                        }
+                    }
+                }
+            },
+            "Consumer_PaymentCheckoutRequest": {
+                "type": "object",
+                "properties": {
+                    "planId": {
+                        "type": "integer"
+                    },
+                    "returnUrl": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Consumer_PaymentCheckoutResponse": {
+                "type": "object",
+                "properties": {
+                    "approvalUrl": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Consumer_PaymentPortalRequest": {
+                "type": "object",
+                "properties": {
+                    "returnUrl": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Consumer_PaymentPortalResponse": {
+                "type": "object",
+                "properties": {
+                    "redirectUrl": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Consumer_Plan": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "points": {
+                        "type": "integer"
+                    },
+                    "period": {
+                        "type": "integer"
+                    },
+                    "metadata": {
+                        "$ref": "#/components/schemas/Common_Metadata"
+                    }
+                }
+            },
+            "Consumer_PlanCollection": {
+                "description": "Base collection",
+                "type": "object",
+                "properties": {
+                    "totalResults": {
+                        "type": "integer"
+                    },
+                    "startIndex": {
+                        "type": "integer"
+                    },
+                    "itemsPerPage": {
+                        "type": "integer"
+                    },
+                    "entry": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_Plan"
+                        }
+                    }
+                }
+            },
+            "Consumer_Scope": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "metadata": {
+                        "$ref": "#/components/schemas/Common_Metadata"
+                    }
+                }
+            },
+            "Consumer_ScopeCategories": {
+                "type": "object",
+                "properties": {
+                    "categories": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_ScopeCategory"
+                        }
+                    }
+                }
+            },
+            "Consumer_ScopeCategory": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "scopes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_ScopeCategoryScope"
+                        }
+                    }
+                }
+            },
+            "Consumer_ScopeCategoryScope": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Consumer_ScopeCollection": {
+                "description": "Base collection",
+                "type": "object",
+                "properties": {
+                    "totalResults": {
+                        "type": "integer"
+                    },
+                    "startIndex": {
+                        "type": "integer"
+                    },
+                    "itemsPerPage": {
+                        "type": "integer"
+                    },
+                    "entry": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_Scope"
+                        }
+                    }
+                }
+            },
+            "Consumer_Token": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "status": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "scopes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "ip": {
+                        "type": "string"
+                    },
+                    "expire": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "Consumer_TokenAccessToken": {
+                "type": "object",
+                "properties": {
+                    "access_token": {
+                        "type": "string"
+                    },
+                    "token_type": {
+                        "type": "string"
+                    },
+                    "expires_in": {
+                        "type": "integer"
+                    },
+                    "refresh_token": {
+                        "type": "string"
+                    },
+                    "scope": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Consumer_TokenCollection": {
+                "description": "Base collection",
+                "type": "object",
+                "properties": {
+                    "totalResults": {
+                        "type": "integer"
+                    },
+                    "startIndex": {
+                        "type": "integer"
+                    },
+                    "itemsPerPage": {
+                        "type": "integer"
+                    },
+                    "entry": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_Token"
+                        }
+                    }
+                }
+            },
+            "Consumer_TokenCreate": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "scopes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "expire": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                }
+            },
+            "Consumer_TokenUpdate": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "expire": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                }
+            },
+            "Consumer_Transaction": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "userId": {
+                        "type": "integer"
+                    },
+                    "planId": {
+                        "type": "integer"
+                    },
+                    "plan": {
+                        "$ref": "#/components/schemas/Consumer_Plan"
+                    },
+                    "transactionId": {
+                        "type": "string"
+                    },
+                    "amount": {
+                        "type": "number"
+                    },
+                    "points": {
+                        "type": "number"
+                    },
+                    "periodStart": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "periodEnd": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "insertDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "Consumer_TransactionCollection": {
+                "description": "Base collection",
+                "type": "object",
+                "properties": {
+                    "totalResults": {
+                        "type": "integer"
+                    },
+                    "startIndex": {
+                        "type": "integer"
+                    },
+                    "itemsPerPage": {
+                        "type": "integer"
+                    },
+                    "entry": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_Transaction"
+                        }
+                    }
+                }
+            },
+            "Consumer_UserAccount": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "planId": {
+                        "type": "integer"
+                    },
+                    "status": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "points": {
+                        "type": "integer"
+                    },
+                    "scopes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "plans": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_UserPlan"
+                        }
+                    },
+                    "metadata": {
+                        "$ref": "#/components/schemas/Common_Metadata"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "Consumer_UserActivate": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Consumer_UserEmail": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "captcha": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Consumer_UserJWT": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string"
+                    },
+                    "expires_in": {
+                        "type": "integer"
+                    },
+                    "refresh_token": {
+                        "type": "string"
+                    },
+                    "scope": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Consumer_UserLogin": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "scopes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "Consumer_UserPasswordReset": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string"
+                    },
+                    "newPassword": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Consumer_UserPlan": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "integer"
+                    },
+                    "points": {
+                        "type": "integer"
+                    },
+                    "period": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "Consumer_UserRefresh": {
+                "type": "object",
+                "properties": {
+                    "refresh_token": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Consumer_UserRegister": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "captcha": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Consumer_Webhook": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "status": {
+                        "type": "integer"
+                    },
+                    "event": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "endpoint": {
+                        "type": "string"
+                    },
+                    "responses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_WebhookResponse"
+                        }
+                    }
+                }
+            },
+            "Consumer_WebhookCollection": {
+                "description": "Base collection",
+                "type": "object",
+                "properties": {
+                    "totalResults": {
+                        "type": "integer"
+                    },
+                    "startIndex": {
+                        "type": "integer"
+                    },
+                    "itemsPerPage": {
+                        "type": "integer"
+                    },
+                    "entry": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Consumer_Webhook"
+                        }
+                    }
+                }
+            },
+            "Consumer_WebhookCreate": {
+                "type": "object",
+                "properties": {
+                    "event": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "endpoint": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Consumer_WebhookResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "integer"
+                    },
+                    "code": {
+                        "type": "integer"
+                    },
+                    "attempts": {
+                        "type": "string"
+                    },
+                    "executeDate": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Consumer_WebhookUpdate": {
+                "type": "object",
+                "properties": {
+                    "event": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "endpoint": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Passthru": {
+                "description": "No schema information available",
+                "type": "object",
+                "additionalProperties": {}
+            }
+        },
+        "securitySchemes": {
+            "app": {
+                "type": "oauth2",
+                "flows": {
+                    "clientCredentials": {
+                        "tokenUrl": "https://demo.fusio-project.org/authorization/token",
+                        "refreshUrl": "https://demo.fusio-project.org/authorization/token",
+                        "scopes": {
+                            "consumer": "",
+                            "consumer.account": "",
+                            "consumer.agent": "",
+                            "consumer.app": "",
+                            "consumer.event": "",
+                            "consumer.form": "",
+                            "consumer.grant": "",
+                            "consumer.identity": "",
+                            "consumer.log": "",
+                            "consumer.page": "",
+                            "consumer.payment": "",
+                            "consumer.plan": "",
+                            "consumer.scope": "",
+                            "consumer.token": "",
+                            "consumer.transaction": "",
+                            "consumer.webhook": ""
+                        }
+                    },
+                    "authorizationCode": {
+                        "authorizationUrl": "https://demo.fusio-project.org/authorization/authorize",
+                        "tokenUrl": "https://demo.fusio-project.org/authorization/token",
+                        "refreshUrl": "https://demo.fusio-project.org/authorization/token",
+                        "scopes": {
+                            "consumer": "",
+                            "consumer.account": "",
+                            "consumer.agent": "",
+                            "consumer.app": "",
+                            "consumer.event": "",
+                            "consumer.form": "",
+                            "consumer.grant": "",
+                            "consumer.identity": "",
+                            "consumer.log": "",
+                            "consumer.page": "",
+                            "consumer.payment": "",
+                            "consumer.plan": "",
+                            "consumer.scope": "",
+                            "consumer.token": "",
+                            "consumer.transaction": "",
+                            "consumer.webhook": ""
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

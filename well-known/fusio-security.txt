@@ -1,0 +1,6 @@
+Contact: mailto:security@fusio-project.org
+Contact: https://github.com/apioo/fusio
+Contact: https://chrisk.app/
+Expires: 2026-09-29T00:00:00.000Z
+Encryption: https://chrisk.app/pub.key
+Preferred-Languages: en
