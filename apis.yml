@@ -180,6 +180,12 @@ apis:
     baseURL: https://demo.fusio-project.org
     tags:
       - Authorization
+      - Authentication
+      - OpenID Connect
+      - REST API
+      - Security
+    tags_raw:
+      - Authorization
       - OAuth2
       - OpenID Connect
       - REST API
