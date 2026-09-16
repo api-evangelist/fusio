@@ -1,16 +1,14 @@
 aid: fusio
 name: Fusio
-description: >-
-  Fusio is Apache-2.0, self-hosted API management from apioo (Christoph Kappestein, Germany).
-  An operator installs it and builds APIs inside it: an operation binds an HTTP method and path
-  to an action (SQL, HTTP, MongoDB, Elasticsearch, an LLM agent, or code running in a JavaScript,
-  Python, Java or PHP worker) and a TypeSchema-defined request and response shape. Every instance
-  then generates its own machine-readable contract live - OpenAPI 3.0.3, OpenRPC 1.3.0 and
-  TypeAPI - and serves an RFC 9727 api-catalog, RFC 8414 and RFC 9728 OAuth metadata, OpenID
-  Connect discovery and an RFC 9116 security.txt out of the box. It ships its own OAuth2
-  authorization server, an Angular developer portal, a rate-limiting and monetization layer, a
-  webhook and trigger system, and an MCP server that turns every published operation into an
-  agent tool. There is no vendor-hosted tier and no pricing: the software is the product.
+description: 'Fusio is Apache-2.0, self-hosted API management from apioo (Christoph Kappestein, Germany).
+  An operator installs it and builds APIs inside it: an operation binds an HTTP method and path to an
+  action (SQL, HTTP, MongoDB, Elasticsearch, an LLM agent, or code running in a JavaScript, Python, Java
+  or PHP worker) and a TypeSchema-defined request and response shape. Every instance then generates its
+  own machine-readable contract live - OpenAPI 3.0.3, OpenRPC 1.3.0 and TypeAPI - and serves an RFC 9727
+  api-catalog, RFC 8414 and RFC 9728 OAuth metadata, OpenID Connect discovery and an RFC 9116 security.txt
+  out of the box. It ships its own OAuth2 authorization server, an Angular developer portal, a rate-limiting
+  and monetization layer, a webhook and trigger system, and an MCP server that turns every published operation
+  into an agent tool. There is no vendor-hosted tier and no pricing: the software is the product.'
 type: Index
 deliveryModel:
   model: self-hosted
@@ -39,310 +37,1623 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/fusio.png
 access: 3rd-Party
 created: '2026-03-16'
-modified: '2026-08-29'
+modified: '2026-09-16'
 position: Consuming
 tags:
-  - API Management
-  - Open-Source
-  - REST API
-  - API Gateway
-  - Developer Portal
-  - OpenAPI
-  - Self-Hosted
-  - MCP
-  - Developer Tools
+- API Management
+- Open-Source
+- REST API
+- API Gateway
+- Developer Portal
+- OpenAPI
+- Self-Hosted
+- MCP
 tags_raw:
-  - API Management
-  - Open Source
-  - REST API
-  - API Gateway
-  - Developer Portal
-  - OpenAPI
-  - Self-Hosted
-  - MCP
-url: >-
-  https://raw.githubusercontent.com/api-evangelist/fusio/refs/heads/main/apis.yml
+- API Management
+- Open Source
+- REST API
+- API Gateway
+- Developer Portal
+- OpenAPI
+- Self-Hosted
+- MCP
+url: https://raw.githubusercontent.com/api-evangelist/fusio/refs/heads/main/apis.yml
 specificationVersion: '0.23'
 apis:
-  - aid: fusio:fusio-backend-api
-    name: Fusio Backend API
-    description: >-
-      The Fusio Backend API provides a REST interface to configure and manage
-      all aspects of a Fusio API management instance. It covers operations,
-      routes, schemas, actions, connections, apps, users, and marketplace
-      resources used by the Fusio backend application.
-    humanURL: https://docs.fusio-project.org/docs/backend/
-    baseURL: https://demo.fusio-project.org
-    tags:
-      - Backend
-      - Configuration
-      - Management
-      - REST API
-    properties:
-      - type: Documentation
-        url: https://docs.fusio-project.org/docs/backend/
-      - type: APIReference
-        url: https://demo.fusio-project.org/apps/redoc
-      - type: OpenAPI
-        url: openapi/fusio-backend.json
-      - type: Overlay
-        url: overlays/fusio-backend-overlay.yaml
-      - type: OpenRPC
-        url: typeapi/fusio-backend-openrpc.json
-      - type: TypeAPI
-        url: typeapi/fusio-backend-typeapi.json
-      - type: GitHubRepository
-        url: https://github.com/apioo/fusio
-  - aid: fusio:fusio-consumer-api
-    name: Fusio Consumer API
-    description: >-
-      The Fusio Consumer API is used by the developer portal application and
-      enables third-party developers to request access tokens, manage their
-      apps, and interact with protected API endpoints. It provides the
-      authentication and user management layer for API consumers.
-    humanURL: https://docs.fusio-project.org/docs/backend/consumer/
-    baseURL: https://demo.fusio-project.org
-    tags:
-      - Authentication
-      - Consumer
-      - Developer Portal
-      - REST API
-    properties:
-      - type: Documentation
-        url: https://docs.fusio-project.org/docs/backend/consumer/user/
-      - type: APIReference
-        url: https://demo.fusio-project.org/apps/redoc
-      - type: OpenAPI
-        url: openapi/fusio-consumer.json
-      - type: Overlay
-        url: overlays/fusio-consumer-overlay.yaml
-      - type: GitHubRepository
-        url: https://github.com/apioo/fusio
-  - aid: fusio:fusio-worker-api
-    name: Fusio Worker API
-    description: >-
-      The Fusio Worker API enables executing API action logic in multiple
-      programming languages by forwarding requests to external worker processes.
-      Workers are implemented in the target language (JavaScript, Python, Java,
-      PHP, etc.) and communicate with the Fusio core via a simple REST
-      interface, enabling serverless deployments.
-    humanURL: https://docs.fusio-project.org/docs/internal/worker_api
-    baseURL: 'http://{worker_host}:9092'
-    tags:
-      - Multi-Language
-      - REST API
-      - Serverless
-      - Worker
-    properties:
-      - type: Documentation
-        url: https://docs.fusio-project.org/docs/internal/worker_api
-      - type: GitHubRepository
-        url: https://github.com/apioo/fusio-worker-php
-    x-base-url-note: >-
-      Templated on purpose. A worker is a container the operator runs alongside Fusio, so its host
-      is theirs; the port is the one the provider's own docker-compose publishes per language
-      (java 9090, javascript 9091, php 9092, python 9093). This entry tracks the PHP worker.
-  - aid: fusio:fusio-system-api
-    name: Fusio System API
-    description: >-
-      The Fusio System API is the meta surface every Fusio instance exposes without configuration.
-      It carries the discovery document at the root, the health check, the route table, and the
-      specification generator that emits the instance's own OpenAPI, OpenRPC, TypeAPI and client
-      SDK archives on demand. It is what makes a Fusio deployment self-describing: the contract is
-      generated from the running instance rather than maintained beside it.
-    humanURL: https://docs.fusio-project.org/docs/architecture
-    baseURL: https://demo.fusio-project.org
-    tags:
-      - Discovery
-      - Health
-      - Meta
-      - OpenAPI
-      - REST API
-    properties:
-      - type: Documentation
-        url: https://docs.fusio-project.org/docs/architecture
-      - type: OpenAPI
-        url: openapi/fusio-system.json
-      - type: Overlay
-        url: overlays/fusio-system-overlay.yaml
-      - type: APICatalog
-        url: well-known/fusio-api-catalog.json
-      - type: GitHubRepository
-        url: https://github.com/apioo/fusio
-  - aid: fusio:fusio-authorization-api
-    name: Fusio Authorization API
-    description: >-
-      The Fusio Authorization API is the OAuth2 authorization server Fusio ships in the product.
-      It issues and refreshes access tokens across the authorization_code, client_credentials,
-      password and refresh_token grants, resolves the identity behind a token, and revokes tokens.
-      It is advertised through RFC 8414 authorization-server metadata, RFC 9728 protected-resource
-      metadata and an OpenID Connect discovery document served from the same instance.
-    humanURL: https://docs.fusio-project.org/docs/security/authorization
-    baseURL: https://demo.fusio-project.org
-    tags:
-      - Authorization
-      - Authentication
-      - OpenID Connect
-      - REST API
-      - Security
-    tags_raw:
-      - Authorization
-      - OAuth2
-      - OpenID Connect
-      - REST API
-      - Security
-    properties:
-      - type: Documentation
-        url: https://docs.fusio-project.org/docs/security/authorization
-      - type: OpenAPI
-        url: openapi/fusio-authorization.json
-      - type: Overlay
-        url: overlays/fusio-authorization-overlay.yaml
-      - type: Authentication
-        url: authentication/fusio-authentication.yml
-      - type: OAuthScopes
-        url: scopes/fusio-scopes.yml
-      - type: OpenIDConnect
-        url: well-known/fusio-openid-configuration.json
-      - type: GitHubRepository
-        url: https://github.com/apioo/fusio
-common:
-  - type: Website
-    url: https://www.fusio-project.org/
+- aid: fusio:fusio-worker-api
+  name: Fusio Worker API
+  description: The Fusio Worker API enables executing API action logic in multiple programming languages
+    by forwarding requests to external worker processes. Workers are implemented in the target language
+    (JavaScript, Python, Java, PHP, etc.) and communicate with the Fusio core via a simple REST interface,
+    enabling serverless deployments.
+  humanURL: https://docs.fusio-project.org/docs/internal/worker_api
+  baseURL: http://{worker_host}:9092
+  tags:
+  - Multi-Language
+  - REST API
+  - Serverless
+  - Worker
+  properties:
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/internal/worker_api
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio-worker-php
+  x-base-url-note: Templated on purpose. A worker is a container the operator runs alongside Fusio, so
+    its host is theirs; the port is the one the provider's own docker-compose publishes per language (java
+    9090, javascript 9091, php 9092, python 9093). This entry tracks the PHP worker.
+- aid: fusio:fusio-account-api
+  name: Fusio Account API
+  description: The account API from Fusio — 9 operation(s) for account.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - account
+  properties:
   - type: OpenAPI
-    url: openapi/fusio-backend.json
-  - type: MCPServer
-    url: mcp/fusio-mcp.yml
-  - type: ToolCrosswalk
-    url: mcp/fusio-tool-crosswalk.yml
-  - type: AgentSkill
-    url: skills/_index.yml
-  - type: WellKnown
-    url: well-known/fusio-well-known.yml
-  - type: APICatalog
-    url: well-known/fusio-api-catalog.json
-  - type: SecurityTxt
-    url: well-known/fusio-security.txt
-  - type: Security
-    url: security/fusio-vulnerability-disclosure.yml
-  - type: VulnerabilityDisclosure
-    url: security/fusio-vulnerability-disclosure.yml
-  - type: Conventions
-    url: conventions/fusio-conventions.yml
-  - type: ErrorCatalog
-    url: errors/fusio-problem-types.yml
-  - type: Lifecycle
-    url: lifecycle/fusio-lifecycle.yml
-  - type: Deprecation
-    url: lifecycle/fusio-lifecycle.yml
-  - type: Conformance
-    url: conformance/fusio-conformance.yml
-  - type: DataModel
-    url: data-model/fusio-data-model.yml
-  - type: Webhooks
-    url: asyncapi/fusio-webhooks.yml
-  - type: Packages
-    url: packages/fusio-packages.yml
-  - type: CLI
-    url: cli/fusio-cli.yml
-  - type: Components
-    url: components/fusio-components.yml
-  - type: Sandbox
-    url: sandbox/fusio-sandbox.yml
-  - type: LLMsTxt
-    url: llms/fusio-llms.txt
-  - type: Overlay
-    url: overlays/fusio-backend-overlay.yaml
-  - type: RateLimits
-    url: rate-limits/fusio-rate-limits.yml
-  - type: Plans
-    url: plans/fusio-plans-pricing.yml
-  - type: ChangeLog
-    url: changelog/fusio-changelog.yml
-  - type: DeveloperPortal
-    url: https://www.fusio-project.org/developers
+    url: openapi/fusio-account-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
   - type: APIReference
     url: https://demo.fusio-project.org/apps/redoc
-  - type: Roadmap
-    url: https://github.com/apioo/fusio/milestones
-  - type: Demo
-    url: https://www.fusio-project.org/demo
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
   - type: Authentication
     url: authentication/fusio-authentication.yml
   - type: OAuthScopes
     url: scopes/fusio-scopes.yml
-  - type: IssueTracker
-    url: https://github.com/apioo/fusio/issues
-  - type: Releases
-    url: https://github.com/apioo/fusio/releases
-  - type: ContributionGuide
-    url: https://github.com/apioo/fusio/blob/master/CONTRIBUTING.md
-  - type: License
-    name: Apache-2.0
-    url: https://github.com/apioo/fusio/blob/master/LICENSE
-  - type: DomainSecurity
-    url: security/fusio-domain-security.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-action-api
+  name: Fusio Action API
+  description: The action API from Fusio — 6 operation(s) for action.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - action
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-action-api-openapi.yml
   - type: Documentation
-    url: https://docs.fusio-project.org/
-  - type: GettingStarted
-    url: https://docs.fusio-project.org/docs/bootstrap
-  - type: Blog
-    url: https://www.fusio-project.org/blog
-  - type: ChangeLog
-    url: https://github.com/apioo/fusio/blob/master/CHANGELOG.md
-  - type: GitHubOrganization
-    url: https://github.com/apioo
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
   - type: GitHubRepository
     url: https://github.com/apioo/fusio
-  - type: Support
-    url: https://discord.com/invite/eMrMgwsc6e
-  - type: Marketplace
-    url: https://www.fusio-project.org/marketplace
-  - type: SDKs
-    url: https://docs.fusio-project.org/docs/backend/development/sdk
-  - type: Features
-    data:
-      - name: API Gateway
-        description: Route and manage incoming API requests with built-in rate limiting and authentication.
-      - name: Developer Portal
-        description: Self-service developer portal for API consumers to register, browse APIs, and manage access tokens.
-      - name: Multi-Language Workers
-        description: Execute API action logic in JavaScript, Python, Java, PHP, and other languages through worker processes.
-      - name: Marketplace
-        description: Browse and install pre-built API actions and adapters from the Fusio marketplace.
-      - name: Schema Management
-        description: Define and manage API request and response schemas using TypeSchema format.
-      - name: OAuth2 Authentication
-        description: Built-in OAuth2 server for securing APIs with token-based authentication.
-      - name: Rate Limiting
-        description: Configure per-app and per-user rate limits to protect API resources.
-      - name: Webhook Support
-        description: Define webhook subscriptions to notify consumers of events.
-  - type: UseCases
-    data:
-      - name: API Product Building
-        description: Build and publish API products with documentation, authentication, and developer onboarding.
-      - name: Microservices Gateway
-        description: Use Fusio as an API gateway in front of microservices for unified access control.
-      - name: Data Integration
-        description: Connect to databases and external APIs to build data integration endpoints.
-      - name: Serverless API Backend
-        description: Build API backends that execute logic in multiple languages without managing servers.
-  - type: Integrations
-    data:
-      - name: MySQL and PostgreSQL
-        description: Connect to MySQL and PostgreSQL databases as data sources for API endpoints.
-      - name: MongoDB
-        description: Use MongoDB as a NoSQL data source for API endpoints.
-      - name: Elasticsearch
-        description: Integrate with Elasticsearch for search-powered API endpoints.
-      - name: RabbitMQ
-        description: Use RabbitMQ for asynchronous message processing in API workflows.
-      - name: Docker
-        description: Deploy Fusio and worker containers using Docker and Docker Compose.
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-agent-api
+  name: Fusio Agent API
+  description: The agent API from Fusio — 7 operation(s) for agent.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - agent
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-agent-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-app-api
+  name: Fusio App API
+  description: The app API from Fusio — 5 operation(s) for app.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - app
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-app-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-audit-api
+  name: Fusio Audit API
+  description: The audit API from Fusio — 2 operation(s) for audit.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - audit
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-audit-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-authorization-api
+  name: Fusio Authorization API
+  description: The authorization API from Fusio — 2 operation(s) for authorization.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - authorization
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-authorization-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-backup-api
+  name: Fusio Backup API
+  description: The backup API from Fusio — 2 operation(s) for backup.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - backup
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-backup-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-bundle-api
+  name: Fusio Bundle API
+  description: The bundle API from Fusio — 3 operation(s) for bundle.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - bundle
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-bundle-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-category-api
+  name: Fusio Category API
+  description: The category API from Fusio — 2 operation(s) for category.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - category
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-category-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-config-api
+  name: Fusio Config API
+  description: The config API from Fusio — 2 operation(s) for config.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - config
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-config-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-connection-api
+  name: Fusio Connection API
+  description: The connection API from Fusio — 14 operation(s) for connection.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - connection
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-connection-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-cronjob-api
+  name: Fusio Cronjob API
+  description: The cronjob API from Fusio — 2 operation(s) for cronjob.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - cronjob
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-cronjob-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-dashboard-api
+  name: Fusio Dashboard API
+  description: The dashboard API from Fusio — 1 operation(s) for dashboard.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - dashboard
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-dashboard-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-event-api
+  name: Fusio Event API
+  description: The event API from Fusio — 4 operation(s) for event.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - event
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-event-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-firewall-api
+  name: Fusio Firewall API
+  description: The firewall API from Fusio — 2 operation(s) for firewall.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - firewall
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-firewall-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-form-api
+  name: Fusio Form API
+  description: The form API from Fusio — 4 operation(s) for form.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - form
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-form-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-generator-api
+  name: Fusio Generator API
+  description: The generator API from Fusio — 2 operation(s) for generator.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - generator
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-generator-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-grant-api
+  name: Fusio Grant API
+  description: The grant API from Fusio — 2 operation(s) for grant.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - grant
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-grant-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-identity-api
+  name: Fusio Identity API
+  description: The identity API from Fusio — 7 operation(s) for identity.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - identity
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-identity-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-log-api
+  name: Fusio Log API
+  description: The log API from Fusio — 6 operation(s) for log.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - log
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-log-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-marketplace-api
+  name: Fusio Marketplace API
+  description: The marketplace API from Fusio — 6 operation(s) for marketplace.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - marketplace
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-marketplace-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-operation-api
+  name: Fusio Operation API
+  description: The operation API from Fusio — 2 operation(s) for operation.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - operation
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-operation-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-page-api
+  name: Fusio Page API
+  description: The page API from Fusio — 4 operation(s) for page.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - page
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-page-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-payment-api
+  name: Fusio Payment API
+  description: The payment API from Fusio — 2 operation(s) for payment.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - payment
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-payment-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-plan-api
+  name: Fusio Plan API
+  description: The plan API from Fusio — 4 operation(s) for plan.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - plan
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-plan-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-rate-api
+  name: Fusio Rate API
+  description: The rate API from Fusio — 2 operation(s) for rate.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - rate
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-rate-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-role-api
+  name: Fusio Role API
+  description: The role API from Fusio — 2 operation(s) for role.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - role
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-role-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-schema-api
+  name: Fusio Schema API
+  description: The schema API from Fusio — 4 operation(s) for schema.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - schema
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-schema-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-scope-api
+  name: Fusio Scope API
+  description: The scope API from Fusio — 5 operation(s) for scope.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - scope
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-scope-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-sdk-api
+  name: Fusio SDK API
+  description: The sdk API from Fusio — 1 operation(s) for sdk.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - sdk
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-sdk-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-specification-api
+  name: Fusio Specification API
+  description: The specification API from Fusio — 3 operation(s) for specification.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - specification
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-specification-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-statistic-api
+  name: Fusio Statistic API
+  description: The statistic API from Fusio — 17 operation(s) for statistic.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - statistic
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-statistic-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-system-api
+  name: Fusio System API
+  description: The System API from Fusio — 7 operation(s) for system.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - System
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-system-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-taxonomy-api
+  name: Fusio Taxonomy API
+  description: The taxonomy API from Fusio — 2 operation(s) for taxonomy.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - taxonomy
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-taxonomy-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-tenant-api
+  name: Fusio Tenant API
+  description: The tenant API from Fusio — 1 operation(s) for tenant.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - tenant
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-tenant-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-test-api
+  name: Fusio Test API
+  description: The test API from Fusio — 2 operation(s) for test.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - test
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-test-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-token-api
+  name: Fusio Token API
+  description: The token API from Fusio — 4 operation(s) for token.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - token
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-token-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-transaction-api
+  name: Fusio Transaction API
+  description: The transaction API from Fusio — 4 operation(s) for transaction.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - transaction
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-transaction-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-trash-api
+  name: Fusio Trash API
+  description: The trash API from Fusio — 2 operation(s) for trash.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - trash
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-trash-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-trigger-api
+  name: Fusio Trigger API
+  description: The trigger API from Fusio — 2 operation(s) for trigger.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - trigger
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-trigger-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-user-api
+  name: Fusio User API
+  description: The user API from Fusio — 3 operation(s) for user.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - user
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-user-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+- aid: fusio:fusio-webhook-api
+  name: Fusio Webhook API
+  description: The webhook API from Fusio — 4 operation(s) for webhook.
+  humanURL: https://docs.fusio-project.org/docs/backend/
+  baseURL: https://demo.fusio-project.org
+  tags:
+  - webhook
+  properties:
+  - type: OpenAPI
+    url: openapi/fusio-webhook-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/
+  - type: APIReference
+    url: https://demo.fusio-project.org/apps/redoc
+  - type: OpenRPC
+    url: typeapi/fusio-backend-openrpc.json
+  - type: TypeAPI
+    url: typeapi/fusio-backend-typeapi.json
+  - type: GitHubRepository
+    url: https://github.com/apioo/fusio
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/backend/consumer/user/
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/architecture
+  - type: APICatalog
+    url: well-known/fusio-api-catalog.json
+  - type: Documentation
+    url: https://docs.fusio-project.org/docs/security/authorization
+  - type: Authentication
+    url: authentication/fusio-authentication.yml
+  - type: OAuthScopes
+    url: scopes/fusio-scopes.yml
+  - type: OpenIDConnect
+    url: well-known/fusio-openid-configuration.json
+common:
+- type: Overlay
+  url: overlays/fusio-consumer-overlay.yaml
+- type: Overlay
+  url: overlays/fusio-system-overlay.yaml
+- type: Overlay
+  url: overlays/fusio-authorization-overlay.yaml
+- type: Website
+  url: https://www.fusio-project.org/
+- type: OpenAPI
+  url: openapi/_original/fusio-backend.json
+- type: MCPServer
+  url: mcp/fusio-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/fusio-tool-crosswalk.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: WellKnown
+  url: well-known/fusio-well-known.yml
+- type: APICatalog
+  url: well-known/fusio-api-catalog.json
+- type: SecurityTxt
+  url: well-known/fusio-security.txt
+- type: Security
+  url: security/fusio-vulnerability-disclosure.yml
+- type: VulnerabilityDisclosure
+  url: security/fusio-vulnerability-disclosure.yml
+- type: Conventions
+  url: conventions/fusio-conventions.yml
+- type: ErrorCatalog
+  url: errors/fusio-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/fusio-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/fusio-lifecycle.yml
+- type: Conformance
+  url: conformance/fusio-conformance.yml
+- type: DataModel
+  url: data-model/fusio-data-model.yml
+- type: Webhooks
+  url: asyncapi/fusio-webhooks.yml
+- type: Packages
+  url: packages/fusio-packages.yml
+- type: CLI
+  url: cli/fusio-cli.yml
+- type: Components
+  url: components/fusio-components.yml
+- type: Sandbox
+  url: sandbox/fusio-sandbox.yml
+- type: LLMsTxt
+  url: llms/fusio-llms.txt
+- type: Overlay
+  url: overlays/fusio-backend-overlay.yaml
+- type: RateLimits
+  url: rate-limits/fusio-rate-limits.yml
+- type: Plans
+  url: plans/fusio-plans-pricing.yml
+- type: ChangeLog
+  url: changelog/fusio-changelog.yml
+- type: DeveloperPortal
+  url: https://www.fusio-project.org/developers
+- type: APIReference
+  url: https://demo.fusio-project.org/apps/redoc
+- type: Roadmap
+  url: https://github.com/apioo/fusio/milestones
+- type: Demo
+  url: https://www.fusio-project.org/demo
+- type: Authentication
+  url: authentication/fusio-authentication.yml
+- type: OAuthScopes
+  url: scopes/fusio-scopes.yml
+- type: IssueTracker
+  url: https://github.com/apioo/fusio/issues
+- type: Releases
+  url: https://github.com/apioo/fusio/releases
+- type: ContributionGuide
+  url: https://github.com/apioo/fusio/blob/master/CONTRIBUTING.md
+- type: License
+  name: Apache-2.0
+  url: https://github.com/apioo/fusio/blob/master/LICENSE
+- type: DomainSecurity
+  url: security/fusio-domain-security.yml
+- type: Documentation
+  url: https://docs.fusio-project.org/
+- type: GettingStarted
+  url: https://docs.fusio-project.org/docs/bootstrap
+- type: Blog
+  url: https://www.fusio-project.org/blog
+- type: ChangeLog
+  url: https://github.com/apioo/fusio/blob/master/CHANGELOG.md
+- type: GitHubOrganization
+  url: https://github.com/apioo
+- type: GitHubRepository
+  url: https://github.com/apioo/fusio
+- type: Support
+  url: https://discord.com/invite/eMrMgwsc6e
+- type: Marketplace
+  url: https://www.fusio-project.org/marketplace
+- type: SDKs
+  url: https://docs.fusio-project.org/docs/backend/development/sdk
+- type: Features
+  data:
+  - name: API Gateway
+    description: Route and manage incoming API requests with built-in rate limiting and authentication.
+  - name: Developer Portal
+    description: Self-service developer portal for API consumers to register, browse APIs, and manage
+      access tokens.
+  - name: Multi-Language Workers
+    description: Execute API action logic in JavaScript, Python, Java, PHP, and other languages through
+      worker processes.
+  - name: Marketplace
+    description: Browse and install pre-built API actions and adapters from the Fusio marketplace.
+  - name: Schema Management
+    description: Define and manage API request and response schemas using TypeSchema format.
+  - name: OAuth2 Authentication
+    description: Built-in OAuth2 server for securing APIs with token-based authentication.
+  - name: Rate Limiting
+    description: Configure per-app and per-user rate limits to protect API resources.
+  - name: Webhook Support
+    description: Define webhook subscriptions to notify consumers of events.
+- type: UseCases
+  data:
+  - name: API Product Building
+    description: Build and publish API products with documentation, authentication, and developer onboarding.
+  - name: Microservices Gateway
+    description: Use Fusio as an API gateway in front of microservices for unified access control.
+  - name: Data Integration
+    description: Connect to databases and external APIs to build data integration endpoints.
+  - name: Serverless API Backend
+    description: Build API backends that execute logic in multiple languages without managing servers.
+- type: Integrations
+  data:
+  - name: MySQL and PostgreSQL
+    description: Connect to MySQL and PostgreSQL databases as data sources for API endpoints.
+  - name: MongoDB
+    description: Use MongoDB as a NoSQL data source for API endpoints.
+  - name: Elasticsearch
+    description: Integrate with Elasticsearch for search-powered API endpoints.
+  - name: RabbitMQ
+    description: Use RabbitMQ for asynchronous message processing in API workflows.
+  - name: Docker
+    description: Deploy Fusio and worker containers using Docker and Docker Compose.
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
 x-enrichment:
   date: '2026-08-29'
   status: enriched
