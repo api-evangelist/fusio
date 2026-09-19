@@ -87,6 +87,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Account
+  tags_raw:
   - account
   properties:
   - type: OpenAPI
@@ -121,6 +123,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Action
+  tags_raw:
   - action
   properties:
   - type: OpenAPI
@@ -155,6 +159,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Agents
+  tags_raw:
   - agent
   properties:
   - type: OpenAPI
@@ -189,6 +195,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - App
+  tags_raw:
   - app
   properties:
   - type: OpenAPI
@@ -223,6 +231,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Audit
+  tags_raw:
   - audit
   properties:
   - type: OpenAPI
@@ -257,6 +267,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Authorization
+  tags_raw:
   - authorization
   properties:
   - type: OpenAPI
@@ -291,6 +303,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Backup
+  tags_raw:
   - backup
   properties:
   - type: OpenAPI
@@ -325,6 +339,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Bundle
+  tags_raw:
   - bundle
   properties:
   - type: OpenAPI
@@ -359,6 +375,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Category
+  tags_raw:
   - category
   properties:
   - type: OpenAPI
@@ -393,6 +411,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Config
+  tags_raw:
   - config
   properties:
   - type: OpenAPI
@@ -427,6 +447,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Connection
+  tags_raw:
   - connection
   properties:
   - type: OpenAPI
@@ -495,6 +517,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Dashboards
+  tags_raw:
   - dashboard
   properties:
   - type: OpenAPI
@@ -529,6 +553,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Event
+  tags_raw:
   - event
   properties:
   - type: OpenAPI
@@ -563,6 +589,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Firewall
+  tags_raw:
   - firewall
   properties:
   - type: OpenAPI
@@ -597,6 +625,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Form
+  tags_raw:
   - form
   properties:
   - type: OpenAPI
@@ -631,6 +661,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Generator
+  tags_raw:
   - generator
   properties:
   - type: OpenAPI
@@ -665,6 +697,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Grant
+  tags_raw:
   - grant
   properties:
   - type: OpenAPI
@@ -699,6 +733,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Identity
+  tags_raw:
   - identity
   properties:
   - type: OpenAPI
@@ -733,6 +769,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Log
+  tags_raw:
   - log
   properties:
   - type: OpenAPI
@@ -767,6 +805,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Marketplace
+  tags_raw:
   - marketplace
   properties:
   - type: OpenAPI
@@ -801,6 +841,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Operation
+  tags_raw:
   - operation
   properties:
   - type: OpenAPI
@@ -835,6 +877,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Page
+  tags_raw:
   - page
   properties:
   - type: OpenAPI
@@ -869,6 +913,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Payments
+  tags_raw:
   - payment
   properties:
   - type: OpenAPI
@@ -903,6 +949,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Plan
+  tags_raw:
   - plan
   properties:
   - type: OpenAPI
@@ -937,6 +985,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Rate
+  tags_raw:
   - rate
   properties:
   - type: OpenAPI
@@ -971,6 +1021,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Role
+  tags_raw:
   - role
   properties:
   - type: OpenAPI
@@ -1005,6 +1057,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Schema
+  tags_raw:
   - schema
   properties:
   - type: OpenAPI
@@ -1039,6 +1093,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Scope
+  tags_raw:
   - scope
   properties:
   - type: OpenAPI
@@ -1073,6 +1129,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - SDK
+  tags_raw:
   - sdk
   properties:
   - type: OpenAPI
@@ -1107,6 +1165,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Specification
+  tags_raw:
   - specification
   properties:
   - type: OpenAPI
@@ -1209,6 +1269,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Taxonomy
+  tags_raw:
   - taxonomy
   properties:
   - type: OpenAPI
@@ -1243,6 +1305,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Tenants
+  tags_raw:
   - tenant
   properties:
   - type: OpenAPI
@@ -1276,7 +1340,8 @@ apis:
   description: The test API from Fusio — 2 operation(s) for test.
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
-  tags:
+  tags: []
+  tags_raw:
   - test
   properties:
   - type: OpenAPI
@@ -1311,6 +1376,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Tokens
+  tags_raw:
   - token
   properties:
   - type: OpenAPI
@@ -1345,6 +1412,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Transaction
+  tags_raw:
   - transaction
   properties:
   - type: OpenAPI
@@ -1379,6 +1448,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Trash
+  tags_raw:
   - trash
   properties:
   - type: OpenAPI
@@ -1413,6 +1484,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Trigger
+  tags_raw:
   - trigger
   properties:
   - type: OpenAPI
@@ -1447,6 +1520,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - User
+  tags_raw:
   - user
   properties:
   - type: OpenAPI
@@ -1481,6 +1556,8 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/backend/
   baseURL: https://demo.fusio-project.org
   tags:
+  - Webhook
+  tags_raw:
   - webhook
   properties:
   - type: OpenAPI
