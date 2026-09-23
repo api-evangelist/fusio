@@ -1,0 +1,202 @@
+openapi: 3.2.0
+info:
+  title: Fusio Backup API
+  description: Self-Hosted API Management for Builders.
+  version: '1'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: Backup
+paths:
+  /backend/backup/export:
+    post:
+      tags:
+      - Backup
+      description: Generates an backup of the current system
+      operationId: backend.backup.export
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_BackupExport'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.backup
+      summary: Backend backup export
+      x-summary-source: derived
+  /backend/backup/import:
+    post:
+      tags:
+      - Backup
+      description: Imports an backup to the current system
+      operationId: backend.backup.import
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_BackupImport'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_BackupImportResult'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.backup
+      summary: Backend backup import
+      x-summary-source: derived
+components:
+  schemas:
+    Backend_BackupImport:
+      description: Import a previously exported system configuration
+      type: object
+      properties:
+        import:
+          type: string
+    Backend_BackupExport:
+      description: Export of the complete system configuration
+      type: object
+      properties:
+        export:
+          type: string
+    Backend_BackupImportResult:
+      description: Result of a backup import operation
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        logs:
+          type: array
+          items:
+            type: string
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''

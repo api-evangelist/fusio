@@ -1,0 +1,202 @@
+openapi: 3.2.0
+info:
+  title: Fusio Grant API
+  description: Self-Hosted API Management for Builders.
+  version: '1'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: Grant
+paths:
+  /consumer/grant/{grant_id}:
+    parameters:
+    - name: grant_id
+      in: path
+      required: true
+      schema:
+        type: string
+    delete:
+      tags:
+      - Grant
+      description: Deletes an existing grant for an app which was created by the authenticated user
+      operationId: consumer.grant.delete
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.grant
+      summary: Consumer grant delete
+      x-summary-source: derived
+  /consumer/grant:
+    get:
+      tags:
+      - Grant
+      description: Returns a paginated list of grants which are assigned to the authenticated user
+      operationId: consumer.grant.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer_GrantCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.grant
+      summary: Consumer grant get all
+      x-summary-source: derived
+components:
+  schemas:
+    Consumer_App:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        status:
+          type: integer
+        name:
+          type: string
+        url:
+          type: string
+        appKey:
+          type: string
+        appSecret:
+          type: string
+        date:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+    Consumer_Grant:
+      type: object
+      properties:
+        id:
+          type: integer
+        app:
+          $ref: '#/components/schemas/Consumer_App'
+        createDate:
+          type: string
+          format: date-time
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Consumer_GrantCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Grant'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            consumer: ''
+            consumer.account: ''
+            consumer.agent: ''
+            consumer.app: ''
+            consumer.event: ''
+            consumer.form: ''
+            consumer.grant: ''
+            consumer.identity: ''
+            consumer.log: ''
+            consumer.page: ''
+            consumer.payment: ''
+            consumer.plan: ''
+            consumer.scope: ''
+            consumer.token: ''
+            consumer.transaction: ''
+            consumer.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            consumer: ''
+            consumer.account: ''
+            consumer.agent: ''
+            consumer.app: ''
+            consumer.event: ''
+            consumer.form: ''
+            consumer.grant: ''
+            consumer.identity: ''
+            consumer.log: ''
+            consumer.page: ''
+            consumer.payment: ''
+            consumer.plan: ''
+            consumer.scope: ''
+            consumer.token: ''
+            consumer.transaction: ''
+            consumer.webhook: ''

@@ -1,0 +1,262 @@
+openapi: 3.2.0
+info:
+  title: Fusio Config API
+  description: Self-Hosted API Management for Builders.
+  version: '1'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: Config
+paths:
+  /backend/config/{config_id}:
+    parameters:
+    - name: config_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Config
+      description: Returns a specific config
+      operationId: backend.config.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_Config'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.config
+      summary: Backend config get
+      x-summary-source: derived
+    put:
+      tags:
+      - Config
+      description: Updates an existing config value
+      operationId: backend.config.update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_ConfigUpdate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.config
+      summary: Backend config update
+      x-summary-source: derived
+  /backend/config:
+    get:
+      tags:
+      - Config
+      description: Returns a paginated list of configuration values
+      operationId: backend.config.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_ConfigCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.config
+      summary: Backend config get all
+      x-summary-source: derived
+components:
+  schemas:
+    Backend_ConfigCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Config'
+    Backend_Config:
+      description: This object represents a system configuration
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        type:
+          description: The config value type
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        description:
+          description: A short description fo this configuration value
+          type: string
+        value: {}
+    Backend_ConfigUpdate:
+      $ref: '#/components/schemas/Backend_Config'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''

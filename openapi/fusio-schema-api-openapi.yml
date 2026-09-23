@@ -1,0 +1,571 @@
+openapi: 3.2.0
+info:
+  title: Fusio Schema API
+  description: Self-Hosted API Management for Builders.
+  version: '1'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: Schema
+paths:
+  /backend/schema:
+    get:
+      tags:
+      - Schema
+      description: Returns a paginated list of schemas
+      operationId: backend.schema.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: taxonomy
+        in: query
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_SchemaCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.schema
+      summary: Backend schema get all
+      x-summary-source: derived
+    post:
+      tags:
+      - Schema
+      description: Creates a new schema
+      operationId: backend.schema.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_SchemaCreate'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.schema
+      summary: Backend schema create
+      x-summary-source: derived
+  /backend/schema/{schema_id}:
+    parameters:
+    - name: schema_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Schema
+      description: Returns a specific schema
+      operationId: backend.schema.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_Schema'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.schema
+      summary: Backend schema get
+      x-summary-source: derived
+    put:
+      tags:
+      - Schema
+      description: Updates an existing schema
+      operationId: backend.schema.update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_SchemaUpdate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.schema
+      summary: Backend schema update
+      x-summary-source: derived
+    delete:
+      tags:
+      - Schema
+      description: Deletes an existing schema
+      operationId: backend.schema.delete
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.schema
+      summary: Backend schema delete
+      x-summary-source: derived
+  /backend/schema/{schema_id}/commit:
+    parameters:
+    - name: schema_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Schema
+      description: Returns a paginated list of schema commits
+      operationId: backend.schema.getCommits
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_SchemaCommitCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.schema
+      summary: Backend schema get commits
+      x-summary-source: derived
+  /backend/schema/preview/{schema_id}:
+    parameters:
+    - name: schema_id
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      tags:
+      - Schema
+      description: Returns a HTML preview of the provided schema
+      operationId: backend.schema.getPreview
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_SchemaPreviewResponse'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.schema
+      summary: Backend schema get preview
+      x-summary-source: derived
+components:
+  schemas:
+    Backend_SchemaCreate:
+      $ref: '#/components/schemas/Backend_Schema'
+    Backend_SchemaUpdate:
+      $ref: '#/components/schemas/Backend_Schema'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Backend_App:
+      description: This object represents an app to access the API on-behalf of a user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        userId:
+          type: integer
+        status:
+          description: Status of the object either 1 = active, 2 = pending, 3 = deactivated or 4 = deleted
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        url:
+          description: Url where the app is hosted
+          type: string
+        parameters:
+          description: Optional URL-encoded parameters of the app i.e. foo=bar&bar=foo
+          type: string
+        appKey:
+          description: The app key also known as client id which is generated on creation
+          type: string
+        appSecret:
+          description: The app secret also known as client secret which is generated on creation
+          type: string
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+        date:
+          description: The create date of this object
+          type: string
+          format: date-time
+        scopes:
+          description: A list of assigned scopes for this app
+          type: array
+          items:
+            type: string
+        tokens:
+          description: A list of tokens which are assigned to this app
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Token'
+    Backend_SchemaCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Schema'
+    Backend_SchemaCommit:
+      description: A schema commit which represents a change in the schema source
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        user:
+          $ref: '#/components/schemas/Backend_User'
+        commitHash:
+          description: A unique hash which represents this commit
+          type: string
+        schema:
+          $ref: '#/components/schemas/Backend_SchemaSource'
+        insertDate:
+          type: string
+          format: date-time
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_User:
+      description: This object represents a user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        roleId:
+          description: A role which is assigned to the user
+          type: integer
+        planId:
+          description: A plan which is assigned to the user
+          type: integer
+        status:
+          description: Status of the object either 1 = active, 2 = disabled or 0 = deleted
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        email:
+          description: The email address of the user
+          type: string
+        points:
+          description: Points assigned to the user
+          type: integer
+        scopes:
+          description: List of scopes which are assigned to the user
+          type: array
+          items:
+            type: string
+        apps:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_App'
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+        date:
+          description: The insert date
+          type: string
+          format: date-time
+    Backend_SchemaCommitCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_SchemaCommit'
+    Backend_Token:
+      description: This object represents a token, this an access token which was requested by a user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        status:
+          description: Status of the object either 1 = active or 2 = deleted
+          type: integer
+        name:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        ip:
+          type: string
+        expire:
+          type: string
+          format: date-time
+        date:
+          type: string
+          format: date-time
+    Backend_SchemaPreviewResponse:
+      type: object
+      properties:
+        preview:
+          type: string
+    Backend_Schema:
+      description: This object represents a schema to describe a JSON payload
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        status:
+          description: Status of the object either 1 = active or 0 = deleted
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        source:
+          $ref: '#/components/schemas/Backend_SchemaSource'
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+    Backend_SchemaSource:
+      description: Contains the TypeSchema specification
+      type: object
+      additionalProperties: {}
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''

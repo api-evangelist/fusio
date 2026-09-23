@@ -1,0 +1,361 @@
+openapi: 3.2.0
+info:
+  title: Fusio Cronjob API
+  description: Self-Hosted API Management for Builders.
+  version: '1'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: cronjob
+paths:
+  /backend/cronjob:
+    get:
+      tags:
+      - cronjob
+      description: Returns a paginated list of cronjobs
+      operationId: backend.cronjob.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: taxonomy
+        in: query
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_CronjobCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.cronjob
+      summary: Backend cronjob get all
+      x-summary-source: derived
+    post:
+      tags:
+      - cronjob
+      description: Creates a new cronjob
+      operationId: backend.cronjob.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_CronjobCreate'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.cronjob
+      summary: Backend cronjob create
+      x-summary-source: derived
+  /backend/cronjob/{cronjob_id}:
+    parameters:
+    - name: cronjob_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - cronjob
+      description: Returns a specific cronjob
+      operationId: backend.cronjob.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_Cronjob'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.cronjob
+      summary: Backend cronjob get
+      x-summary-source: derived
+    put:
+      tags:
+      - cronjob
+      description: Updates an existing cronjob
+      operationId: backend.cronjob.update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_CronjobUpdate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.cronjob
+      summary: Backend cronjob update
+      x-summary-source: derived
+    delete:
+      tags:
+      - cronjob
+      description: Deletes an existing cronjob
+      operationId: backend.cronjob.delete
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.cronjob
+      summary: Backend cronjob delete
+      x-summary-source: derived
+components:
+  schemas:
+    Backend_CronjobCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Cronjob'
+    Backend_CronjobError:
+      description: Represents an error which occurred on cronjob execution
+      type: object
+      properties:
+        message:
+          type: string
+        trace:
+          type: string
+        file:
+          type: string
+        line:
+          type: integer
+    Backend_Cronjob:
+      description: This object represents a cronjob which can invoke an action at a specific interval
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        cron:
+          description: The cron expression i.e. */5 * * * * for every 5 minutes
+          type: string
+        action:
+          description: The target action which gets invoked
+          type: string
+        executeDate:
+          description: The last execution date
+          type: string
+          format: date-time
+        exitCode:
+          description: The last exit code
+          type: integer
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+        errors:
+          description: Contains an array of errors in case the cronjob has failed
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_CronjobError'
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_CronjobUpdate:
+      $ref: '#/components/schemas/Backend_Cronjob'
+    Backend_CronjobCreate:
+      $ref: '#/components/schemas/Backend_Cronjob'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''

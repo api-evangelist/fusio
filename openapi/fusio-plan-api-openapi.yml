@@ -1,0 +1,470 @@
+openapi: 3.2.0
+info:
+  title: Fusio Plan API
+  version: '1'
+  description: 'Operations tagged plan across 2 of this provider''s published API definitions: fusio-backend.json, fusio-consumer.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: Plan
+paths:
+  /backend/plan:
+    get:
+      tags:
+      - Plan
+      description: Returns a paginated list of plans
+      operationId: backend.plan.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_PlanCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.plan
+      summary: Backend plan get all
+      x-summary-source: derived
+    post:
+      tags:
+      - Plan
+      description: Creates a new plan
+      operationId: backend.plan.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_PlanCreate'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.plan
+      summary: Backend plan create
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /backend/plan/{plan_id}:
+    parameters:
+    - name: plan_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Plan
+      description: Returns a specific plan
+      operationId: backend.plan.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_Plan'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.plan
+      summary: Backend plan get
+      x-summary-source: derived
+    put:
+      tags:
+      - Plan
+      description: Updates an existing plan
+      operationId: backend.plan.update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_PlanUpdate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.plan
+      summary: Backend plan update
+      x-summary-source: derived
+    delete:
+      tags:
+      - Plan
+      description: Deletes an existing plan
+      operationId: backend.plan.delete
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.plan
+      summary: Backend plan delete
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /consumer/plan/{plan_id}:
+    parameters:
+    - name: plan_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Plan
+      description: Returns a specific plan for the authenticated user
+      operationId: consumer.plan.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer_Plan'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.plan
+      summary: Consumer plan get
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /consumer/plan:
+    get:
+      tags:
+      - Plan
+      description: Returns a paginated list of plans which are relevant to the authenticated user
+      operationId: consumer.plan.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer_PlanCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.plan
+      summary: Consumer plan get all
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+components:
+  schemas:
+    Backend_PlanCreate:
+      $ref: '#/components/schemas/Backend_Plan'
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_Plan:
+      description: This object represents a plan, a plan allows users to obtain points or in general subscribe to your app
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        name:
+          description: Name of the plan
+          type: string
+        description:
+          description: Short description of the plan
+          type: string
+        price:
+          description: The price of this plan
+          type: number
+        points:
+          description: The points which are assigned to the user on purchase
+          type: integer
+        period:
+          description: Whether the plan is one-time or periodically
+          type: integer
+        externalId:
+          description: An external id of a remote payment provider like Stripe
+          type: string
+        scopes:
+          description: Scopes which are assigned dynamically to the user on purchase
+          type: array
+          items:
+            type: string
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+    Backend_PlanUpdate:
+      $ref: '#/components/schemas/Backend_Plan'
+    Backend_PlanCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Plan'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Consumer_PlanCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Plan'
+    Consumer_Plan:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        points:
+          type: integer
+        period:
+          type: integer
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+x-refined-from:
+- fusio-backend.json
+- fusio-consumer.json

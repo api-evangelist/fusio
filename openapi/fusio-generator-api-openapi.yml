@@ -1,0 +1,513 @@
+openapi: 3.2.0
+info:
+  title: Fusio Generator API
+  description: Self-Hosted API Management for Builders.
+  version: '1'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: Generator
+paths:
+  /backend/generator/{provider}:
+    parameters:
+    - name: provider
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Generator
+      description: Returns the generator config form
+      operationId: backend.generator.getForm
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_FormContainer'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.generator
+      summary: Backend generator get form
+      x-summary-source: derived
+    put:
+      tags:
+      - Generator
+      description: Generates a changelog of all potential changes if you execute this generator with the provided config
+      operationId: backend.generator.getChangelog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_GeneratorProviderConfig'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_GeneratorProviderChangelog'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.generator
+      summary: Backend generator get changelog
+      x-summary-source: derived
+    post:
+      tags:
+      - Generator
+      description: Executes a generator with the provided config
+      operationId: backend.generator.executeProvider
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_GeneratorProvider'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.generator
+      summary: Backend generator execute provider
+      x-summary-source: derived
+  /backend/generator:
+    get:
+      tags:
+      - Generator
+      description: Returns all available generator classes
+      operationId: backend.generator.getClasses
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_GeneratorIndexProviders'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.generator
+      summary: Backend generator get classes
+      x-summary-source: derived
+components:
+  schemas:
+    Backend_Action:
+      description: This object represents the business logic which can be executed either through an operation or cronjob
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        status:
+          description: Status of the object either 1 = active or 0 = deleted
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        class:
+          description: Underlying class of this action which handles the action logic
+          type: string
+        async:
+          description: Whether to execute the action asynchronously, if true the action directly returns a 202 response and the action is executed later on in the background, useful for expensive operations
+          type: boolean
+        config:
+          $ref: '#/components/schemas/Backend_ActionConfig'
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+    Common_FormElementSelect:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents a select element
+        type: object
+        properties:
+          options:
+            description: Available options for the select element
+            type: array
+            items:
+              $ref: '#/components/schemas/Common_FormElementSelectOption'
+    Backend_GeneratorProviderChangelog:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Schema'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Action'
+        operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Operation'
+    Common_FormElementCollection:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents a collection element
+        type: object
+        properties:
+          type:
+            description: The input type i.e. text or password, all HTML input types are allowed
+            type: string
+    Backend_Operation:
+      description: This object represents an operation, an operation invokes an action in case a specific HTTP method and path was requested. It defines also schema information about the request and response payload
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        status:
+          description: Status of the object either 1 = active or 0 = deleted
+          type: integer
+        active:
+          description: Indicates whether the operation is active
+          type: boolean
+        public:
+          description: Indicates whether the operation is public, if false a user must provide an Authorization header with an Bearer access token
+          type: boolean
+        stability:
+          description: Describes the stability of this operation 0 = deprecated, 1 = experimental, 2 = stable and 3 = legacy
+          type: integer
+        description:
+          description: A short description of this operation, it should explain the operation in a simple and precise way
+          type: string
+        httpMethod:
+          description: The target HTTP method i.e. GET or POST
+          type: string
+        httpPath:
+          description: The target HTTP path i.e. /foo or /product/:product_id
+          type: string
+        httpCode:
+          description: The success HTTP code i.e. 200 or 201
+          type: integer
+        name:
+          description: Unique name of the object. It is recommended to group your operations into logical units by using a dot i.e. product.getAll and product.insert which has also an effect on the automatically generated SDK
+          type: string
+        parameters:
+          $ref: '#/components/schemas/Backend_OperationParameters'
+        incoming:
+          description: Describes the incoming request payload, this must contain a schema name
+          type: string
+        outgoing:
+          description: Describes the outgoing response payload, this must contain a schema name
+          type: string
+        throws:
+          $ref: '#/components/schemas/Backend_OperationThrows'
+        action:
+          description: The target action to invoke, this must contain an action name
+          type: string
+        costs:
+          description: Costs to invoke this operation. A user can only invoke this operation in case he has enough points
+          type: integer
+        scopes:
+          description: Scopes which are required to invoke this operation
+          type: array
+          items:
+            type: string
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+    Backend_ActionConfig:
+      description: The action configuration which contains arbitrary key-value entries
+      type: object
+      additionalProperties: {}
+    Common_FormContainer:
+      description: Represents a config form with a list of elements
+      type: object
+      properties:
+        element:
+          type: array
+          items:
+            $ref: '#/components/schemas/Common_FormElement'
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_GeneratorIndexProviders:
+      description: Contains all possible classes which can be used at an generator as class
+      type: object
+      properties:
+        providers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_GeneratorIndexProvider'
+    Common_FormElementSelectOption:
+      description: Represents a concrete option entry
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    Backend_SchemaSource:
+      description: Contains the TypeSchema specification
+      type: object
+      additionalProperties: {}
+    Backend_OperationParameters:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Backend_OperationSchema'
+    Common_FormElementTextArea:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents a textarea
+        type: object
+        properties:
+          mode:
+            description: Describes which data is provided at the textarea, this can be i.e. a programming language like php, java or python or also a data format like json
+            type: string
+    Backend_GeneratorProviderConfig:
+      type: object
+      additionalProperties: {}
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Common_FormElementInput:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents an input element
+        type: object
+        properties:
+          type:
+            description: The input type i.e. text or password, all HTML input types are allowed
+            type: string
+    Common_FormElement:
+      oneOf:
+      - $ref: '#/components/schemas/Common_FormElementCheckbox'
+      - $ref: '#/components/schemas/Common_FormElementCollection'
+      - $ref: '#/components/schemas/Common_FormElementInput'
+      - $ref: '#/components/schemas/Common_FormElementMap'
+      - $ref: '#/components/schemas/Common_FormElementSelect'
+      - $ref: '#/components/schemas/Common_FormElementTextArea'
+      - $ref: '#/components/schemas/Common_FormElementTypeAPI'
+      - $ref: '#/components/schemas/Common_FormElementTypeSchema'
+      discriminator: type
+      mapping:
+        checkbox: '#/components/schemas/Common_FormElementCheckbox'
+        collection: '#/components/schemas/Common_FormElementCollection'
+        input: '#/components/schemas/Common_FormElementInput'
+        map: '#/components/schemas/Common_FormElementMap'
+        select: '#/components/schemas/Common_FormElementSelect'
+        textarea: '#/components/schemas/Common_FormElementTextArea'
+        typeapi: '#/components/schemas/Common_FormElementTypeAPI'
+        typeschema: '#/components/schemas/Common_FormElementTypeSchema'
+    Backend_GeneratorIndexProvider:
+      description: Represents a concrete generator class
+      type: object
+      properties:
+        name:
+          description: Human-readable name of the generator class
+          type: string
+        class:
+          description: Technical identifier of the generator class
+          type: string
+    Common_FormElementTypeAPI:
+      $ref: '#/components/schemas/Common_FormElement'
+    Common_FormElementMap:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents a map element
+        type: object
+        properties:
+          type:
+            description: The input type i.e. text or password, all HTML input types are allowed
+            type: string
+    Backend_OperationThrows:
+      type: object
+      additionalProperties:
+        type: string
+    Common_FormElementCheckbox:
+      $ref: '#/components/schemas/Common_FormElement'
+    Backend_GeneratorProvider:
+      type: object
+      properties:
+        path:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        public:
+          type: boolean
+        config:
+          $ref: '#/components/schemas/Backend_GeneratorProviderConfig'
+    Backend_OperationSchema:
+      type: object
+      properties:
+        description:
+          type: string
+        type:
+          type: string
+        format:
+          type: string
+        enum:
+          type: string
+    Common_FormElementTypeSchema:
+      $ref: '#/components/schemas/Common_FormElement'
+    Backend_Schema:
+      description: This object represents a schema to describe a JSON payload
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        status:
+          description: Status of the object either 1 = active or 0 = deleted
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        source:
+          $ref: '#/components/schemas/Backend_SchemaSource'
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''

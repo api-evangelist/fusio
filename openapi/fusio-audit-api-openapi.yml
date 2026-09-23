@@ -1,0 +1,387 @@
+openapi: 3.2.0
+info:
+  title: Fusio Audit API
+  description: Self-Hosted API Management for Builders.
+  version: '1'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: Audit
+paths:
+  /backend/audit/{audit_id}:
+    parameters:
+    - name: audit_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Audit
+      description: Returns a specific audit
+      operationId: backend.audit.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_Audit'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.audit
+      summary: Backend audit get
+      x-summary-source: derived
+  /backend/audit:
+    get:
+      tags:
+      - Audit
+      description: Returns a paginated list of audits
+      operationId: backend.audit.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: appId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: event
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: ip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: message
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_AuditCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.audit
+      summary: Backend audit get all
+      x-summary-source: derived
+components:
+  schemas:
+    Backend_App:
+      description: This object represents an app to access the API on-behalf of a user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        userId:
+          type: integer
+        status:
+          description: Status of the object either 1 = active, 2 = pending, 3 = deactivated or 4 = deleted
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        url:
+          description: Url where the app is hosted
+          type: string
+        parameters:
+          description: Optional URL-encoded parameters of the app i.e. foo=bar&bar=foo
+          type: string
+        appKey:
+          description: The app key also known as client id which is generated on creation
+          type: string
+        appSecret:
+          description: The app secret also known as client secret which is generated on creation
+          type: string
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+        date:
+          description: The create date of this object
+          type: string
+          format: date-time
+        scopes:
+          description: A list of assigned scopes for this app
+          type: array
+          items:
+            type: string
+        tokens:
+          description: A list of tokens which are assigned to this app
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Token'
+    Backend_AuditCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Audit'
+    Backend_AuditObject:
+      description: A key value object containing the changes
+      type: object
+      additionalProperties: {}
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_User:
+      description: This object represents a user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        roleId:
+          description: A role which is assigned to the user
+          type: integer
+        planId:
+          description: A plan which is assigned to the user
+          type: integer
+        status:
+          description: Status of the object either 1 = active, 2 = disabled or 0 = deleted
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        email:
+          description: The email address of the user
+          type: string
+        points:
+          description: Points assigned to the user
+          type: integer
+        scopes:
+          description: List of scopes which are assigned to the user
+          type: array
+          items:
+            type: string
+        apps:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_App'
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+        date:
+          description: The insert date
+          type: string
+          format: date-time
+    Backend_Audit:
+      description: This object represents an audit which is created every time something was changed at the system
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        app:
+          $ref: '#/components/schemas/Backend_App'
+        user:
+          $ref: '#/components/schemas/Backend_User'
+        event:
+          description: Trigger event of this audit
+          type: string
+        ip:
+          description: IP which as issued the request
+          type: string
+        message:
+          description: Message of this audit event
+          type: string
+        content:
+          $ref: '#/components/schemas/Backend_AuditObject'
+        date:
+          description: Insert date of this audit event
+          type: string
+          format: date-time
+    Backend_Token:
+      description: This object represents a token, this an access token which was requested by a user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        status:
+          description: Status of the object either 1 = active or 2 = deleted
+          type: integer
+        name:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        ip:
+          type: string
+        expire:
+          type: string
+          format: date-time
+        date:
+          type: string
+          format: date-time
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''

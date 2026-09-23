@@ -1,0 +1,843 @@
+openapi: 3.2.0
+info:
+  title: Fusio Agent API
+  version: '1'
+  description: 'Operations tagged agent across 2 of this provider''s published API definitions: fusio-backend.json, fusio-consumer.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: Agent
+paths:
+  /backend/agent:
+    get:
+      tags:
+      - Agent
+      description: Returns a paginated list of agents
+      operationId: backend.agent.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_AgentCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.agent
+      summary: Backend agent get all
+      x-summary-source: derived
+    post:
+      tags:
+      - Agent
+      description: Creates a new agent
+      operationId: backend.agent.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_AgentCreate'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.agent
+      summary: Backend agent create
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /backend/agent/{agent_id}:
+    parameters:
+    - name: agent_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Agent
+      description: Returns a specific agent
+      operationId: backend.agent.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_Agent'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.agent
+      summary: Backend agent get
+      x-summary-source: derived
+    put:
+      tags:
+      - Agent
+      description: Updates an existing agent
+      operationId: backend.agent.update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_AgentUpdate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.agent
+      summary: Backend agent update
+      x-summary-source: derived
+    delete:
+      tags:
+      - Agent
+      description: Deletes an existing agent
+      operationId: backend.agent.delete
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.agent
+      summary: Backend agent delete
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /backend/agent/tools:
+    get:
+      tags:
+      - Agent
+      description: Returns available tools for an agent
+      operationId: backend.agent.getTools
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_AgentTools'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.agent
+      summary: Backend agent get tools
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /backend/agent/{agent_id}/message:
+    parameters:
+    - name: agent_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Agent
+      description: Returns a paginated list of agent messages
+      operationId: backend.agent.message.getAll
+      parameters:
+      - name: chat_id
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_AgentMessageCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.agent
+      summary: Backend agent message get all
+      x-summary-source: derived
+    post:
+      tags:
+      - Agent
+      description: Submits a new agent message
+      operationId: backend.agent.message.submit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Agent_Input'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent_Output'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.agent
+      summary: Backend agent message submit
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /consumer/agent/{agent_id}:
+    parameters:
+    - name: agent_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Agent
+      description: Returns a specific agent
+      operationId: consumer.agent.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer_Agent'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.agent
+      summary: Consumer agent get
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /consumer/agent:
+    get:
+      tags:
+      - Agent
+      description: Returns a paginated list of agents
+      operationId: consumer.agent.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer_AgentCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.agent
+      summary: Consumer agent get all
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /consumer/agent/{agent_id}/message:
+    parameters:
+    - name: agent_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Agent
+      description: Returns a paginated list of agent messages
+      operationId: consumer.agent.message.getAll
+      parameters:
+      - name: chat_id
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer_AgentMessageCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.agent
+      summary: Consumer agent message get all
+      x-summary-source: derived
+    post:
+      tags:
+      - Agent
+      description: Submits a new agent message
+      operationId: consumer.agent.message.submit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Agent_Input'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent_Output'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.agent
+      summary: Consumer agent message submit
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+components:
+  schemas:
+    Backend_AgentTool:
+      description: Represents a concrete tool
+      type: object
+      properties:
+        name:
+          description: Name of the tool
+          type: string
+        description:
+          description: Description of the tool
+          type: string
+    Backend_AgentUpdate:
+      $ref: '#/components/schemas/Backend_Agent'
+    Agent_Item:
+      oneOf:
+      - $ref: '#/components/schemas/Agent_ItemBinary'
+      - $ref: '#/components/schemas/Agent_ItemChoice'
+      - $ref: '#/components/schemas/Agent_ItemObject'
+      - $ref: '#/components/schemas/Agent_ItemText'
+      - $ref: '#/components/schemas/Agent_ItemToolCall'
+      discriminator: type
+      mapping:
+        binary: '#/components/schemas/Agent_ItemBinary'
+        choice: '#/components/schemas/Agent_ItemChoice'
+        object: '#/components/schemas/Agent_ItemObject'
+        text: '#/components/schemas/Agent_ItemText'
+        tool_call: '#/components/schemas/Agent_ItemToolCall'
+    Backend_Agent:
+      description: This object represents an agent
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        connection:
+          description: The agent connection which should be used
+          type: integer
+        type:
+          description: The agent type
+          type: integer
+        public:
+          description: Indicates whether the agent is public
+          type: boolean
+        name:
+          description: Name of the agent
+          type: string
+        description:
+          description: Description of the agent
+          type: string
+        introduction:
+          description: Introduction message
+          type: string
+        temperature:
+          description: The used temperature default is 1.0
+          type: number
+        costs:
+          description: Costs per token
+          type: integer
+        tools:
+          description: Tools available to this agent
+          type: array
+          items:
+            type: string
+        outgoing:
+          description: Describes the outgoing response payload, this must contain a schema name
+          type: string
+        action:
+          description: Action which gets invoked for each generated response
+          type: string
+        insertDate:
+          type: string
+          format: date-time
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+    Backend_AgentMessageCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_AgentMessage'
+    Backend_AgentCreate:
+      $ref: '#/components/schemas/Backend_Agent'
+    Agent_ItemToolCallFunction:
+      description: Concrete values for a function tool call
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        arguments:
+          type: string
+    Agent_Output:
+      description: This object represents an agent output
+      type: object
+      properties:
+        id:
+          description: Chat id of this conversation
+          type: string
+        item:
+          $ref: '#/components/schemas/Agent_Item'
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Agent_ItemChoice:
+      allOf:
+      - $ref: '#/components/schemas/Agent_Item'
+      - description: Choice agent message
+        type: object
+        properties:
+          items:
+            description: Contains multiple agent items
+            type: array
+            items:
+              $ref: '#/components/schemas/Agent_Item'
+    Agent_ItemToolCall:
+      allOf:
+      - $ref: '#/components/schemas/Agent_Item'
+      - description: Tool call agent message
+        type: object
+        properties:
+          functions:
+            description: An array of concrete functions
+            type: array
+            items:
+              $ref: '#/components/schemas/Agent_ItemToolCallFunction'
+    Backend_AgentTools:
+      description: Represents a collection of available tools
+      type: object
+      properties:
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_AgentTool'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Agent_ItemBinary:
+      allOf:
+      - $ref: '#/components/schemas/Agent_Item'
+      - description: Binary agent message
+        type: object
+        properties:
+          mime:
+            description: The mime of the binary data
+            type: string
+          data:
+            description: The base64 encoded binary data
+            type: string
+    Agent_ItemObject:
+      allOf:
+      - $ref: '#/components/schemas/Agent_Item'
+      - description: Structured agent message
+        type: object
+        properties:
+          payload: {}
+    Backend_AgentCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Agent'
+    Backend_AgentMessage:
+      description: This object represents an agent message
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        chatId:
+          description: The assigned chat id which can be used to load the complete conversation
+          type: string
+        role:
+          description: The role of this message i.e. user, assistant or system
+          type: string
+        item:
+          $ref: '#/components/schemas/Agent_Item'
+        insertDate:
+          type: string
+          format: date-time
+    Agent_Input:
+      description: This object represents an agent input
+      type: object
+      properties:
+        previousId:
+          description: Optional the chat id of this conversation
+          type: string
+        item:
+          $ref: '#/components/schemas/Agent_Item'
+    Agent_ItemText:
+      allOf:
+      - $ref: '#/components/schemas/Agent_Item'
+      - description: Text agent message
+        type: object
+        properties:
+          content:
+            description: The content text
+            type: string
+    Consumer_AgentMessageCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_AgentMessage'
+    Consumer_AgentCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Agent'
+    Consumer_Agent:
+      description: This object represents an agent
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        name:
+          description: Name of the agent
+          type: string
+        description:
+          description: Description of the agent
+          type: string
+    Consumer_AgentMessage:
+      description: This object represents an agent message
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        chatId:
+          description: The assigned chat id which can be used to load the complete conversation
+          type: string
+        role:
+          description: The role of this message i.e. user, assistant or system
+          type: string
+        item:
+          $ref: '#/components/schemas/Agent_Item'
+        insertDate:
+          type: string
+          format: date-time
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+x-refined-from:
+- fusio-backend.json
+- fusio-consumer.json

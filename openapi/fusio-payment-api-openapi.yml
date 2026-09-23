@@ -1,0 +1,171 @@
+openapi: 3.2.0
+info:
+  title: Fusio Payment API
+  description: Self-Hosted API Management for Builders.
+  version: '1'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: Payment
+paths:
+  /consumer/payment/{provider}/checkout:
+    parameters:
+    - name: provider
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      tags:
+      - Payment
+      description: Start the checkout process for a specific plan
+      operationId: consumer.payment.checkout
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumer_PaymentCheckoutRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer_PaymentCheckoutResponse'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.payment
+      summary: Consumer payment checkout
+      x-summary-source: derived
+  /consumer/payment/{provider}/portal:
+    parameters:
+    - name: provider
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      tags:
+      - Payment
+      description: Generates a payment portal link for the authenticated user
+      operationId: consumer.payment.portal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumer_PaymentPortalRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer_PaymentPortalResponse'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.payment
+      summary: Consumer payment portal
+      x-summary-source: derived
+components:
+  schemas:
+    Consumer_PaymentCheckoutRequest:
+      type: object
+      properties:
+        planId:
+          type: integer
+        returnUrl:
+          type: string
+    Consumer_PaymentPortalResponse:
+      type: object
+      properties:
+        redirectUrl:
+          type: string
+    Consumer_PaymentCheckoutResponse:
+      type: object
+      properties:
+        approvalUrl:
+          type: string
+    Consumer_PaymentPortalRequest:
+      type: object
+      properties:
+        returnUrl:
+          type: string
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            consumer: ''
+            consumer.account: ''
+            consumer.agent: ''
+            consumer.app: ''
+            consumer.event: ''
+            consumer.form: ''
+            consumer.grant: ''
+            consumer.identity: ''
+            consumer.log: ''
+            consumer.page: ''
+            consumer.payment: ''
+            consumer.plan: ''
+            consumer.scope: ''
+            consumer.token: ''
+            consumer.transaction: ''
+            consumer.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            consumer: ''
+            consumer.account: ''
+            consumer.agent: ''
+            consumer.app: ''
+            consumer.event: ''
+            consumer.form: ''
+            consumer.grant: ''
+            consumer.identity: ''
+            consumer.log: ''
+            consumer.page: ''
+            consumer.payment: ''
+            consumer.plan: ''
+            consumer.scope: ''
+            consumer.token: ''
+            consumer.transaction: ''
+            consumer.webhook: ''

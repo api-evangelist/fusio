@@ -1,0 +1,595 @@
+openapi: 3.2.0
+info:
+  title: Fusio Webhook API
+  version: '1'
+  description: 'Operations tagged webhook across 2 of this provider''s published API definitions: fusio-backend.json, fusio-consumer.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: Webhook
+paths:
+  /backend/webhook:
+    get:
+      tags:
+      - Webhook
+      description: Returns a paginated list of webhooks
+      operationId: backend.webhook.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_WebhookCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.webhook
+      summary: Backend webhook get all
+      x-summary-source: derived
+    post:
+      tags:
+      - Webhook
+      description: Creates a new webhook
+      operationId: backend.webhook.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_WebhookCreate'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.webhook
+      summary: Backend webhook create
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /backend/webhook/{webhook_id}:
+    parameters:
+    - name: webhook_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Webhook
+      description: Returns a specific webhook
+      operationId: backend.webhook.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_Webhook'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.webhook
+      summary: Backend webhook get
+      x-summary-source: derived
+    put:
+      tags:
+      - Webhook
+      description: Updates an existing webhook
+      operationId: backend.webhook.update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_WebhookUpdate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.webhook
+      summary: Backend webhook update
+      x-summary-source: derived
+    delete:
+      tags:
+      - Webhook
+      description: Deletes an existing webhook
+      operationId: backend.webhook.delete
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.webhook
+      summary: Backend webhook delete
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /consumer/webhook:
+    get:
+      tags:
+      - Webhook
+      description: Returns a paginated list of webhooks which are assigned to the authenticated user
+      operationId: consumer.webhook.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer_WebhookCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.webhook
+      summary: Consumer webhook get all
+      x-summary-source: derived
+    post:
+      tags:
+      - Webhook
+      description: Creates a new webhook for the authenticated user
+      operationId: consumer.webhook.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumer_WebhookCreate'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.webhook
+      summary: Consumer webhook create
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /consumer/webhook/{webhook_id}:
+    parameters:
+    - name: webhook_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Webhook
+      description: Returns a specific webhook for the authenticated user
+      operationId: consumer.webhook.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer_Webhook'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.webhook
+      summary: Consumer webhook get
+      x-summary-source: derived
+    put:
+      tags:
+      - Webhook
+      description: Updates an existing webhook for the authenticated user
+      operationId: consumer.webhook.update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumer_WebhookUpdate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.webhook
+      summary: Consumer webhook update
+      x-summary-source: derived
+    delete:
+      tags:
+      - Webhook
+      description: Deletes an existing webhook for the authenticated user
+      operationId: consumer.webhook.delete
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.webhook
+      summary: Consumer webhook delete
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+components:
+  schemas:
+    Backend_WebhookResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: integer
+        code:
+          type: integer
+        attempts:
+          type: integer
+        error:
+          type: string
+        executeDate:
+          type: string
+          format: date-time
+    Backend_WebhookUpdate:
+      $ref: '#/components/schemas/Backend_Webhook'
+    Backend_WebhookCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Webhook'
+    Backend_Webhook:
+      description: This object represents a webhook, a webhook is called in case a specific event was triggered
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        eventId:
+          type: integer
+        userId:
+          type: integer
+        name:
+          type: string
+        endpoint:
+          type: string
+        responses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_WebhookResponse'
+    Backend_WebhookCreate:
+      $ref: '#/components/schemas/Backend_Webhook'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Consumer_WebhookCreate:
+      type: object
+      properties:
+        event:
+          type: string
+        name:
+          type: string
+        endpoint:
+          type: string
+    Consumer_Webhook:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: integer
+        event:
+          type: string
+        name:
+          type: string
+        endpoint:
+          type: string
+        responses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_WebhookResponse'
+    Consumer_WebhookCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Webhook'
+    Consumer_WebhookUpdate:
+      type: object
+      properties:
+        event:
+          type: string
+        name:
+          type: string
+        endpoint:
+          type: string
+    Consumer_WebhookResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        code:
+          type: integer
+        attempts:
+          type: string
+        executeDate:
+          type: string
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+x-refined-from:
+- fusio-backend.json
+- fusio-consumer.json

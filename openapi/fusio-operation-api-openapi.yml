@@ -1,0 +1,395 @@
+openapi: 3.2.0
+info:
+  title: Fusio Operation API
+  description: Self-Hosted API Management for Builders.
+  version: '1'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: Operation
+paths:
+  /backend/operation:
+    get:
+      tags:
+      - Operation
+      description: Returns a paginated list of operations
+      operationId: backend.operation.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: taxonomy
+        in: query
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_OperationCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.operation
+      summary: Backend operation get all
+      x-summary-source: derived
+    post:
+      tags:
+      - Operation
+      description: Creates a new operation
+      operationId: backend.operation.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_OperationCreate'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.operation
+      summary: Backend operation create
+      x-summary-source: derived
+  /backend/operation/{operation_id}:
+    parameters:
+    - name: operation_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Operation
+      description: Returns a specific operation
+      operationId: backend.operation.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_Operation'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.operation
+      summary: Backend operation get
+      x-summary-source: derived
+    put:
+      tags:
+      - Operation
+      description: Updates an existing operation
+      operationId: backend.operation.update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_OperationUpdate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.operation
+      summary: Backend operation update
+      x-summary-source: derived
+    delete:
+      tags:
+      - Operation
+      description: Deletes an existing operation
+      operationId: backend.operation.delete
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.operation
+      summary: Backend operation delete
+      x-summary-source: derived
+components:
+  schemas:
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Backend_OperationCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Operation'
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_OperationThrows:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_OperationParameters:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Backend_OperationSchema'
+    Backend_OperationSchema:
+      type: object
+      properties:
+        description:
+          type: string
+        type:
+          type: string
+        format:
+          type: string
+        enum:
+          type: string
+    Backend_OperationUpdate:
+      $ref: '#/components/schemas/Backend_Operation'
+    Backend_OperationCreate:
+      $ref: '#/components/schemas/Backend_Operation'
+    Backend_Operation:
+      description: This object represents an operation, an operation invokes an action in case a specific HTTP method and path was requested. It defines also schema information about the request and response payload
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        status:
+          description: Status of the object either 1 = active or 0 = deleted
+          type: integer
+        active:
+          description: Indicates whether the operation is active
+          type: boolean
+        public:
+          description: Indicates whether the operation is public, if false a user must provide an Authorization header with an Bearer access token
+          type: boolean
+        stability:
+          description: Describes the stability of this operation 0 = deprecated, 1 = experimental, 2 = stable and 3 = legacy
+          type: integer
+        description:
+          description: A short description of this operation, it should explain the operation in a simple and precise way
+          type: string
+        httpMethod:
+          description: The target HTTP method i.e. GET or POST
+          type: string
+        httpPath:
+          description: The target HTTP path i.e. /foo or /product/:product_id
+          type: string
+        httpCode:
+          description: The success HTTP code i.e. 200 or 201
+          type: integer
+        name:
+          description: Unique name of the object. It is recommended to group your operations into logical units by using a dot i.e. product.getAll and product.insert which has also an effect on the automatically generated SDK
+          type: string
+        parameters:
+          $ref: '#/components/schemas/Backend_OperationParameters'
+        incoming:
+          description: Describes the incoming request payload, this must contain a schema name
+          type: string
+        outgoing:
+          description: Describes the outgoing response payload, this must contain a schema name
+          type: string
+        throws:
+          $ref: '#/components/schemas/Backend_OperationThrows'
+        action:
+          description: The target action to invoke, this must contain an action name
+          type: string
+        costs:
+          description: Costs to invoke this operation. A user can only invoke this operation in case he has enough points
+          type: integer
+        scopes:
+          description: Scopes which are required to invoke this operation
+          type: array
+          items:
+            type: string
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''

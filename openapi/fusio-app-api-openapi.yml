@@ -1,0 +1,675 @@
+openapi: 3.2.0
+info:
+  title: Fusio App API
+  version: '1'
+  description: 'Operations tagged app across 2 of this provider''s published API definitions: fusio-backend.json, fusio-consumer.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: App
+paths:
+  /backend/app:
+    get:
+      tags:
+      - App
+      description: Returns a paginated list of apps
+      operationId: backend.app.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_AppCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.app
+      summary: Backend app get all
+      x-summary-source: derived
+    post:
+      tags:
+      - App
+      description: Creates a new app
+      operationId: backend.app.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_AppCreate'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.app
+      summary: Backend app create
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /backend/app/{app_id}:
+    parameters:
+    - name: app_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - App
+      description: Returns a specific app
+      operationId: backend.app.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_App'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.app
+      summary: Backend app get
+      x-summary-source: derived
+    put:
+      tags:
+      - App
+      description: Updates an existing app
+      operationId: backend.app.update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_AppUpdate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.app
+      summary: Backend app update
+      x-summary-source: derived
+    delete:
+      tags:
+      - App
+      description: Deletes an existing app
+      operationId: backend.app.delete
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.app
+      summary: Backend app delete
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /backend/app/{app_id}/token/{token_id}:
+    parameters:
+    - name: app_id
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: token_id
+      in: path
+      required: true
+      schema:
+        type: string
+    delete:
+      tags:
+      - App
+      description: Deletes an existing token from an app
+      operationId: backend.app.deleteToken
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.app
+      summary: Backend app delete token
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /consumer/app:
+    get:
+      tags:
+      - App
+      description: Returns a paginated list of apps which are assigned to the authenticated user
+      operationId: consumer.app.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer_AppCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.app
+      summary: Consumer app get all
+      x-summary-source: derived
+    post:
+      tags:
+      - App
+      description: Creates a new app for the authenticated user
+      operationId: consumer.app.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumer_AppCreate'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.app
+      summary: Consumer app create
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /consumer/app/{app_id}:
+    parameters:
+    - name: app_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - App
+      description: Returns a specific app for the authenticated user
+      operationId: consumer.app.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer_App'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.app
+      summary: Consumer app get
+      x-summary-source: derived
+    put:
+      tags:
+      - App
+      description: Updates an existing app for the authenticated user
+      operationId: consumer.app.update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumer_AppUpdate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.app
+      summary: Consumer app update
+      x-summary-source: derived
+    delete:
+      tags:
+      - App
+      description: Deletes an existing app for the authenticated user
+      operationId: consumer.app.delete
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.app
+      summary: Consumer app delete
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+components:
+  schemas:
+    Backend_App:
+      description: This object represents an app to access the API on-behalf of a user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        userId:
+          type: integer
+        status:
+          description: Status of the object either 1 = active, 2 = pending, 3 = deactivated or 4 = deleted
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        url:
+          description: Url where the app is hosted
+          type: string
+        parameters:
+          description: Optional URL-encoded parameters of the app i.e. foo=bar&bar=foo
+          type: string
+        appKey:
+          description: The app key also known as client id which is generated on creation
+          type: string
+        appSecret:
+          description: The app secret also known as client secret which is generated on creation
+          type: string
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+        date:
+          description: The create date of this object
+          type: string
+          format: date-time
+        scopes:
+          description: A list of assigned scopes for this app
+          type: array
+          items:
+            type: string
+        tokens:
+          description: A list of tokens which are assigned to this app
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Token'
+    Backend_AppCreate:
+      $ref: '#/components/schemas/Backend_App'
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_AppCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_App'
+    Backend_AppUpdate:
+      $ref: '#/components/schemas/Backend_App'
+    Backend_Token:
+      description: This object represents a token, this an access token which was requested by a user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        status:
+          description: Status of the object either 1 = active or 2 = deleted
+          type: integer
+        name:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        ip:
+          type: string
+        expire:
+          type: string
+          format: date-time
+        date:
+          type: string
+          format: date-time
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Consumer_AppUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+    Consumer_App:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        status:
+          type: integer
+        name:
+          type: string
+        url:
+          type: string
+        appKey:
+          type: string
+        appSecret:
+          type: string
+        date:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+    Consumer_AppCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_App'
+    Consumer_AppCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+x-refined-from:
+- fusio-backend.json
+- fusio-consumer.json

@@ -1,0 +1,358 @@
+openapi: 3.2.0
+info:
+  title: Fusio Rate API
+  description: Self-Hosted API Management for Builders.
+  version: '1'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: Rate
+paths:
+  /backend/rate:
+    get:
+      tags:
+      - Rate
+      description: Returns a paginated list of rate limitations
+      operationId: backend.rate.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_RateCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.rate
+      summary: Backend rate get all
+      x-summary-source: derived
+    post:
+      tags:
+      - Rate
+      description: Creates a new rate limitation
+      operationId: backend.rate.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_RateCreate'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.rate
+      summary: Backend rate create
+      x-summary-source: derived
+  /backend/rate/{rate_id}:
+    parameters:
+    - name: rate_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Rate
+      description: Returns a specific rate
+      operationId: backend.rate.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_Rate'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.rate
+      summary: Backend rate get
+      x-summary-source: derived
+    put:
+      tags:
+      - Rate
+      description: Updates an existing rate
+      operationId: backend.rate.update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_RateUpdate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.rate
+      summary: Backend rate update
+      x-summary-source: derived
+    delete:
+      tags:
+      - Rate
+      description: Deletes an existing rate
+      operationId: backend.rate.delete
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.rate
+      summary: Backend rate delete
+      x-summary-source: derived
+components:
+  schemas:
+    Backend_RateCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Rate'
+    Backend_RateCreate:
+      $ref: '#/components/schemas/Backend_Rate'
+    Backend_RateUpdate:
+      $ref: '#/components/schemas/Backend_Rate'
+    Backend_RateAllocation:
+      description: This object represents a rate allocation, in case a request matches it gets assigned to the attached rate
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        operationId:
+          type: integer
+        userId:
+          type: integer
+        planId:
+          type: integer
+        appId:
+          type: integer
+        authenticated:
+          description: Whether the request is authenticated
+          type: boolean
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_Rate:
+      description: This object represents a rate limitation, which allows to limit the requests which a user can send
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        priority:
+          description: All rates are applied based on the priority, higher priorities are applied first
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        rateLimit:
+          description: Maximum number of allowed requests
+          type: integer
+        timespan:
+          description: Timespan for the allowed requests
+          type: string
+        allocation:
+          description: Through a rate allocation a user gets assigned to a specific rate
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_RateAllocation'
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''

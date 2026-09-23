@@ -1,0 +1,741 @@
+openapi: 3.2.0
+info:
+  title: Fusio Marketplace API
+  description: Self-Hosted API Management for Builders.
+  version: '1'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: Marketplace
+paths:
+  /backend/marketplace/action/{user}/{name}:
+    parameters:
+    - name: user
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: name
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Marketplace
+      description: Returns a specific marketplace action
+      operationId: backend.marketplace.action.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceAction'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.marketplace
+      summary: Backend marketplace action get
+      x-summary-source: derived
+    put:
+      tags:
+      - Marketplace
+      description: Upgrades an action from the marketplace
+      operationId: backend.marketplace.action.upgrade
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.marketplace
+      summary: Backend marketplace action upgrade
+      x-summary-source: derived
+  /backend/marketplace/action:
+    get:
+      tags:
+      - Marketplace
+      description: Returns a paginated list of marketplace actions
+      operationId: backend.marketplace.action.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: query
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceActionCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.marketplace
+      summary: Backend marketplace action get all
+      x-summary-source: derived
+    post:
+      tags:
+      - Marketplace
+      description: Installs an action from the marketplace
+      operationId: backend.marketplace.action.install
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarketplaceInstall'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceMessage'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.marketplace
+      summary: Backend marketplace action install
+      x-summary-source: derived
+  /backend/marketplace/app/{user}/{name}:
+    parameters:
+    - name: user
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: name
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Marketplace
+      description: Returns a specific marketplace app
+      operationId: backend.marketplace.app.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceApp'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.marketplace
+      summary: Backend marketplace app get
+      x-summary-source: derived
+    put:
+      tags:
+      - Marketplace
+      description: Upgrades an app from the marketplace
+      operationId: backend.marketplace.app.upgrade
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceMessage'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.marketplace
+      summary: Backend marketplace app upgrade
+      x-summary-source: derived
+  /backend/marketplace/app:
+    get:
+      tags:
+      - Marketplace
+      description: Returns a paginated list of marketplace apps
+      operationId: backend.marketplace.app.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: query
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceAppCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.marketplace
+      summary: Backend marketplace app get all
+      x-summary-source: derived
+    post:
+      tags:
+      - Marketplace
+      description: Installs an app from the marketplace
+      operationId: backend.marketplace.app.install
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarketplaceInstall'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceMessage'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.marketplace
+      summary: Backend marketplace app install
+      x-summary-source: derived
+  /backend/marketplace/bundle/{user}/{name}:
+    parameters:
+    - name: user
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: name
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Marketplace
+      description: Returns a specific marketplace bundle
+      operationId: backend.marketplace.bundle.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceBundle'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.marketplace
+      summary: Backend marketplace bundle get
+      x-summary-source: derived
+    put:
+      tags:
+      - Marketplace
+      description: Upgrades an bundle from the marketplace
+      operationId: backend.marketplace.bundle.upgrade
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceMessage'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.marketplace
+      summary: Backend marketplace bundle upgrade
+      x-summary-source: derived
+  /backend/marketplace/bundle:
+    get:
+      tags:
+      - Marketplace
+      description: Returns a paginated list of marketplace bundles
+      operationId: backend.marketplace.bundle.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: query
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceBundleCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.marketplace
+      summary: Backend marketplace bundle get all
+      x-summary-source: derived
+    post:
+      tags:
+      - Marketplace
+      description: Installs an bundle from the marketplace
+      operationId: backend.marketplace.bundle.install
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarketplaceInstall'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceMessage'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.marketplace
+      summary: Backend marketplace bundle install
+      x-summary-source: derived
+components:
+  schemas:
+    MarketplaceBundleTrigger:
+      type: object
+      properties:
+        name:
+          type: string
+        event:
+          type: string
+        action:
+          type: string
+    MarketplaceBundleSchemaSource:
+      type: object
+      additionalProperties: {}
+    MarketplaceBundle:
+      allOf:
+      - $ref: '#/components/schemas/MarketplaceObject'
+      - type: object
+        properties:
+          config:
+            $ref: '#/components/schemas/MarketplaceBundleConfig'
+    MarketplaceAppCollection:
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceApp'
+    MarketplaceBundleConfig:
+      type: object
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceBundleAction'
+        schemas:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceBundleSchema'
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceBundleEvent'
+        cronjobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceBundleCronjob'
+        triggers:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceBundleTrigger'
+    MarketplaceActionCollection:
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceAction'
+    MarketplaceApp:
+      allOf:
+      - $ref: '#/components/schemas/MarketplaceObject'
+      - type: object
+        properties:
+          scopes:
+            type: array
+            items:
+              type: string
+          downloadUrl:
+            type: string
+          hash:
+            type: string
+    MarketplaceMessage:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    MarketplaceObject:
+      description: Base class of all objects on the marketplace
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        author:
+          $ref: '#/components/schemas/MarketplaceUser'
+        version:
+          type: string
+        icon:
+          type: string
+        summary:
+          type: string
+        description:
+          type: string
+        cost:
+          type: integer
+        updateDate:
+          type: string
+          format: date-time
+        insertDate:
+          type: string
+          format: date-time
+    MarketplaceBundleEvent:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        schema:
+          type: string
+    MarketplaceBundleCollection:
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceBundle'
+    MarketplaceAction:
+      allOf:
+      - $ref: '#/components/schemas/MarketplaceObject'
+      - type: object
+        properties:
+          class:
+            type: string
+          config:
+            $ref: '#/components/schemas/MarketplaceActionConfig'
+    MarketplaceBundleSchema:
+      type: object
+      properties:
+        name:
+          type: string
+        source:
+          $ref: '#/components/schemas/MarketplaceBundleSchemaSource'
+    MarketplaceActionConfig:
+      type: object
+      additionalProperties: {}
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    MarketplaceUser:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        verified:
+          type: boolean
+    MarketplaceBundleCronjob:
+      type: object
+      properties:
+        name:
+          type: string
+        cron:
+          type: string
+        action:
+          type: string
+    MarketplaceBundleAction:
+      type: object
+      properties:
+        name:
+          type: string
+        class:
+          type: string
+        config:
+          $ref: '#/components/schemas/MarketplaceBundleActionConfig'
+    MarketplaceBundleActionConfig:
+      type: object
+      additionalProperties: {}
+    MarketplaceInstall:
+      description: Installs an object from the marketplace
+      type: object
+      properties:
+        name:
+          type: string
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''

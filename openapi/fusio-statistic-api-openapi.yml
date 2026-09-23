@@ -1,0 +1,1822 @@
+openapi: 3.2.0
+info:
+  title: Fusio Statistic API
+  description: Self-Hosted API Management for Builders.
+  version: '1'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: Statistic
+paths:
+  /backend/statistic/activities_per_user:
+    get:
+      tags:
+      - Statistic
+      description: Returns a statistic containing the activities per user
+      operationId: backend.statistic.getActivitiesPerUser
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: appId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: ip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userAgent
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: method
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: path
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: header
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: body
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_StatisticChart'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.statistic
+      summary: Backend statistic get activities per user
+      x-summary-source: derived
+  /backend/statistic/count_requests:
+    get:
+      tags:
+      - Statistic
+      description: Returns a statistic containing the request count
+      operationId: backend.statistic.getCountRequests
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: appId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: ip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userAgent
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: method
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: path
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: header
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: body
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_StatisticCount'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.statistic
+      summary: Backend statistic get count requests
+      x-summary-source: derived
+  /backend/statistic/errors_per_operation:
+    get:
+      tags:
+      - Statistic
+      description: Returns a statistic containing the errors per operation
+      operationId: backend.statistic.getErrorsPerOperation
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: appId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: ip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userAgent
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: method
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: path
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: header
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: body
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_StatisticChart'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.statistic
+      summary: Backend statistic get errors per operation
+      x-summary-source: derived
+  /backend/statistic/incoming_requests:
+    get:
+      tags:
+      - Statistic
+      description: Returns a statistic containing the incoming requests
+      operationId: backend.statistic.getIncomingRequests
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: appId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: ip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userAgent
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: method
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: path
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: header
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: body
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_StatisticChart'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.statistic
+      summary: Backend statistic get incoming requests
+      x-summary-source: derived
+  /backend/statistic/incoming_transactions:
+    get:
+      tags:
+      - Statistic
+      description: Returns a statistic containing the incoming transactions
+      operationId: backend.statistic.getIncomingTransactions
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: appId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: ip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userAgent
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: method
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: path
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: header
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: body
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_StatisticChart'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.statistic
+      summary: Backend statistic get incoming transactions
+      x-summary-source: derived
+  /backend/statistic/issued_tokens:
+    get:
+      tags:
+      - Statistic
+      description: Returns a statistic containing the issues tokens
+      operationId: backend.statistic.getIssuedTokens
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: appId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: ip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userAgent
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: method
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: path
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: header
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: body
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_StatisticChart'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.statistic
+      summary: Backend statistic get issued tokens
+      x-summary-source: derived
+  /backend/statistic/most_used_activities:
+    get:
+      tags:
+      - Statistic
+      description: Returns a statistic containing the most used activities
+      operationId: backend.statistic.getMostUsedActivities
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: appId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: ip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userAgent
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: method
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: path
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: header
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: body
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_StatisticChart'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.statistic
+      summary: Backend statistic get most used activities
+      x-summary-source: derived
+  /backend/statistic/most_used_apps:
+    get:
+      tags:
+      - Statistic
+      description: Returns a statistic containing the most used apps
+      operationId: backend.statistic.getMostUsedApps
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: appId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: ip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userAgent
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: method
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: path
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: header
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: body
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_StatisticChart'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.statistic
+      summary: Backend statistic get most used apps
+      x-summary-source: derived
+  /backend/statistic/most_used_operations:
+    get:
+      tags:
+      - Statistic
+      description: Returns a statistic containing the most used operations
+      operationId: backend.statistic.getMostUsedOperations
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: appId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: ip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userAgent
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: method
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: path
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: header
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: body
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_StatisticChart'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.statistic
+      summary: Backend statistic get most used operations
+      x-summary-source: derived
+  /backend/statistic/requests_per_ip:
+    get:
+      tags:
+      - Statistic
+      description: Returns a statistic containing the requests per ip
+      operationId: backend.statistic.getRequestsPerIP
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: appId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: ip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userAgent
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: method
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: path
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: header
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: body
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_StatisticChart'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.statistic
+      summary: Backend statistic get requests per IP
+      x-summary-source: derived
+  /backend/statistic/requests_per_operation:
+    get:
+      tags:
+      - Statistic
+      description: Returns a statistic containing the requests per operation
+      operationId: backend.statistic.getRequestsPerOperation
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: appId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: ip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userAgent
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: method
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: path
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: header
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: body
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_StatisticChart'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.statistic
+      summary: Backend statistic get requests per operation
+      x-summary-source: derived
+  /backend/statistic/requests_per_user:
+    get:
+      tags:
+      - Statistic
+      description: Returns a statistic containing the requests per user
+      operationId: backend.statistic.getRequestsPerUser
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: appId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: ip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userAgent
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: method
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: path
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: header
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: body
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_StatisticChart'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.statistic
+      summary: Backend statistic get requests per user
+      x-summary-source: derived
+  /backend/statistic/test_coverage:
+    get:
+      tags:
+      - Statistic
+      description: Returns a statistic containing the test coverage
+      operationId: backend.statistic.getTestCoverage
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_StatisticChart'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.statistic
+      summary: Backend statistic get test coverage
+      x-summary-source: derived
+  /backend/statistic/time_average:
+    get:
+      tags:
+      - Statistic
+      description: Returns a statistic containing the time average
+      operationId: backend.statistic.getTimeAverage
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: appId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: ip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userAgent
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: method
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: path
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: header
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: body
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_StatisticChart'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.statistic
+      summary: Backend statistic get time average
+      x-summary-source: derived
+  /backend/statistic/time_per_operation:
+    get:
+      tags:
+      - Statistic
+      description: Returns a statistic containing the time per operation
+      operationId: backend.statistic.getTimePerOperation
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: appId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: ip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userAgent
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: method
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: path
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: header
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: body
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_StatisticChart'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.statistic
+      summary: Backend statistic get time per operation
+      x-summary-source: derived
+  /backend/statistic/used_points:
+    get:
+      tags:
+      - Statistic
+      description: Returns a statistic containing the used points
+      operationId: backend.statistic.getUsedPoints
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: appId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: ip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userAgent
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: method
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: path
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: header
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: body
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_StatisticChart'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.statistic
+      summary: Backend statistic get used points
+      x-summary-source: derived
+  /backend/statistic/user_registrations:
+    get:
+      tags:
+      - Statistic
+      description: Returns a statistic containing the user registrations
+      operationId: backend.statistic.getUserRegistrations
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: operationId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: appId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: userId
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: ip
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userAgent
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: method
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: path
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: header
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: body
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_StatisticChart'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.statistic
+      summary: Backend statistic get user registrations
+      x-summary-source: derived
+components:
+  schemas:
+    Backend_StatisticChart:
+      type: object
+      properties:
+        labels:
+          type: array
+          items:
+            type: string
+        series:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_StatisticChartSeries'
+    Backend_StatisticCount:
+      type: object
+      properties:
+        count:
+          type: integer
+        from:
+          type: string
+          format: date-time
+        to:
+          type: string
+          format: date-time
+    Backend_StatisticChartSeries:
+      type: object
+      properties:
+        name:
+          type: string
+        data:
+          type: array
+          items:
+            type: number
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''

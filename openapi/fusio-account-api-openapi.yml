@@ -1,0 +1,864 @@
+openapi: 3.2.0
+info:
+  title: Fusio Account API
+  version: '1'
+  description: 'Operations tagged account across 2 of this provider''s published API definitions: fusio-backend.json, fusio-consumer.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: Account
+paths:
+  /backend/account/change_password:
+    put:
+      tags:
+      - Account
+      description: Changes the password of the authenticated user
+      operationId: backend.account.changePassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_AccountChangePassword'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.account
+      summary: Backend account change password
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /backend/account:
+    get:
+      tags:
+      - Account
+      description: Returns user data of the authenticated user
+      operationId: backend.account.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_User'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.account
+      summary: Backend account get
+      x-summary-source: derived
+    put:
+      tags:
+      - Account
+      description: Updates user data of the authenticated user
+      operationId: backend.account.update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_UserUpdate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.account
+      summary: Backend account update
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /consumer/activate:
+    post:
+      tags:
+      - Account
+      description: Activates an previously registered account through a token which was provided to the user via email
+      operationId: consumer.account.activate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumer_UserActivate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      summary: Consumer account activate
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /consumer/authorize:
+    get:
+      tags:
+      - Account
+      description: Returns information about a specific app to start the OAuth2 authorization code flow
+      operationId: consumer.account.getApp
+      parameters:
+      - name: client_id
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: scope
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer_AuthorizeMeta'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      summary: Consumer account get app
+      x-summary-source: derived
+    post:
+      tags:
+      - Account
+      description: Authorizes the access of a specific app for the authenticated user
+      operationId: consumer.account.authorize
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumer_AuthorizeRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer_AuthorizeResponse'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      summary: Consumer account authorize
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /consumer/account/change_password:
+    put:
+      tags:
+      - Account
+      description: Change the password for the authenticated user
+      operationId: consumer.account.changePassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_AccountChangePassword'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.account
+      summary: Consumer account change password
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /consumer/password_reset:
+    put:
+      tags:
+      - Account
+      description: Change the password after the password reset flow was started
+      operationId: consumer.account.executePasswordReset
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumer_UserPasswordReset'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      summary: Consumer account execute password reset
+      x-summary-source: derived
+    post:
+      tags:
+      - Account
+      description: Start the password reset flow
+      operationId: consumer.account.requestPasswordReset
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumer_UserEmail'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      summary: Consumer account request password reset
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /consumer/account:
+    get:
+      tags:
+      - Account
+      description: Returns a user data for the authenticated user
+      operationId: consumer.account.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer_UserAccount'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.account
+      summary: Consumer account get
+      x-summary-source: derived
+    put:
+      tags:
+      - Account
+      description: Updates user data for the authenticated user
+      operationId: consumer.account.update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumer_UserAccount'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - consumer.account
+      summary: Consumer account update
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /consumer/login:
+    put:
+      tags:
+      - Account
+      description: Refresh a previously obtained access token
+      operationId: consumer.account.refresh
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumer_UserRefresh'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer_UserJWT'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      summary: Consumer account refresh
+      x-summary-source: derived
+    post:
+      tags:
+      - Account
+      description: User login by providing a username and password
+      operationId: consumer.account.login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumer_UserLogin'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer_UserJWT'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      summary: Consumer account login
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+  /consumer/register:
+    post:
+      tags:
+      - Account
+      description: Register a new user account
+      operationId: consumer.account.register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumer_UserRegister'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      summary: Consumer account register
+      x-summary-source: derived
+    servers:
+    - url: https://demo.fusio-project.org
+components:
+  schemas:
+    Backend_App:
+      description: This object represents an app to access the API on-behalf of a user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        userId:
+          type: integer
+        status:
+          description: Status of the object either 1 = active, 2 = pending, 3 = deactivated or 4 = deleted
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        url:
+          description: Url where the app is hosted
+          type: string
+        parameters:
+          description: Optional URL-encoded parameters of the app i.e. foo=bar&bar=foo
+          type: string
+        appKey:
+          description: The app key also known as client id which is generated on creation
+          type: string
+        appSecret:
+          description: The app secret also known as client secret which is generated on creation
+          type: string
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+        date:
+          description: The create date of this object
+          type: string
+          format: date-time
+        scopes:
+          description: A list of assigned scopes for this app
+          type: array
+          items:
+            type: string
+        tokens:
+          description: A list of tokens which are assigned to this app
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Token'
+    Backend_AccountChangePassword:
+      type: object
+      properties:
+        oldPassword:
+          description: The old password
+          type: string
+        newPassword:
+          description: The new password
+          type: string
+        verifyPassword:
+          description: To verify the new password must contain the same value as the new password
+          type: string
+    Backend_User:
+      description: This object represents a user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        roleId:
+          description: A role which is assigned to the user
+          type: integer
+        planId:
+          description: A plan which is assigned to the user
+          type: integer
+        status:
+          description: Status of the object either 1 = active, 2 = disabled or 0 = deleted
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        email:
+          description: The email address of the user
+          type: string
+        points:
+          description: Points assigned to the user
+          type: integer
+        scopes:
+          description: List of scopes which are assigned to the user
+          type: array
+          items:
+            type: string
+        apps:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_App'
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+        date:
+          description: The insert date
+          type: string
+          format: date-time
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_UserUpdate:
+      $ref: '#/components/schemas/Backend_User'
+    Backend_Token:
+      description: This object represents a token, this an access token which was requested by a user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        status:
+          description: Status of the object either 1 = active or 2 = deleted
+          type: integer
+        name:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        ip:
+          type: string
+        expire:
+          type: string
+          format: date-time
+        date:
+          type: string
+          format: date-time
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Consumer_UserPasswordReset:
+      type: object
+      properties:
+        token:
+          type: string
+        newPassword:
+          type: string
+    Consumer_UserActivate:
+      type: object
+      properties:
+        token:
+          type: string
+    Consumer_UserRefresh:
+      type: object
+      properties:
+        refresh_token:
+          type: string
+    Consumer_UserRegister:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        captcha:
+          type: string
+    Consumer_AuthorizeMeta:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        scopes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Scope'
+    Consumer_Scope:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+    Consumer_UserEmail:
+      type: object
+      properties:
+        email:
+          type: string
+        captcha:
+          type: string
+    Consumer_AuthorizeResponse:
+      type: object
+      properties:
+        type:
+          type: string
+        code:
+          type: string
+        error:
+          type: string
+        state:
+          type: string
+        redirectUri:
+          type: string
+    Consumer_UserAccount:
+      type: object
+      properties:
+        id:
+          type: integer
+        planId:
+          type: integer
+        status:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        points:
+          type: integer
+        scopes:
+          type: array
+          items:
+            type: string
+        plans:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_UserPlan'
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+        date:
+          type: string
+          format: date-time
+    Consumer_UserJWT:
+      type: object
+      properties:
+        token:
+          type: string
+        expires_in:
+          type: integer
+        refresh_token:
+          type: string
+        scope:
+          type: string
+    Consumer_UserLogin:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+    Consumer_UserPlan:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        price:
+          type: integer
+        points:
+          type: integer
+        period:
+          type: integer
+    Consumer_AuthorizeRequest:
+      type: object
+      properties:
+        responseType:
+          type: string
+        clientId:
+          type: string
+        redirectUri:
+          type: string
+        scope:
+          type: string
+        state:
+          type: string
+        allow:
+          type: boolean
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+x-refined-from:
+- fusio-backend.json
+- fusio-consumer.json

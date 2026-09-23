@@ -1,0 +1,1562 @@
+openapi: 3.2.0
+info:
+  title: Fusio Connection API
+  description: Self-Hosted API Management for Builders.
+  version: '1'
+servers:
+- url: https://demo.fusio-project.org
+tags:
+- name: Connection
+paths:
+  /backend/connection/{connection_id}/agent:
+    parameters:
+    - name: connection_id
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      tags:
+      - Connection
+      description: Sends a message to an agent
+      operationId: backend.connection.agent.send
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Agent_Input'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent_Output'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection agent send
+      x-summary-source: derived
+  /backend/connection:
+    get:
+      tags:
+      - Connection
+      description: Returns a paginated list of connections
+      operationId: backend.connection.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: class
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_ConnectionCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection get all
+      x-summary-source: derived
+    post:
+      tags:
+      - Connection
+      description: Creates a new connection
+      operationId: backend.connection.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_ConnectionCreate'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection create
+      x-summary-source: derived
+  /backend/connection/{connection_id}/database/{table_name}/rows:
+    parameters:
+    - name: connection_id
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: table_name
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Connection
+      description: Returns paginated rows at a table on a database
+      operationId: backend.connection.database.getRows
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: filterBy
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filterOp
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filterValue
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: sortBy
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: sortOrder
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: columns
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_DatabaseRowCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection database get rows
+      x-summary-source: derived
+    post:
+      tags:
+      - Connection
+      description: Creates a new row at a table on a database
+      operationId: backend.connection.database.createRow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_DatabaseRow'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection database create row
+      x-summary-source: derived
+  /backend/connection/{connection_id}/database:
+    parameters:
+    - name: connection_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Connection
+      description: Returns all available tables on a database
+      operationId: backend.connection.database.getTables
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_DatabaseTableCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection database get tables
+      x-summary-source: derived
+    post:
+      tags:
+      - Connection
+      description: Creates a new table on a database
+      operationId: backend.connection.database.createTable
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_DatabaseTable'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection database create table
+      x-summary-source: derived
+  /backend/connection/{connection_id}/database/{table_name}/rows/{id}:
+    parameters:
+    - name: connection_id
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: table_name
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Connection
+      description: Returns a specific row at a table on a database
+      operationId: backend.connection.database.getRow
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_DatabaseRow'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection database get row
+      x-summary-source: derived
+    put:
+      tags:
+      - Connection
+      description: Updates an existing row at a table on a database
+      operationId: backend.connection.database.updateRow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_DatabaseRow'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection database update row
+      x-summary-source: derived
+    delete:
+      tags:
+      - Connection
+      description: Deletes an existing row at a table on a database
+      operationId: backend.connection.database.deleteRow
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection database delete row
+      x-summary-source: derived
+  /backend/connection/{connection_id}/database/{table_name}:
+    parameters:
+    - name: connection_id
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: table_name
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Connection
+      description: Returns the schema of a specific table on a database
+      operationId: backend.connection.database.getTable
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_DatabaseTable'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection database get table
+      x-summary-source: derived
+    put:
+      tags:
+      - Connection
+      description: Updates an existing table on a database
+      operationId: backend.connection.database.updateTable
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_DatabaseTable'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection database update table
+      x-summary-source: derived
+    delete:
+      tags:
+      - Connection
+      description: Deletes an existing table on a database
+      operationId: backend.connection.database.deleteTable
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection database delete table
+      x-summary-source: derived
+  /backend/connection/{connection_id}:
+    parameters:
+    - name: connection_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Connection
+      description: Returns a specific connection
+      operationId: backend.connection.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_Connection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection get
+      x-summary-source: derived
+    put:
+      tags:
+      - Connection
+      description: Updates an existing connection
+      operationId: backend.connection.update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_ConnectionUpdate'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection update
+      x-summary-source: derived
+    delete:
+      tags:
+      - Connection
+      description: Deletes an existing connection
+      operationId: backend.connection.delete
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection delete
+      x-summary-source: derived
+  /backend/connection/{connection_id}/filesystem:
+    parameters:
+    - name: connection_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Connection
+      description: Returns all available files on the filesystem connection
+      operationId: backend.connection.filesystem.getAll
+      parameters:
+      - name: startIndex
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_FileCollection'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection filesystem get all
+      x-summary-source: derived
+    post:
+      tags:
+      - Connection
+      description: Uploads one or more files on the filesystem connection
+      operationId: backend.connection.filesystem.create
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: string
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection filesystem create
+      x-summary-source: derived
+  /backend/connection/{connection_id}/filesystem/{file_id}:
+    parameters:
+    - name: connection_id
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: file_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Connection
+      description: Returns the content of the provided file id on the filesystem connection
+      operationId: backend.connection.filesystem.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection filesystem get
+      x-summary-source: derived
+    put:
+      tags:
+      - Connection
+      description: Updates an existing file on the filesystem connection
+      operationId: backend.connection.filesystem.update
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection filesystem update
+      x-summary-source: derived
+    delete:
+      tags:
+      - Connection
+      description: Deletes an existing file on the filesystem connection
+      operationId: backend.connection.filesystem.delete
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection filesystem delete
+      x-summary-source: derived
+  /backend/connection/list:
+    get:
+      tags:
+      - Connection
+      description: Returns all available connection classes
+      operationId: backend.connection.getClasses
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_ConnectionIndex'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection get classes
+      x-summary-source: derived
+  /backend/connection/form:
+    get:
+      tags:
+      - Connection
+      description: Returns the connection config form
+      operationId: backend.connection.getForm
+      parameters:
+      - name: class
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_FormContainer'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection get form
+      x-summary-source: derived
+  /backend/connection/{connection_id}/redirect:
+    parameters:
+    - name: connection_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Connection
+      description: Returns a redirect url to start the OAuth2 authorization flow for the given connection
+      operationId: backend.connection.getRedirect
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_ConnectionRedirectResponse'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection get redirect
+      x-summary-source: derived
+  /backend/connection/{connection_id}/http:
+    parameters:
+    - name: connection_id
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      tags:
+      - Connection
+      description: Sends an arbitrary HTTP request to the connection
+      operationId: backend.connection.http.execute
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend_HttpRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend_HttpResponse'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection http execute
+      x-summary-source: derived
+  /backend/connection/{connection_id}/sdk:
+    parameters:
+    - name: connection_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Connection
+      description: Returns the SDK specification
+      operationId: backend.connection.sdk.get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Passthru'
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+        5XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Common_Message'
+      security:
+      - app:
+        - backend.connection
+      summary: Backend connection sdk get
+      x-summary-source: derived
+components:
+  schemas:
+    Agent_Item:
+      oneOf:
+      - $ref: '#/components/schemas/Agent_ItemBinary'
+      - $ref: '#/components/schemas/Agent_ItemChoice'
+      - $ref: '#/components/schemas/Agent_ItemObject'
+      - $ref: '#/components/schemas/Agent_ItemText'
+      - $ref: '#/components/schemas/Agent_ItemToolCall'
+      discriminator: type
+      mapping:
+        binary: '#/components/schemas/Agent_ItemBinary'
+        choice: '#/components/schemas/Agent_ItemChoice'
+        object: '#/components/schemas/Agent_ItemObject'
+        text: '#/components/schemas/Agent_ItemText'
+        tool_call: '#/components/schemas/Agent_ItemToolCall'
+    Backend_FileCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_File'
+    Common_FormElementSelect:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents a select element
+        type: object
+        properties:
+          options:
+            description: Available options for the select element
+            type: array
+            items:
+              $ref: '#/components/schemas/Common_FormElementSelectOption'
+    Backend_ConnectionIndex:
+      description: Contains all possible classes which can be used at an connection as class
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_ConnectionIndexEntry'
+    Passthru:
+      description: No schema information available
+      type: object
+      additionalProperties: {}
+    Backend_HttpResponse:
+      description: This object represents a HTTP response
+      type: object
+      properties:
+        statusCode:
+          description: HTTP status code
+          type: integer
+        headers:
+          description: HTTP response headers
+          type: object
+          additionalProperties:
+            type: string
+        body:
+          description: HTTP response body
+          type: string
+    Backend_ConnectionIndexEntry:
+      description: Represents a concrete connection class
+      type: object
+      properties:
+        name:
+          description: Human-readable name of the connection class
+          type: string
+        class:
+          description: Technical identifier of the connection class
+          type: string
+    Backend_DatabaseTableColumn:
+      description: This object represents a column at a relation table
+      type: object
+      properties:
+        name:
+          description: Name of the column
+          type: string
+        type:
+          description: The column type i.e. integer or string
+          type: string
+        length:
+          description: Optional the max length of the column
+          type: integer
+        precision:
+          description: Optional the precision of the column
+          type: integer
+        scale:
+          description: Optional the scale of the column
+          type: integer
+        unsigned:
+          description: Indicates whether the column is unsigned, relevant for integer types
+          type: boolean
+        fixed:
+          description: Indicates whether the column has a fixed length
+          type: boolean
+        notNull:
+          description: Indicates whether the column allows null
+          type: boolean
+        autoIncrement:
+          description: Indicates whether this column is an auto increment column
+          type: boolean
+        default: {}
+        comment:
+          description: Optional a comment for this column
+          type: string
+    Agent_ItemToolCallFunction:
+      description: Concrete values for a function tool call
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        arguments:
+          type: string
+    Common_FormElementCollection:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents a collection element
+        type: object
+        properties:
+          type:
+            description: The input type i.e. text or password, all HTML input types are allowed
+            type: string
+    Backend_ConnectionConfig:
+      description: The connection configuration which contains arbitrary key-value entries
+      type: object
+      additionalProperties: {}
+    Backend_HttpRequest:
+      description: This object represents a HTTP request
+      type: object
+      properties:
+        method:
+          description: HTTP method i.e. GET, POST
+          type: string
+        uri:
+          description: HTTP request uri
+          type: string
+        headers:
+          description: HTTP request headers
+          type: object
+          additionalProperties:
+            type: string
+        body:
+          description: HTTP request body
+          type: string
+    Common_FormContainer:
+      description: Represents a config form with a list of elements
+      type: object
+      properties:
+        element:
+          type: array
+          items:
+            $ref: '#/components/schemas/Common_FormElement'
+    Backend_DatabaseRow:
+      description: This object represents a row on a relational table
+      type: object
+      additionalProperties: {}
+    Backend_DatabaseTableForeignKeyConstraint:
+      description: This object represents a foreign key constraint on a relational database
+      type: object
+      properties:
+        name:
+          description: Name of the foreign key constraint
+          type: string
+        foreignTable:
+          description: Name of the foreign table
+          type: string
+        localColumnNames:
+          description: Local column names
+          type: array
+          items:
+            type: string
+        foreignColumnNames:
+          description: Foreign column names
+          type: array
+          items:
+            type: string
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Agent_Output:
+      description: This object represents an agent output
+      type: object
+      properties:
+        id:
+          description: Chat id of this conversation
+          type: string
+        item:
+          $ref: '#/components/schemas/Agent_Item'
+    Backend_ConnectionCreate:
+      $ref: '#/components/schemas/Backend_Connection'
+    Backend_Connection:
+      description: This object represents a connection to an external system like i.e. a database, message-queue or client-sdk
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        class:
+          description: Underlying class of this connection which returns a configured client connection i.e. database, message-queue or client-sdk
+          type: string
+        oauth2:
+          description: Indicates whether it is possible to start an OAuth2 authorization code flow on this connection
+          type: boolean
+        config:
+          $ref: '#/components/schemas/Backend_ConnectionConfig'
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+    Common_FormElementSelectOption:
+      description: Represents a concrete option entry
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    Backend_DatabaseRowCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_DatabaseRow'
+    Backend_DatabaseTable:
+      description: This object represents a relational table on a database connection
+      type: object
+      properties:
+        name:
+          description: Name of the table
+          type: string
+        columns:
+          description: Available columns on the table
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_DatabaseTableColumn'
+        primaryKey:
+          description: The primary key column
+          type: string
+        indexes:
+          description: Available indices on the table
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_DatabaseTableIndex'
+        foreignKeys:
+          description: Available foreign key constraints
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_DatabaseTableForeignKeyConstraint'
+    Agent_ItemChoice:
+      allOf:
+      - $ref: '#/components/schemas/Agent_Item'
+      - description: Choice agent message
+        type: object
+        properties:
+          items:
+            description: Contains multiple agent items
+            type: array
+            items:
+              $ref: '#/components/schemas/Agent_Item'
+    Backend_DatabaseTableCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_DatabaseTable'
+    Common_FormElementTypeSchema:
+      $ref: '#/components/schemas/Common_FormElement'
+    Agent_ItemToolCall:
+      allOf:
+      - $ref: '#/components/schemas/Agent_Item'
+      - description: Tool call agent message
+        type: object
+        properties:
+          functions:
+            description: An array of concrete functions
+            type: array
+            items:
+              $ref: '#/components/schemas/Agent_ItemToolCallFunction'
+    Backend_ConnectionUpdate:
+      $ref: '#/components/schemas/Backend_Connection'
+    Common_FormElementTextArea:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents a textarea
+        type: object
+        properties:
+          mode:
+            description: Describes which data is provided at the textarea, this can be i.e. a programming language like php, java or python or also a data format like json
+            type: string
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Common_FormElementInput:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents an input element
+        type: object
+        properties:
+          type:
+            description: The input type i.e. text or password, all HTML input types are allowed
+            type: string
+    Common_FormElement:
+      oneOf:
+      - $ref: '#/components/schemas/Common_FormElementCheckbox'
+      - $ref: '#/components/schemas/Common_FormElementCollection'
+      - $ref: '#/components/schemas/Common_FormElementInput'
+      - $ref: '#/components/schemas/Common_FormElementMap'
+      - $ref: '#/components/schemas/Common_FormElementSelect'
+      - $ref: '#/components/schemas/Common_FormElementTextArea'
+      - $ref: '#/components/schemas/Common_FormElementTypeAPI'
+      - $ref: '#/components/schemas/Common_FormElementTypeSchema'
+      discriminator: type
+      mapping:
+        checkbox: '#/components/schemas/Common_FormElementCheckbox'
+        collection: '#/components/schemas/Common_FormElementCollection'
+        input: '#/components/schemas/Common_FormElementInput'
+        map: '#/components/schemas/Common_FormElementMap'
+        select: '#/components/schemas/Common_FormElementSelect'
+        textarea: '#/components/schemas/Common_FormElementTextArea'
+        typeapi: '#/components/schemas/Common_FormElementTypeAPI'
+        typeschema: '#/components/schemas/Common_FormElementTypeSchema'
+    Backend_DatabaseTableIndex:
+      description: This object represents a table index on a relational database
+      type: object
+      properties:
+        name:
+          description: Name of the index
+          type: string
+        unique:
+          description: Indicates whether the index is unique
+          type: boolean
+        columns:
+          description: Columns assigned ot the index
+          type: array
+          items:
+            type: string
+    Backend_File:
+      description: This object represents a file on the filesystem
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: string
+        name:
+          description: Name of the file
+          type: string
+        contentType:
+          description: MIME type of the file
+          type: string
+        checksum:
+          description: Checksum of the file
+          type: string
+        lastModified:
+          description: Last modified date of the file
+          type: string
+          format: date-time
+    Common_FormElementMap:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents a map element
+        type: object
+        properties:
+          type:
+            description: The input type i.e. text or password, all HTML input types are allowed
+            type: string
+    Common_FormElementTypeAPI:
+      $ref: '#/components/schemas/Common_FormElement'
+    Backend_ConnectionCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Connection'
+    Agent_ItemBinary:
+      allOf:
+      - $ref: '#/components/schemas/Agent_Item'
+      - description: Binary agent message
+        type: object
+        properties:
+          mime:
+            description: The mime of the binary data
+            type: string
+          data:
+            description: The base64 encoded binary data
+            type: string
+    Agent_ItemObject:
+      allOf:
+      - $ref: '#/components/schemas/Agent_Item'
+      - description: Structured agent message
+        type: object
+        properties:
+          payload: {}
+    Common_FormElementCheckbox:
+      $ref: '#/components/schemas/Common_FormElement'
+    Agent_Input:
+      description: This object represents an agent input
+      type: object
+      properties:
+        previousId:
+          description: Optional the chat id of this conversation
+          type: string
+        item:
+          $ref: '#/components/schemas/Agent_Item'
+    Agent_ItemText:
+      allOf:
+      - $ref: '#/components/schemas/Agent_Item'
+      - description: Text agent message
+        type: object
+        properties:
+          content:
+            description: The content text
+            type: string
+    Backend_ConnectionRedirectResponse:
+      description: Redirect response to initiate an OAuth2 flow
+      type: object
+      properties:
+        redirectUri:
+          type: string
+  securitySchemes:
+    app:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
+        authorizationCode:
+          authorizationUrl: https://demo.fusio-project.org/authorization/authorize
+          tokenUrl: https://demo.fusio-project.org/authorization/token
+          refreshUrl: https://demo.fusio-project.org/authorization/token
+          scopes:
+            backend: ''
+            backend.account: ''
+            backend.action: ''
+            backend.agent: ''
+            backend.app: ''
+            backend.audit: ''
+            backend.backup: ''
+            backend.bundle: ''
+            backend.category: ''
+            backend.config: ''
+            backend.connection: ''
+            backend.cronjob: ''
+            backend.dashboard: ''
+            backend.event: ''
+            backend.firewall: ''
+            backend.form: ''
+            backend.generator: ''
+            backend.identity: ''
+            backend.log: ''
+            backend.marketplace: ''
+            backend.operation: ''
+            backend.page: ''
+            backend.plan: ''
+            backend.rate: ''
+            backend.role: ''
+            backend.schema: ''
+            backend.scope: ''
+            backend.sdk: ''
+            backend.specification: ''
+            backend.statistic: ''
+            backend.taxonomy: ''
+            backend.tenant: ''
+            backend.test: ''
+            backend.token: ''
+            backend.transaction: ''
+            backend.trash: ''
+            backend.trigger: ''
+            backend.user: ''
+            backend.webhook: ''
