@@ -223,6 +223,18 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Backend_TaxonomyCreate:
+      $ref: '#/components/schemas/Backend_Taxonomy'
     Backend_TaxonomyCollection:
       description: Base collection
       type: object
@@ -237,10 +249,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Taxonomy'
-    Backend_TaxonomyUpdate:
-      $ref: '#/components/schemas/Backend_Taxonomy'
-    Backend_TaxonomyCreate:
-      $ref: '#/components/schemas/Backend_Taxonomy'
     Backend_Taxonomy:
       description: This object represents a taxonomy. A taxonomy helps to internally organize operations, actions and other entities
       type: object
@@ -282,16 +290,8 @@ components:
           type: array
           items:
             type: integer
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
+    Backend_TaxonomyUpdate:
+      $ref: '#/components/schemas/Backend_Taxonomy'
   securitySchemes:
     app:
       type: oauth2

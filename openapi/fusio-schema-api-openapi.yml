@@ -282,10 +282,24 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_SchemaCreate:
-      $ref: '#/components/schemas/Backend_Schema'
-    Backend_SchemaUpdate:
-      $ref: '#/components/schemas/Backend_Schema'
+    Backend_SchemaCommitCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_SchemaCommit'
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
     Common_Message:
       description: Common error message
       type: object
@@ -296,6 +310,79 @@ components:
           type: string
         id:
           type: string
+    Backend_SchemaCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Schema'
+    Backend_SchemaCommit:
+      description: A schema commit which represents a change in the schema source
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        user:
+          $ref: '#/components/schemas/Backend_User'
+        commitHash:
+          description: A unique hash which represents this commit
+          type: string
+        schema:
+          $ref: '#/components/schemas/Backend_SchemaSource'
+        insertDate:
+          type: string
+          format: date-time
+    Backend_User:
+      description: This object represents a user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        roleId:
+          description: A role which is assigned to the user
+          type: integer
+        planId:
+          description: A plan which is assigned to the user
+          type: integer
+        status:
+          description: Status of the object either 1 = active, 2 = disabled or 0 = deleted
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        email:
+          description: The email address of the user
+          type: string
+        points:
+          description: Points assigned to the user
+          type: integer
+        scopes:
+          description: List of scopes which are assigned to the user
+          type: array
+          items:
+            type: string
+        apps:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_App'
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+        date:
+          description: The insert date
+          type: string
+          format: date-time
+    Backend_SchemaUpdate:
+      $ref: '#/components/schemas/Backend_Schema'
     Backend_App:
       description: This object represents an app to access the API on-behalf of a user
       type: object
@@ -339,95 +426,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Token'
-    Backend_SchemaCollection:
-      description: Base collection
+    Backend_SchemaSource:
+      description: Contains the TypeSchema specification
       type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Schema'
-    Backend_SchemaCommit:
-      description: A schema commit which represents a change in the schema source
+      additionalProperties: {}
+    Backend_Schema:
+      description: This object represents a schema to describe a JSON payload
       type: object
       properties:
         id:
           description: Unique identifier for the object
-          type: integer
-        user:
-          $ref: '#/components/schemas/Backend_User'
-        commitHash:
-          description: A unique hash which represents this commit
-          type: string
-        schema:
-          $ref: '#/components/schemas/Backend_SchemaSource'
-        insertDate:
-          type: string
-          format: date-time
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
-    Backend_User:
-      description: This object represents a user
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        roleId:
-          description: A role which is assigned to the user
-          type: integer
-        planId:
-          description: A plan which is assigned to the user
           type: integer
         status:
-          description: Status of the object either 1 = active, 2 = disabled or 0 = deleted
+          description: Status of the object either 1 = active or 0 = deleted
           type: integer
         name:
           description: Unique name of the object
           type: string
-        email:
-          description: The email address of the user
-          type: string
-        points:
-          description: Points assigned to the user
-          type: integer
-        scopes:
-          description: List of scopes which are assigned to the user
-          type: array
-          items:
-            type: string
-        apps:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_App'
+        source:
+          $ref: '#/components/schemas/Backend_SchemaSource'
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-        date:
-          description: The insert date
-          type: string
-          format: date-time
-    Backend_SchemaCommitCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_SchemaCommit'
     Backend_Token:
       description: This object represents a token, this an access token which was requested by a user
       type: object
@@ -452,32 +471,13 @@ components:
         date:
           type: string
           format: date-time
+    Backend_SchemaCreate:
+      $ref: '#/components/schemas/Backend_Schema'
     Backend_SchemaPreviewResponse:
       type: object
       properties:
         preview:
           type: string
-    Backend_Schema:
-      description: This object represents a schema to describe a JSON payload
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        status:
-          description: Status of the object either 1 = active or 0 = deleted
-          type: integer
-        name:
-          description: Unique name of the object
-          type: string
-        source:
-          $ref: '#/components/schemas/Backend_SchemaSource'
-        metadata:
-          $ref: '#/components/schemas/Common_Metadata'
-    Backend_SchemaSource:
-      description: Contains the TypeSchema specification
-      type: object
-      additionalProperties: {}
   securitySchemes:
     app:
       type: oauth2

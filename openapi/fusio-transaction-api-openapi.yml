@@ -224,6 +224,16 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Backend_Transaction:
       description: This object represents a transaction. The system generates a transaction in case a payment was successfully executed
       type: object
@@ -264,33 +274,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Transaction'
-    Common_Message:
-      description: Common error message
+    Consumer_TransactionCollection:
+      description: Base collection
       type: object
       properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
-    Consumer_Plan:
-      type: object
-      properties:
-        id:
+        totalResults:
           type: integer
-        name:
-          type: string
-        description:
-          type: string
-        price:
-          type: number
-        points:
+        startIndex:
           type: integer
-        period:
+        itemsPerPage:
           type: integer
-        metadata:
-          $ref: '#/components/schemas/Common_Metadata'
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Transaction'
     Common_Metadata:
       type: object
       additionalProperties:
@@ -321,20 +318,23 @@ components:
         insertDate:
           type: string
           format: date-time
-    Consumer_TransactionCollection:
-      description: Base collection
+    Consumer_Plan:
       type: object
       properties:
-        totalResults:
+        id:
           type: integer
-        startIndex:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        points:
           type: integer
-        itemsPerPage:
+        period:
           type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Consumer_Transaction'
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
   securitySchemes:
     app:
       type: oauth2

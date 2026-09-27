@@ -392,6 +392,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_LogError'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Backend_LogCollection:
       description: Base collection
       type: object
@@ -406,16 +416,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Log'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
     Consumer_LogCollection:
       description: Base collection
       type: object

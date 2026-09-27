@@ -376,23 +376,7 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
-    Backend_WebhookResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-        status:
-          type: integer
-        code:
-          type: integer
-        attempts:
-          type: integer
-        error:
-          type: string
-        executeDate:
-          type: string
-          format: date-time
-    Backend_WebhookUpdate:
+    Backend_WebhookCreate:
       $ref: '#/components/schemas/Backend_Webhook'
     Backend_WebhookCollection:
       description: Base collection
@@ -408,6 +392,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Webhook'
+    Backend_WebhookUpdate:
+      $ref: '#/components/schemas/Backend_Webhook'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Backend_Webhook:
       description: This object represents a webhook, a webhook is called in case a specific event was triggered
       type: object
@@ -427,27 +423,47 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_WebhookResponse'
-    Backend_WebhookCreate:
-      $ref: '#/components/schemas/Backend_Webhook'
-    Common_Message:
-      description: Common error message
+    Backend_WebhookResponse:
       type: object
       properties:
-        success:
-          type: boolean
-        message:
-          type: string
         id:
+          type: integer
+        status:
+          type: integer
+        code:
+          type: integer
+        attempts:
+          type: integer
+        error:
           type: string
-    Consumer_WebhookCreate:
+        executeDate:
+          type: string
+          format: date-time
+    Consumer_WebhookResponse:
       type: object
       properties:
-        event:
+        status:
+          type: integer
+        code:
+          type: integer
+        attempts:
           type: string
-        name:
+        executeDate:
           type: string
-        endpoint:
-          type: string
+    Consumer_WebhookCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Webhook'
     Consumer_Webhook:
       type: object
       properties:
@@ -465,20 +481,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Consumer_WebhookResponse'
-    Consumer_WebhookCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Consumer_Webhook'
     Consumer_WebhookUpdate:
       type: object
       properties:
@@ -488,16 +490,14 @@ components:
           type: string
         endpoint:
           type: string
-    Consumer_WebhookResponse:
+    Consumer_WebhookCreate:
       type: object
       properties:
-        status:
-          type: integer
-        code:
-          type: integer
-        attempts:
+        event:
           type: string
-        executeDate:
+        name:
+          type: string
+        endpoint:
           type: string
   securitySchemes:
     app:

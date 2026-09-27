@@ -79,11 +79,16 @@ components:
       properties:
         types:
           $ref: '#/components/schemas/Backend_SdkTypes'
-    Backend_SdkTypes:
-      description: Represents available SDK type which can be generated
+    Common_Message:
+      description: Common error message
       type: object
-      additionalProperties:
-        type: string
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Backend_SdkMessage:
       type: object
       properties:
@@ -100,16 +105,11 @@ components:
           type: string
         config:
           type: string
-    Common_Message:
-      description: Common error message
+    Backend_SdkTypes:
+      description: Represents available SDK type which can be generated
       type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
+      additionalProperties:
+        type: string
   securitySchemes:
     app:
       type: oauth2

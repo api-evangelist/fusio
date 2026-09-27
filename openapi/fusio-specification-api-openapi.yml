@@ -139,19 +139,20 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_SpecificationPublish:
-      type: object
-      properties:
-        name:
-          type: string
-        filterName:
-          type: string
-        standalone:
-          type: boolean
     Passthru:
       description: No schema information available
       type: object
       additionalProperties: {}
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Backend_SpecificationChangelog:
       type: object
       properties:
@@ -165,16 +166,15 @@ components:
       type: object
       properties:
         spec: {}
-    Common_Message:
-      description: Common error message
+    Backend_SpecificationPublish:
       type: object
       properties:
-        success:
+        name:
+          type: string
+        filterName:
+          type: string
+        standalone:
           type: boolean
-        message:
-          type: string
-        id:
-          type: string
   securitySchemes:
     app:
       type: oauth2

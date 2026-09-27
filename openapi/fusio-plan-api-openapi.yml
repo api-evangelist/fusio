@@ -285,6 +285,32 @@ components:
       type: object
       additionalProperties:
         type: string
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Backend_PlanUpdate:
+      $ref: '#/components/schemas/Backend_Plan'
+    Backend_PlanCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Plan'
     Backend_Plan:
       description: This object represents a plan, a plan allows users to obtain points or in general subscribe to your app
       type: object
@@ -317,32 +343,6 @@ components:
             type: string
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Backend_PlanUpdate:
-      $ref: '#/components/schemas/Backend_Plan'
-    Backend_PlanCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Plan'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
     Consumer_PlanCollection:
       description: Base collection
       type: object

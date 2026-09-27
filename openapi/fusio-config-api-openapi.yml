@@ -126,20 +126,16 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_ConfigCollection:
-      description: Base collection
+    Common_Message:
+      description: Common error message
       type: object
       properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Config'
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Backend_Config:
       description: This object represents a system configuration
       type: object
@@ -159,16 +155,20 @@ components:
         value: {}
     Backend_ConfigUpdate:
       $ref: '#/components/schemas/Backend_Config'
-    Common_Message:
-      description: Common error message
+    Backend_ConfigCollection:
+      description: Base collection
       type: object
       properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Config'
   securitySchemes:
     app:
       type: oauth2

@@ -196,12 +196,22 @@ components:
   schemas:
     Backend_TriggerUpdate:
       $ref: '#/components/schemas/Backend_Trigger'
-    Backend_TriggerCreate:
-      $ref: '#/components/schemas/Backend_Trigger'
     Common_Metadata:
       type: object
       additionalProperties:
         type: string
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Backend_TriggerCreate:
+      $ref: '#/components/schemas/Backend_Trigger'
     Backend_TriggerCollection:
       description: Base collection
       type: object
@@ -234,16 +244,6 @@ components:
           type: string
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
   securitySchemes:
     app:
       type: oauth2

@@ -40,6 +40,16 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Backend_StatisticChart:
       type: object
       properties:
@@ -51,16 +61,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_StatisticChartSeries'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
     Backend_StatisticChartSeries:
       type: object
       properties:

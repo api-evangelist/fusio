@@ -305,15 +305,6 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
-    Backend_ScopeOperation:
-      type: object
-      properties:
-        operationId:
-          type: integer
-        allow:
-          type: boolean
-    Backend_ScopeCreate:
-      $ref: '#/components/schemas/Backend_Scope'
     Backend_ScopeCategories:
       type: object
       properties:
@@ -321,12 +312,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_ScopeCategory'
-    Backend_ScopeUpdate:
-      $ref: '#/components/schemas/Backend_Scope'
     Common_Metadata:
       type: object
       additionalProperties:
         type: string
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Backend_Scope:
       description: This object represents a scope. A scope is assigned to a user and is required to access operations
       type: object
@@ -370,6 +369,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Scope'
+    Backend_ScopeCreate:
+      $ref: '#/components/schemas/Backend_Scope'
     Backend_ScopeCategory:
       type: object
       properties:
@@ -381,16 +382,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_ScopeCategoryScope'
-    Common_Message:
-      description: Common error message
+    Backend_ScopeOperation:
       type: object
       properties:
-        success:
+        operationId:
+          type: integer
+        allow:
           type: boolean
-        message:
-          type: string
+    Backend_ScopeUpdate:
+      $ref: '#/components/schemas/Backend_Scope'
+    Consumer_ScopeCategory:
+      type: object
+      properties:
         id:
+          type: integer
+        name:
           type: string
+        scopes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_ScopeCategoryScope'
     Consumer_ScopeCategoryScope:
       type: object
       properties:
@@ -400,6 +411,20 @@ components:
           type: string
         description:
           type: string
+    Consumer_ScopeCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Scope'
     Consumer_Scope:
       type: object
       properties:
@@ -418,31 +443,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Consumer_ScopeCategory'
-    Consumer_ScopeCategory:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        scopes:
-          type: array
-          items:
-            $ref: '#/components/schemas/Consumer_ScopeCategoryScope'
-    Consumer_ScopeCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Consumer_Scope'
   securitySchemes:
     app:
       type: oauth2

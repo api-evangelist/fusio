@@ -92,6 +92,34 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Consumer_GrantCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Grant'
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Consumer_App:
       type: object
       properties:
@@ -127,34 +155,6 @@ components:
         createDate:
           type: string
           format: date-time
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
-    Consumer_GrantCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Consumer_Grant'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
   securitySchemes:
     app:
       type: oauth2

@@ -222,44 +222,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    System_SchemaForm:
-      type: object
-      additionalProperties: {}
-    System_Route:
-      type: object
-      properties:
-        routes:
-          $ref: '#/components/schemas/System_RoutePath'
-    System_RoutePath:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/System_RouteMethod'
-    System_RouteMethod:
-      type: object
-      additionalProperties:
-        type: string
-    System_AboutLink:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
-    Passthru:
-      description: No schema information available
-      type: object
-      additionalProperties: {}
-    System_HealthCheck:
-      type: object
-      properties:
-        healthy:
-          type: boolean
-        error:
-          type: string
-    System_AboutApps:
-      type: object
-      additionalProperties:
-        type: string
     System_About:
       type: object
       properties:
@@ -297,14 +259,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/System_AboutLink'
-    System_Schema:
+    System_RoutePath:
       type: object
-      properties:
-        schema:
-          $ref: '#/components/schemas/System_SchemaTypeSchema'
-        form:
-          $ref: '#/components/schemas/System_SchemaForm'
-    System_SchemaTypeSchema:
+      additionalProperties:
+        $ref: '#/components/schemas/System_RouteMethod'
+    Passthru:
+      description: No schema information available
       type: object
       additionalProperties: {}
     Common_Message:
@@ -316,6 +276,46 @@ components:
         message:
           type: string
         id:
+          type: string
+    System_Route:
+      type: object
+      properties:
+        routes:
+          $ref: '#/components/schemas/System_RoutePath'
+    System_RouteMethod:
+      type: object
+      additionalProperties:
+        type: string
+    System_Schema:
+      type: object
+      properties:
+        schema:
+          $ref: '#/components/schemas/System_SchemaTypeSchema'
+        form:
+          $ref: '#/components/schemas/System_SchemaForm'
+    System_AboutApps:
+      type: object
+      additionalProperties:
+        type: string
+    System_SchemaForm:
+      type: object
+      additionalProperties: {}
+    System_AboutLink:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+    System_SchemaTypeSchema:
+      type: object
+      additionalProperties: {}
+    System_HealthCheck:
+      type: object
+      properties:
+        healthy:
+          type: boolean
+        error:
           type: string
   securitySchemes:
     app:

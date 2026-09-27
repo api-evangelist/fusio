@@ -1688,17 +1688,16 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_StatisticChart:
+    Common_Message:
+      description: Common error message
       type: object
       properties:
-        labels:
-          type: array
-          items:
-            type: string
-        series:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_StatisticChartSeries'
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Backend_StatisticCount:
       type: object
       properties:
@@ -1710,6 +1709,17 @@ components:
         to:
           type: string
           format: date-time
+    Backend_StatisticChart:
+      type: object
+      properties:
+        labels:
+          type: array
+          items:
+            type: string
+        series:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_StatisticChartSeries'
     Backend_StatisticChartSeries:
       type: object
       properties:
@@ -1719,16 +1729,6 @@ components:
           type: array
           items:
             type: number
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
   securitySchemes:
     app:
       type: oauth2

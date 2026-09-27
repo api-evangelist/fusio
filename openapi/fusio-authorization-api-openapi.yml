@@ -70,6 +70,20 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Backend_App:
       description: This object represents an app to access the API on-behalf of a user
       type: object
@@ -153,10 +167,6 @@ components:
           description: The insert date
           type: string
           format: date-time
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
     Backend_Token:
       description: This object represents a token, this an access token which was requested by a user
       type: object
@@ -181,16 +191,6 @@ components:
         date:
           type: string
           format: date-time
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
   securitySchemes:
     app:
       type: oauth2

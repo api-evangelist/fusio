@@ -208,6 +208,22 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Cronjob'
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Backend_CronjobCreate:
+      $ref: '#/components/schemas/Backend_Cronjob'
     Backend_CronjobError:
       description: Represents an error which occurred on cronjob execution
       type: object
@@ -250,24 +266,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_CronjobError'
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
     Backend_CronjobUpdate:
       $ref: '#/components/schemas/Backend_Cronjob'
-    Backend_CronjobCreate:
-      $ref: '#/components/schemas/Backend_Cronjob'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
   securitySchemes:
     app:
       type: oauth2

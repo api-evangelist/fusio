@@ -129,6 +129,20 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Backend_App:
       description: This object represents an app to access the API on-behalf of a user
       type: object
@@ -172,28 +186,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Token'
-    Backend_AuditCollection:
-      description: Base collection
+    Backend_Token:
+      description: This object represents a token, this an access token which was requested by a user
       type: object
       properties:
-        totalResults:
+        id:
+          description: Unique identifier for the object
           type: integer
-        startIndex:
+        status:
+          description: Status of the object either 1 = active or 2 = deleted
           type: integer
-        itemsPerPage:
-          type: integer
-        entry:
+        name:
+          type: string
+        scopes:
           type: array
           items:
-            $ref: '#/components/schemas/Backend_Audit'
-    Backend_AuditObject:
-      description: A key value object containing the changes
-      type: object
-      additionalProperties: {}
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
+            type: string
+        ip:
+          type: string
+        expire:
+          type: string
+          format: date-time
+        date:
+          type: string
+          format: date-time
     Backend_User:
       description: This object represents a user
       type: object
@@ -234,6 +250,20 @@ components:
           description: The insert date
           type: string
           format: date-time
+    Backend_AuditCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Audit'
     Backend_Audit:
       description: This object represents an audit which is created every time something was changed at the system
       type: object
@@ -260,40 +290,10 @@ components:
           description: Insert date of this audit event
           type: string
           format: date-time
-    Backend_Token:
-      description: This object represents a token, this an access token which was requested by a user
+    Backend_AuditObject:
+      description: A key value object containing the changes
       type: object
-      properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        status:
-          description: Status of the object either 1 = active or 2 = deleted
-          type: integer
-        name:
-          type: string
-        scopes:
-          type: array
-          items:
-            type: string
-        ip:
-          type: string
-        expire:
-          type: string
-          format: date-time
-        date:
-          type: string
-          format: date-time
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
+      additionalProperties: {}
   securitySchemes:
     app:
       type: oauth2

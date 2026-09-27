@@ -186,24 +186,20 @@ components:
   schemas:
     Backend_TestConfig:
       $ref: '#/components/schemas/Backend_ActionExecuteRequest'
-    Backend_Test:
-      description: This object represents a test. A test helps to verify that all operations work as expected
+    Common_Message:
+      description: Common error message
       type: object
       properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        status:
-          description: Status of the object either 1 = pending, 2 = success, 3 = warning, 4 = error, 5 = skipped or 6 = disabled
-          type: integer
-        operationName:
-          type: string
+        success:
+          type: boolean
         message:
           type: string
-        response:
+        id:
           type: string
-        config:
-          $ref: '#/components/schemas/Backend_TestConfig'
+    Backend_ActionExecuteRequestBody:
+      description: Represents a request body
+      type: object
+      additionalProperties: {}
     Backend_TestCollection:
       description: Base collection
       type: object
@@ -236,20 +232,24 @@ components:
           type: string
         body:
           $ref: '#/components/schemas/Backend_ActionExecuteRequestBody'
-    Backend_ActionExecuteRequestBody:
-      description: Represents a request body
-      type: object
-      additionalProperties: {}
-    Common_Message:
-      description: Common error message
+    Backend_Test:
+      description: This object represents a test. A test helps to verify that all operations work as expected
       type: object
       properties:
-        success:
-          type: boolean
+        id:
+          description: Unique identifier for the object
+          type: integer
+        status:
+          description: Status of the object either 1 = pending, 2 = success, 3 = warning, 4 = error, 5 = skipped or 6 = disabled
+          type: integer
+        operationName:
+          type: string
         message:
           type: string
-        id:
+        response:
           type: string
+        config:
+          $ref: '#/components/schemas/Backend_TestConfig'
   securitySchemes:
     app:
       type: oauth2
