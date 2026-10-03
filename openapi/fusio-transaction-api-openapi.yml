@@ -234,6 +234,20 @@ components:
           type: string
         id:
           type: string
+    Backend_TransactionCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Transaction'
     Backend_Transaction:
       description: This object represents a transaction. The system generates a transaction in case a payment was successfully executed
       type: object
@@ -260,20 +274,27 @@ components:
         insertDate:
           type: string
           format: date-time
-    Backend_TransactionCollection:
-      description: Base collection
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Consumer_Plan:
       type: object
       properties:
-        totalResults:
+        id:
           type: integer
-        startIndex:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        points:
           type: integer
-        itemsPerPage:
+        period:
           type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Transaction'
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
     Consumer_TransactionCollection:
       description: Base collection
       type: object
@@ -288,10 +309,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Consumer_Transaction'
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
     Consumer_Transaction:
       type: object
       properties:
@@ -318,23 +335,6 @@ components:
         insertDate:
           type: string
           format: date-time
-    Consumer_Plan:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        description:
-          type: string
-        price:
-          type: number
-        points:
-          type: integer
-        period:
-          type: integer
-        metadata:
-          $ref: '#/components/schemas/Common_Metadata'
   securitySchemes:
     app:
       type: oauth2

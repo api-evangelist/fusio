@@ -1698,17 +1698,6 @@ components:
           type: string
         id:
           type: string
-    Backend_StatisticCount:
-      type: object
-      properties:
-        count:
-          type: integer
-        from:
-          type: string
-          format: date-time
-        to:
-          type: string
-          format: date-time
     Backend_StatisticChart:
       type: object
       properties:
@@ -1720,6 +1709,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_StatisticChartSeries'
+    Backend_StatisticCount:
+      type: object
+      properties:
+        count:
+          type: integer
+        from:
+          type: string
+          format: date-time
+        to:
+          type: string
+          format: date-time
     Backend_StatisticChartSeries:
       type: object
       properties:

@@ -40,16 +40,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
     Backend_StatisticChart:
       type: object
       properties:
@@ -61,15 +51,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_StatisticChartSeries'
-    Backend_StatisticChartSeries:
+    Common_Message:
+      description: Common error message
       type: object
       properties:
-        name:
+        success:
+          type: boolean
+        message:
           type: string
-        data:
-          type: array
-          items:
-            type: number
+        id:
+          type: string
     Backend_Dashboard:
       description: Represents an object containing all widget data for the dashboard
       type: object
@@ -92,6 +83,15 @@ components:
           $ref: '#/components/schemas/Backend_StatisticChart'
         userRegistrations:
           $ref: '#/components/schemas/Backend_StatisticChart'
+    Backend_StatisticChartSeries:
+      type: object
+      properties:
+        name:
+          type: string
+        data:
+          type: array
+          items:
+            type: number
   securitySchemes:
     app:
       type: oauth2

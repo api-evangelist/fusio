@@ -126,34 +126,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_TrashData:
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        status:
-          description: Status of the object either 1 = active or 0 = deleted
-          type: integer
-        name:
-          type: string
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
-    Backend_TrashTypes:
-      type: object
-      properties:
-        types:
-          type: array
-          items:
-            type: string
     Backend_TrashDataCollection:
       description: Base collection
       type: object
@@ -168,6 +140,34 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_TrashData'
+    Backend_TrashTypes:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            type: string
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Backend_TrashData:
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        status:
+          description: Status of the object either 1 = active or 0 = deleted
+          type: integer
+        name:
+          type: string
     Backend_TrashRestore:
       type: object
       properties:

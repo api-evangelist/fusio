@@ -189,17 +189,17 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_CategoryUpdate:
+    Backend_CategoryCreate:
       $ref: '#/components/schemas/Backend_Category'
-    Common_Message:
-      description: Common error message
+    Backend_Category:
+      description: This object represents a category. Every user is assigned to a category and can only view objects which are also assigned to the same category, through this it is possible to build separate areas for external developers
       type: object
       properties:
-        success:
-          type: boolean
-        message:
-          type: string
         id:
+          description: Unique identifier for the object
+          type: integer
+        name:
+          description: Unique name of the object
           type: string
     Backend_CategoryCollection:
       description: Base collection
@@ -215,18 +215,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Category'
-    Backend_Category:
-      description: This object represents a category. Every user is assigned to a category and can only view objects which are also assigned to the same category, through this it is possible to build separate areas for external developers
+    Backend_CategoryUpdate:
+      $ref: '#/components/schemas/Backend_Category'
+    Common_Message:
+      description: Common error message
       type: object
       properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        name:
-          description: Unique name of the object
+        success:
+          type: boolean
+        message:
           type: string
-    Backend_CategoryCreate:
-      $ref: '#/components/schemas/Backend_Category'
+        id:
+          type: string
   securitySchemes:
     app:
       type: oauth2

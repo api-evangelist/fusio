@@ -186,20 +186,6 @@ components:
   schemas:
     Backend_TestConfig:
       $ref: '#/components/schemas/Backend_ActionExecuteRequest'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
-    Backend_ActionExecuteRequestBody:
-      description: Represents a request body
-      type: object
-      additionalProperties: {}
     Backend_TestCollection:
       description: Base collection
       type: object
@@ -214,6 +200,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Test'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Backend_ActionExecuteRequestBody:
+      description: Represents a request body
+      type: object
+      additionalProperties: {}
     Backend_ActionExecuteRequest:
       description: Represents a request to execute an action
       type: object

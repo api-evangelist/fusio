@@ -284,10 +284,14 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
+    Backend_EventUpdate:
+      $ref: '#/components/schemas/Backend_Event'
     Common_Metadata:
       type: object
       additionalProperties:
         type: string
+    Backend_EventCreate:
+      $ref: '#/components/schemas/Backend_Event'
     Common_Message:
       description: Common error message
       type: object
@@ -298,24 +302,6 @@ components:
           type: string
         id:
           type: string
-    Backend_EventUpdate:
-      $ref: '#/components/schemas/Backend_Event'
-    Backend_EventCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Event'
-    Backend_EventCreate:
-      $ref: '#/components/schemas/Backend_Event'
     Backend_Event:
       description: This object represents an event which can be triggered by an action
       type: object
@@ -332,6 +318,20 @@ components:
           type: string
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
+    Backend_EventCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Event'
     Consumer_Event:
       type: object
       properties:

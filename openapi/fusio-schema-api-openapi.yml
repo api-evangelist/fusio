@@ -282,6 +282,23 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Backend_Schema:
+      description: This object represents a schema to describe a JSON payload
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        status:
+          description: Status of the object either 1 = active or 0 = deleted
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        source:
+          $ref: '#/components/schemas/Backend_SchemaSource'
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
     Backend_SchemaCommitCollection:
       description: Base collection
       type: object
@@ -296,51 +313,34 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_SchemaCommit'
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
-    Backend_SchemaCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Schema'
-    Backend_SchemaCommit:
-      description: A schema commit which represents a change in the schema source
+    Backend_Token:
+      description: This object represents a token, this an access token which was requested by a user
       type: object
       properties:
         id:
           description: Unique identifier for the object
           type: integer
-        user:
-          $ref: '#/components/schemas/Backend_User'
-        commitHash:
-          description: A unique hash which represents this commit
+        status:
+          description: Status of the object either 1 = active or 2 = deleted
+          type: integer
+        name:
           type: string
-        schema:
-          $ref: '#/components/schemas/Backend_SchemaSource'
-        insertDate:
+        scopes:
+          type: array
+          items:
+            type: string
+        ip:
+          type: string
+        expire:
           type: string
           format: date-time
+        date:
+          type: string
+          format: date-time
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
     Backend_User:
       description: This object represents a user
       type: object
@@ -381,8 +381,10 @@ components:
           description: The insert date
           type: string
           format: date-time
-    Backend_SchemaUpdate:
-      $ref: '#/components/schemas/Backend_Schema'
+    Backend_SchemaSource:
+      description: Contains the TypeSchema specification
+      type: object
+      additionalProperties: {}
     Backend_App:
       description: This object represents an app to access the API on-behalf of a user
       type: object
@@ -426,58 +428,56 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Token'
-    Backend_SchemaSource:
-      description: Contains the TypeSchema specification
-      type: object
-      additionalProperties: {}
-    Backend_Schema:
-      description: This object represents a schema to describe a JSON payload
+    Common_Message:
+      description: Common error message
       type: object
       properties:
+        success:
+          type: boolean
+        message:
+          type: string
         id:
-          description: Unique identifier for the object
-          type: integer
-        status:
-          description: Status of the object either 1 = active or 0 = deleted
-          type: integer
-        name:
-          description: Unique name of the object
           type: string
-        source:
-          $ref: '#/components/schemas/Backend_SchemaSource'
-        metadata:
-          $ref: '#/components/schemas/Common_Metadata'
-    Backend_Token:
-      description: This object represents a token, this an access token which was requested by a user
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        status:
-          description: Status of the object either 1 = active or 2 = deleted
-          type: integer
-        name:
-          type: string
-        scopes:
-          type: array
-          items:
-            type: string
-        ip:
-          type: string
-        expire:
-          type: string
-          format: date-time
-        date:
-          type: string
-          format: date-time
-    Backend_SchemaCreate:
+    Backend_SchemaUpdate:
       $ref: '#/components/schemas/Backend_Schema'
+    Backend_SchemaCommit:
+      description: A schema commit which represents a change in the schema source
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        user:
+          $ref: '#/components/schemas/Backend_User'
+        commitHash:
+          description: A unique hash which represents this commit
+          type: string
+        schema:
+          $ref: '#/components/schemas/Backend_SchemaSource'
+        insertDate:
+          type: string
+          format: date-time
     Backend_SchemaPreviewResponse:
       type: object
       properties:
         preview:
           type: string
+    Backend_SchemaCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Schema'
+    Backend_SchemaCreate:
+      $ref: '#/components/schemas/Backend_Schema'
   securitySchemes:
     app:
       type: oauth2

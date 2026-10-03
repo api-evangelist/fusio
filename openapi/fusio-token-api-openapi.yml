@@ -316,30 +316,6 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
-    Backend_TokenCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Token'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
     Backend_Token:
       description: This object represents a token, this an access token which was requested by a user
       type: object
@@ -364,6 +340,65 @@ components:
         date:
           type: string
           format: date-time
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Backend_TokenCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Token'
+    Consumer_Token:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: integer
+        name:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        ip:
+          type: string
+        expire:
+          type: string
+          format: date
+        date:
+          type: string
+          format: date-time
+    Consumer_TokenCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Token'
     Consumer_TokenAccessToken:
       type: object
       properties:
@@ -397,41 +432,6 @@ components:
         expire:
           type: string
           format: date
-    Consumer_TokenCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Consumer_Token'
-    Consumer_Token:
-      type: object
-      properties:
-        id:
-          type: integer
-        status:
-          type: integer
-        name:
-          type: string
-        scopes:
-          type: array
-          items:
-            type: string
-        ip:
-          type: string
-        expire:
-          type: string
-          format: date
-        date:
-          type: string
-          format: date-time
   securitySchemes:
     app:
       type: oauth2

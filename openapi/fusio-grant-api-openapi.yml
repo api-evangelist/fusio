@@ -110,16 +110,6 @@ components:
       type: object
       additionalProperties:
         type: string
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
     Consumer_App:
       type: object
       properties:
@@ -145,6 +135,16 @@ components:
             type: string
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Consumer_Grant:
       type: object
       properties:

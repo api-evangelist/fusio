@@ -279,38 +279,6 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
-    Backend_PlanCreate:
-      $ref: '#/components/schemas/Backend_Plan'
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
-    Backend_PlanUpdate:
-      $ref: '#/components/schemas/Backend_Plan'
-    Backend_PlanCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Plan'
     Backend_Plan:
       description: This object represents a plan, a plan allows users to obtain points or in general subscribe to your app
       type: object
@@ -343,7 +311,11 @@ components:
             type: string
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Consumer_PlanCollection:
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_PlanCollection:
       description: Base collection
       type: object
       properties:
@@ -356,7 +328,21 @@ components:
         entry:
           type: array
           items:
-            $ref: '#/components/schemas/Consumer_Plan'
+            $ref: '#/components/schemas/Backend_Plan'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Backend_PlanCreate:
+      $ref: '#/components/schemas/Backend_Plan'
+    Backend_PlanUpdate:
+      $ref: '#/components/schemas/Backend_Plan'
     Consumer_Plan:
       type: object
       properties:
@@ -374,6 +360,20 @@ components:
           type: integer
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
+    Consumer_PlanCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Plan'
   securitySchemes:
     app:
       type: oauth2

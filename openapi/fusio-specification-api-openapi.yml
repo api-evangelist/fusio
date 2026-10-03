@@ -143,6 +143,24 @@ components:
       description: No schema information available
       type: object
       additionalProperties: {}
+    Backend_SpecificationChangelog:
+      type: object
+      properties:
+        master: {}
+        tag: {}
+        version:
+          type: string
+        changelog:
+          type: string
+    Backend_SpecificationPublish:
+      type: object
+      properties:
+        name:
+          type: string
+        filterName:
+          type: string
+        standalone:
+          type: boolean
     Common_Message:
       description: Common error message
       type: object
@@ -153,28 +171,10 @@ components:
           type: string
         id:
           type: string
-    Backend_SpecificationChangelog:
-      type: object
-      properties:
-        master: {}
-        tag: {}
-        version:
-          type: string
-        changelog:
-          type: string
     Backend_SpecificationGet:
       type: object
       properties:
         spec: {}
-    Backend_SpecificationPublish:
-      type: object
-      properties:
-        name:
-          type: string
-        filterName:
-          type: string
-        standalone:
-          type: boolean
   securitySchemes:
     app:
       type: oauth2

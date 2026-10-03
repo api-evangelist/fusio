@@ -70,20 +70,34 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Backend_Token:
+      description: This object represents a token, this an access token which was requested by a user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        status:
+          description: Status of the object either 1 = active or 2 = deleted
+          type: integer
+        name:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        ip:
+          type: string
+        expire:
+          type: string
+          format: date-time
+        date:
+          type: string
+          format: date-time
     Common_Metadata:
       type: object
       additionalProperties:
         type: string
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
     Backend_App:
       description: This object represents an app to access the API on-behalf of a user
       type: object
@@ -127,6 +141,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Token'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Backend_User:
       description: This object represents a user
       type: object
@@ -165,30 +189,6 @@ components:
           $ref: '#/components/schemas/Common_Metadata'
         date:
           description: The insert date
-          type: string
-          format: date-time
-    Backend_Token:
-      description: This object represents a token, this an access token which was requested by a user
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        status:
-          description: Status of the object either 1 = active or 2 = deleted
-          type: integer
-        name:
-          type: string
-        scopes:
-          type: array
-          items:
-            type: string
-        ip:
-          type: string
-        expire:
-          type: string
-          format: date-time
-        date:
           type: string
           format: date-time
   securitySchemes:

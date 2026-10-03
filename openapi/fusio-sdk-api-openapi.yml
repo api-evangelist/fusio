@@ -74,21 +74,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_SdkResponse:
-      type: object
-      properties:
-        types:
-          $ref: '#/components/schemas/Backend_SdkTypes'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
     Backend_SdkMessage:
       type: object
       properties:
@@ -104,6 +89,21 @@ components:
         format:
           type: string
         config:
+          type: string
+    Backend_SdkResponse:
+      type: object
+      properties:
+        types:
+          $ref: '#/components/schemas/Backend_SdkTypes'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
           type: string
     Backend_SdkTypes:
       description: Represents available SDK type which can be generated

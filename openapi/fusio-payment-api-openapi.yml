@@ -92,6 +92,18 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Consumer_PaymentCheckoutResponse:
+      type: object
+      properties:
+        approvalUrl:
+          type: string
+    Consumer_PaymentCheckoutRequest:
+      type: object
+      properties:
+        planId:
+          type: integer
+        returnUrl:
+          type: string
     Consumer_PaymentPortalResponse:
       type: object
       properties:
@@ -106,18 +118,6 @@ components:
         message:
           type: string
         id:
-          type: string
-    Consumer_PaymentCheckoutRequest:
-      type: object
-      properties:
-        planId:
-          type: integer
-        returnUrl:
-          type: string
-    Consumer_PaymentCheckoutResponse:
-      type: object
-      properties:
-        approvalUrl:
           type: string
     Consumer_PaymentPortalRequest:
       type: object
