@@ -39,6 +39,9 @@ access: 3rd-Party
 created: '2026-03-16'
 modified: '2026-09-16'
 position: Consuming
+x-docs-platform: docusaurus
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
 tags:
 - API Management
 - Open Source
@@ -1588,6 +1591,9 @@ apis:
   - type: OpenIDConnect
     url: well-known/fusio-openid-configuration.json
 common:
+- type: CapabilityMap
+  url: capabilities/fusio-capability-edges.yml
+  name: Fusio Business Capability Map
 - type: Overlay
   url: overlays/fusio-consumer-overlay.yaml
 - type: Overlay
