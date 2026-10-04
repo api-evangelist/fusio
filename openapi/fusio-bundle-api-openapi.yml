@@ -252,10 +252,23 @@ components:
           type: integer
         config:
           $ref: '#/components/schemas/Backend_BundleConfig'
-    Backend_BundleCreate:
-      $ref: '#/components/schemas/Backend_Bundle'
+    Backend_BundleConfig:
+      type: object
+      additionalProperties: {}
     Backend_BundleUpdate:
       $ref: '#/components/schemas/Backend_Bundle'
+    Backend_BundleCreate:
+      $ref: '#/components/schemas/Backend_Bundle'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Backend_BundleCollection:
       description: Base collection
       type: object
@@ -270,19 +283,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Bundle'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
-    Backend_BundleConfig:
-      type: object
-      additionalProperties: {}
   securitySchemes:
     app:
       type: oauth2

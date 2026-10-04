@@ -325,63 +325,6 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
-    Backend_LogCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Log'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
-    Backend_LogErrorCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_LogError'
-    Backend_LogError:
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        logId:
-          type: integer
-        message:
-          type: string
-        trace:
-          type: string
-        file:
-          type: string
-        line:
-          type: integer
-        insertDate:
-          type: string
-          format: date-time
     Backend_Log:
       description: This object represents a log entry. Every HTTP requests to the system generates such a log entry.
       type: object
@@ -416,7 +359,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_LogError'
-    Consumer_LogCollection:
+    Backend_LogErrorCollection:
       description: Base collection
       type: object
       properties:
@@ -429,7 +372,50 @@ components:
         entry:
           type: array
           items:
-            $ref: '#/components/schemas/Consumer_Log'
+            $ref: '#/components/schemas/Backend_LogError'
+    Backend_LogError:
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        logId:
+          type: integer
+        message:
+          type: string
+        trace:
+          type: string
+        file:
+          type: string
+        line:
+          type: integer
+        insertDate:
+          type: string
+          format: date-time
+    Backend_LogCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Log'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Consumer_Log:
       type: object
       properties:
@@ -452,6 +438,20 @@ components:
         date:
           type: string
           format: date-time
+    Consumer_LogCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Log'
   securitySchemes:
     app:
       type: oauth2

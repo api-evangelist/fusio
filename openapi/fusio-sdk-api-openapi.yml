@@ -74,22 +74,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_SdkMessage:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        link:
-          type: string
-    Backend_SdkGenerate:
-      type: object
-      properties:
-        format:
-          type: string
-        config:
-          type: string
     Backend_SdkResponse:
       type: object
       properties:
@@ -105,11 +89,27 @@ components:
           type: string
         id:
           type: string
+    Backend_SdkGenerate:
+      type: object
+      properties:
+        format:
+          type: string
+        config:
+          type: string
     Backend_SdkTypes:
       description: Represents available SDK type which can be generated
       type: object
       additionalProperties:
         type: string
+    Backend_SdkMessage:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        link:
+          type: string
   securitySchemes:
     app:
       type: oauth2

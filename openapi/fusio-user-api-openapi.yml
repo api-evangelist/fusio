@@ -237,6 +237,52 @@ components:
         properties:
           password:
             type: string
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_UserUpdate:
+      $ref: '#/components/schemas/Backend_User'
+    Backend_User:
+      description: This object represents a user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        roleId:
+          description: A role which is assigned to the user
+          type: integer
+        planId:
+          description: A plan which is assigned to the user
+          type: integer
+        status:
+          description: Status of the object either 1 = active, 2 = disabled or 0 = deleted
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        email:
+          description: The email address of the user
+          type: string
+        points:
+          description: Points assigned to the user
+          type: integer
+        scopes:
+          description: List of scopes which are assigned to the user
+          type: array
+          items:
+            type: string
+        apps:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_App'
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+        date:
+          description: The insert date
+          type: string
+          format: date-time
     Backend_Token:
       description: This object represents a token, this an access token which was requested by a user
       type: object
@@ -261,10 +307,20 @@ components:
         date:
           type: string
           format: date-time
-    Common_Metadata:
+    Backend_UserCollection:
+      description: Base collection
       type: object
-      additionalProperties:
-        type: string
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_User'
     Passthru:
       description: No schema information available
       type: object
@@ -322,62 +378,6 @@ components:
           type: string
         id:
           type: string
-    Backend_UserCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_User'
-    Backend_UserUpdate:
-      $ref: '#/components/schemas/Backend_User'
-    Backend_User:
-      description: This object represents a user
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        roleId:
-          description: A role which is assigned to the user
-          type: integer
-        planId:
-          description: A plan which is assigned to the user
-          type: integer
-        status:
-          description: Status of the object either 1 = active, 2 = disabled or 0 = deleted
-          type: integer
-        name:
-          description: Unique name of the object
-          type: string
-        email:
-          description: The email address of the user
-          type: string
-        points:
-          description: Points assigned to the user
-          type: integer
-        scopes:
-          description: List of scopes which are assigned to the user
-          type: array
-          items:
-            type: string
-        apps:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_App'
-        metadata:
-          $ref: '#/components/schemas/Common_Metadata'
-        date:
-          description: The insert date
-          type: string
-          format: date-time
   securitySchemes:
     app:
       type: oauth2

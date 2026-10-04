@@ -445,91 +445,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    MarketplaceApp:
-      allOf:
-      - $ref: '#/components/schemas/MarketplaceObject'
-      - type: object
-        properties:
-          scopes:
-            type: array
-            items:
-              type: string
-          downloadUrl:
-            type: string
-          hash:
-            type: string
-    MarketplaceUser:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        verified:
-          type: boolean
-    MarketplaceInstall:
-      description: Installs an object from the marketplace
-      type: object
-      properties:
-        name:
-          type: string
-    MarketplaceBundleAction:
-      type: object
-      properties:
-        name:
-          type: string
-        class:
-          type: string
-        config:
-          $ref: '#/components/schemas/MarketplaceBundleActionConfig'
-    MarketplaceBundleActionConfig:
-      type: object
-      additionalProperties: {}
-    MarketplaceActionConfig:
-      type: object
-      additionalProperties: {}
-    MarketplaceAction:
-      allOf:
-      - $ref: '#/components/schemas/MarketplaceObject'
-      - type: object
-        properties:
-          class:
-            type: string
-          config:
-            $ref: '#/components/schemas/MarketplaceActionConfig'
-    MarketplaceBundleSchema:
-      type: object
-      properties:
-        name:
-          type: string
-        source:
-          $ref: '#/components/schemas/MarketplaceBundleSchemaSource'
-    MarketplaceBundleCronjob:
-      type: object
-      properties:
-        name:
-          type: string
-        cron:
-          type: string
-        action:
-          type: string
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
-    MarketplaceBundle:
-      allOf:
-      - $ref: '#/components/schemas/MarketplaceObject'
-      - type: object
-        properties:
-          config:
-            $ref: '#/components/schemas/MarketplaceBundleConfig'
     MarketplaceAppCollection:
       type: object
       properties:
@@ -543,6 +458,56 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MarketplaceApp'
+    MarketplaceUser:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        verified:
+          type: boolean
+    MarketplaceBundleCollection:
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceBundle'
+    MarketplaceBundleEvent:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        schema:
+          type: string
+    MarketplaceActionConfig:
+      type: object
+      additionalProperties: {}
+    MarketplaceBundleActionConfig:
+      type: object
+      additionalProperties: {}
+    MarketplaceApp:
+      allOf:
+      - $ref: '#/components/schemas/MarketplaceObject'
+      - type: object
+        properties:
+          scopes:
+            type: array
+            items:
+              type: string
+          downloadUrl:
+            type: string
+          hash:
+            type: string
     MarketplaceBundleTrigger:
       type: object
       properties:
@@ -552,6 +517,82 @@ components:
           type: string
         action:
           type: string
+    MarketplaceBundleSchema:
+      type: object
+      properties:
+        name:
+          type: string
+        source:
+          $ref: '#/components/schemas/MarketplaceBundleSchemaSource'
+    MarketplaceInstall:
+      description: Installs an object from the marketplace
+      type: object
+      properties:
+        name:
+          type: string
+    MarketplaceBundleCronjob:
+      type: object
+      properties:
+        name:
+          type: string
+        cron:
+          type: string
+        action:
+          type: string
+    MarketplaceBundleSchemaSource:
+      type: object
+      additionalProperties: {}
+    MarketplaceAction:
+      allOf:
+      - $ref: '#/components/schemas/MarketplaceObject'
+      - type: object
+        properties:
+          class:
+            type: string
+          config:
+            $ref: '#/components/schemas/MarketplaceActionConfig'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    MarketplaceBundleAction:
+      type: object
+      properties:
+        name:
+          type: string
+        class:
+          type: string
+        config:
+          $ref: '#/components/schemas/MarketplaceBundleActionConfig'
+    MarketplaceBundleConfig:
+      type: object
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceBundleAction'
+        schemas:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceBundleSchema'
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceBundleEvent'
+        cronjobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceBundleCronjob'
+        triggers:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceBundleTrigger'
     MarketplaceObject:
       description: Base class of all objects on the marketplace
       type: object
@@ -578,9 +619,22 @@ components:
         insertDate:
           type: string
           format: date-time
-    MarketplaceBundleSchemaSource:
+    MarketplaceBundle:
+      allOf:
+      - $ref: '#/components/schemas/MarketplaceObject'
+      - type: object
+        properties:
+          config:
+            $ref: '#/components/schemas/MarketplaceBundleConfig'
+    MarketplaceMessage:
       type: object
-      additionalProperties: {}
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     MarketplaceActionCollection:
       type: object
       properties:
@@ -594,60 +648,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MarketplaceAction'
-    MarketplaceMessage:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
-    MarketplaceBundleConfig:
-      type: object
-      properties:
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/MarketplaceBundleAction'
-        schemas:
-          type: array
-          items:
-            $ref: '#/components/schemas/MarketplaceBundleSchema'
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/MarketplaceBundleEvent'
-        cronjobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/MarketplaceBundleCronjob'
-        triggers:
-          type: array
-          items:
-            $ref: '#/components/schemas/MarketplaceBundleTrigger'
-    MarketplaceBundleCollection:
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/MarketplaceBundle'
-    MarketplaceBundleEvent:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        schema:
-          type: string
   securitySchemes:
     app:
       type: oauth2

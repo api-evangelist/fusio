@@ -218,18 +218,6 @@ components:
           type: string
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Backend_TriggerCreate:
-      $ref: '#/components/schemas/Backend_Trigger'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
     Backend_TriggerCollection:
       description: Base collection
       type: object
@@ -244,6 +232,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Trigger'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Backend_TriggerCreate:
+      $ref: '#/components/schemas/Backend_Trigger'
   securitySchemes:
     app:
       type: oauth2

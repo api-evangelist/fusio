@@ -194,24 +194,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_CronjobCreate:
-      $ref: '#/components/schemas/Backend_Cronjob'
-    Backend_CronjobCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Cronjob'
-    Backend_CronjobUpdate:
-      $ref: '#/components/schemas/Backend_Cronjob'
     Common_Metadata:
       type: object
       additionalProperties:
@@ -228,16 +210,6 @@ components:
           type: string
         line:
           type: integer
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
     Backend_Cronjob:
       description: This object represents a cronjob which can invoke an action at a specific interval
       type: object
@@ -268,6 +240,34 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_CronjobError'
+    Backend_CronjobCreate:
+      $ref: '#/components/schemas/Backend_Cronjob'
+    Backend_CronjobUpdate:
+      $ref: '#/components/schemas/Backend_Cronjob'
+    Backend_CronjobCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Cronjob'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
   securitySchemes:
     app:
       type: oauth2

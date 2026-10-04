@@ -189,6 +189,24 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Backend_RoleCreate:
+      $ref: '#/components/schemas/Backend_Role'
+    Backend_RoleCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Role'
+    Backend_RoleUpdate:
+      $ref: '#/components/schemas/Backend_Role'
     Backend_Role:
       description: This object represents a role, every user is assigned to a role and all scopes of the role are automatically attached to the user
       type: object
@@ -207,22 +225,6 @@ components:
           type: array
           items:
             type: string
-    Backend_RoleCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Role'
-    Backend_RoleUpdate:
-      $ref: '#/components/schemas/Backend_Role'
     Common_Message:
       description: Common error message
       type: object
@@ -233,8 +235,6 @@ components:
           type: string
         id:
           type: string
-    Backend_RoleCreate:
-      $ref: '#/components/schemas/Backend_Role'
   securitySchemes:
     app:
       type: oauth2

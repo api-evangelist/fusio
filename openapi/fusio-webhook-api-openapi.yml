@@ -376,26 +376,6 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
-    Backend_WebhookUpdate:
-      $ref: '#/components/schemas/Backend_Webhook'
-    Backend_WebhookCreate:
-      $ref: '#/components/schemas/Backend_Webhook'
-    Backend_WebhookResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-        status:
-          type: integer
-        code:
-          type: integer
-        attempts:
-          type: integer
-        error:
-          type: string
-        executeDate:
-          type: string
-          format: date-time
     Backend_Webhook:
       description: This object represents a webhook, a webhook is called in case a specific event was triggered
       type: object
@@ -415,6 +395,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_WebhookResponse'
+    Backend_WebhookCreate:
+      $ref: '#/components/schemas/Backend_Webhook'
+    Backend_WebhookResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: integer
+        code:
+          type: integer
+        attempts:
+          type: integer
+        error:
+          type: string
+        executeDate:
+          type: string
+          format: date-time
     Common_Message:
       description: Common error message
       type: object
@@ -425,6 +423,8 @@ components:
           type: string
         id:
           type: string
+    Backend_WebhookUpdate:
+      $ref: '#/components/schemas/Backend_Webhook'
     Backend_WebhookCollection:
       description: Base collection
       type: object
@@ -439,6 +439,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Webhook'
+    Consumer_WebhookCreate:
+      type: object
+      properties:
+        event:
+          type: string
+        name:
+          type: string
+        endpoint:
+          type: string
+    Consumer_WebhookUpdate:
+      type: object
+      properties:
+        event:
+          type: string
+        name:
+          type: string
+        endpoint:
+          type: string
     Consumer_WebhookResponse:
       type: object
       properties:
@@ -449,15 +467,6 @@ components:
         attempts:
           type: string
         executeDate:
-          type: string
-    Consumer_WebhookUpdate:
-      type: object
-      properties:
-        event:
-          type: string
-        name:
-          type: string
-        endpoint:
           type: string
     Consumer_Webhook:
       type: object
@@ -476,15 +485,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Consumer_WebhookResponse'
-    Consumer_WebhookCreate:
-      type: object
-      properties:
-        event:
-          type: string
-        name:
-          type: string
-        endpoint:
-          type: string
     Consumer_WebhookCollection:
       description: Base collection
       type: object

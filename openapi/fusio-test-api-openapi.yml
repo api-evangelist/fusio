@@ -184,8 +184,10 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_TestConfig:
-      $ref: '#/components/schemas/Backend_ActionExecuteRequest'
+    Backend_ActionExecuteRequestBody:
+      description: Represents a request body
+      type: object
+      additionalProperties: {}
     Backend_TestCollection:
       description: Base collection
       type: object
@@ -200,38 +202,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Test'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
-    Backend_ActionExecuteRequestBody:
-      description: Represents a request body
-      type: object
-      additionalProperties: {}
-    Backend_ActionExecuteRequest:
-      description: Represents a request to execute an action
-      type: object
-      properties:
-        method:
-          description: HTTP method i.e. GET, POST
-          type: string
-        uriFragments:
-          description: URL-encoded uri fragments i.e. foo=bar&bar=foo
-          type: string
-        parameters:
-          description: URL-encoded query parameters i.e. foo=bar&bar=foo
-          type: string
-        headers:
-          description: URL-encoded headers i.e. foo=bar&bar=foo
-          type: string
-        body:
-          $ref: '#/components/schemas/Backend_ActionExecuteRequestBody'
+    Backend_TestConfig:
+      $ref: '#/components/schemas/Backend_ActionExecuteRequest'
     Backend_Test:
       description: This object represents a test. A test helps to verify that all operations work as expected
       type: object
@@ -250,6 +222,34 @@ components:
           type: string
         config:
           $ref: '#/components/schemas/Backend_TestConfig'
+    Backend_ActionExecuteRequest:
+      description: Represents a request to execute an action
+      type: object
+      properties:
+        method:
+          description: HTTP method i.e. GET, POST
+          type: string
+        uriFragments:
+          description: URL-encoded uri fragments i.e. foo=bar&bar=foo
+          type: string
+        parameters:
+          description: URL-encoded query parameters i.e. foo=bar&bar=foo
+          type: string
+        headers:
+          description: URL-encoded headers i.e. foo=bar&bar=foo
+          type: string
+        body:
+          $ref: '#/components/schemas/Backend_ActionExecuteRequestBody'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
   securitySchemes:
     app:
       type: oauth2

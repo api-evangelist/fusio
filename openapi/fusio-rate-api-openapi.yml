@@ -189,6 +189,46 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Backend_RateAllocation:
+      description: This object represents a rate allocation, in case a request matches it gets assigned to the attached rate
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        operationId:
+          type: integer
+        userId:
+          type: integer
+        planId:
+          type: integer
+        appId:
+          type: integer
+        authenticated:
+          description: Whether the request is authenticated
+          type: boolean
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_RateCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Rate'
+    Backend_RateCreate:
+      $ref: '#/components/schemas/Backend_Rate'
+    Backend_RateUpdate:
+      $ref: '#/components/schemas/Backend_Rate'
     Backend_Rate:
       description: This object represents a rate limitation, which allows to limit the requests which a user can send
       type: object
@@ -215,44 +255,6 @@ components:
             $ref: '#/components/schemas/Backend_RateAllocation'
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Backend_RateCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Rate'
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
-    Backend_RateUpdate:
-      $ref: '#/components/schemas/Backend_Rate'
-    Backend_RateAllocation:
-      description: This object represents a rate allocation, in case a request matches it gets assigned to the attached rate
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        operationId:
-          type: integer
-        userId:
-          type: integer
-        planId:
-          type: integer
-        appId:
-          type: integer
-        authenticated:
-          description: Whether the request is authenticated
-          type: boolean
     Common_Message:
       description: Common error message
       type: object
@@ -263,8 +265,6 @@ components:
           type: string
         id:
           type: string
-    Backend_RateCreate:
-      $ref: '#/components/schemas/Backend_Rate'
   securitySchemes:
     app:
       type: oauth2

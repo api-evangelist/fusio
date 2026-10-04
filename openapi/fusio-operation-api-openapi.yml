@@ -194,6 +194,18 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Backend_OperationThrows:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_OperationUpdate:
+      $ref: '#/components/schemas/Backend_Operation'
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_OperationCreate:
+      $ref: '#/components/schemas/Backend_Operation'
     Backend_OperationCollection:
       description: Base collection
       type: object
@@ -208,16 +220,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Operation'
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
-    Backend_OperationCreate:
-      $ref: '#/components/schemas/Backend_Operation'
-    Backend_OperationThrows:
-      type: object
-      additionalProperties:
-        type: string
     Backend_Operation:
       description: This object represents an operation, an operation invokes an action in case a specific HTTP method and path was requested. It defines also schema information about the request and response payload
       type: object
@@ -289,8 +291,6 @@ components:
       type: object
       additionalProperties:
         $ref: '#/components/schemas/Backend_OperationSchema'
-    Backend_OperationUpdate:
-      $ref: '#/components/schemas/Backend_Operation'
     Backend_OperationSchema:
       type: object
       properties:

@@ -273,14 +273,6 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
-    Backend_PageCreate:
-      $ref: '#/components/schemas/Backend_Page'
-    Backend_PageUpdate:
-      $ref: '#/components/schemas/Backend_Page'
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
     Backend_PageCollection:
       description: Base collection
       type: object
@@ -295,16 +287,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Page'
-    Common_Message:
-      description: Common error message
+    Common_Metadata:
       type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
+      additionalProperties:
+        type: string
+    Backend_PageCreate:
+      $ref: '#/components/schemas/Backend_Page'
+    Backend_PageUpdate:
+      $ref: '#/components/schemas/Backend_Page'
     Backend_Page:
       description: This object represents a page at the developer portal
       type: object
@@ -326,19 +316,16 @@ components:
           type: string
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Consumer_Page:
+    Common_Message:
+      description: Common error message
       type: object
       properties:
+        success:
+          type: boolean
+        message:
+          type: string
         id:
-          type: integer
-        title:
           type: string
-        slug:
-          type: string
-        content:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/Common_Metadata'
     Consumer_PageCollection:
       description: Base collection
       type: object
@@ -353,6 +340,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Consumer_Page'
+    Consumer_Page:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        slug:
+          type: string
+        content:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
   securitySchemes:
     app:
       type: oauth2

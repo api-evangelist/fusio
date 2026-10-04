@@ -129,32 +129,10 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_Audit:
-      description: This object represents an audit which is created every time something was changed at the system
+    Common_Metadata:
       type: object
-      properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        app:
-          $ref: '#/components/schemas/Backend_App'
-        user:
-          $ref: '#/components/schemas/Backend_User'
-        event:
-          description: Trigger event of this audit
-          type: string
-        ip:
-          description: IP which as issued the request
-          type: string
-        message:
-          description: Message of this audit event
-          type: string
-        content:
-          $ref: '#/components/schemas/Backend_AuditObject'
-        date:
-          description: Insert date of this audit event
-          type: string
-          format: date-time
+      additionalProperties:
+        type: string
     Backend_Token:
       description: This object represents a token, this an access token which was requested by a user
       type: object
@@ -179,10 +157,50 @@ components:
         date:
           type: string
           format: date-time
-    Common_Metadata:
+    Backend_User:
+      description: This object represents a user
       type: object
-      additionalProperties:
-        type: string
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        roleId:
+          description: A role which is assigned to the user
+          type: integer
+        planId:
+          description: A plan which is assigned to the user
+          type: integer
+        status:
+          description: Status of the object either 1 = active, 2 = disabled or 0 = deleted
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        email:
+          description: The email address of the user
+          type: string
+        points:
+          description: Points assigned to the user
+          type: integer
+        scopes:
+          description: List of scopes which are assigned to the user
+          type: array
+          items:
+            type: string
+        apps:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_App'
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+        date:
+          description: The insert date
+          type: string
+          format: date-time
+    Backend_AuditObject:
+      description: A key value object containing the changes
+      type: object
+      additionalProperties: {}
     Backend_AuditCollection:
       description: Base collection
       type: object
@@ -240,10 +258,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Token'
-    Backend_AuditObject:
-      description: A key value object containing the changes
-      type: object
-      additionalProperties: {}
     Common_Message:
       description: Common error message
       type: object
@@ -254,44 +268,30 @@ components:
           type: string
         id:
           type: string
-    Backend_User:
-      description: This object represents a user
+    Backend_Audit:
+      description: This object represents an audit which is created every time something was changed at the system
       type: object
       properties:
         id:
           description: Unique identifier for the object
           type: integer
-        roleId:
-          description: A role which is assigned to the user
-          type: integer
-        planId:
-          description: A plan which is assigned to the user
-          type: integer
-        status:
-          description: Status of the object either 1 = active, 2 = disabled or 0 = deleted
-          type: integer
-        name:
-          description: Unique name of the object
+        app:
+          $ref: '#/components/schemas/Backend_App'
+        user:
+          $ref: '#/components/schemas/Backend_User'
+        event:
+          description: Trigger event of this audit
           type: string
-        email:
-          description: The email address of the user
+        ip:
+          description: IP which as issued the request
           type: string
-        points:
-          description: Points assigned to the user
-          type: integer
-        scopes:
-          description: List of scopes which are assigned to the user
-          type: array
-          items:
-            type: string
-        apps:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_App'
-        metadata:
-          $ref: '#/components/schemas/Common_Metadata'
+        message:
+          description: Message of this audit event
+          type: string
+        content:
+          $ref: '#/components/schemas/Backend_AuditObject'
         date:
-          description: The insert date
+          description: Insert date of this audit event
           type: string
           format: date-time
   securitySchemes:

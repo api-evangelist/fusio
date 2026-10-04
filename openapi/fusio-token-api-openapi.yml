@@ -364,6 +364,53 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Token'
+    Consumer_TokenUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        expire:
+          type: string
+          format: date
+    Consumer_TokenCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        expire:
+          type: string
+          format: date
+    Consumer_TokenAccessToken:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+        expires_in:
+          type: integer
+        refresh_token:
+          type: string
+        scope:
+          type: string
+    Consumer_TokenCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Token'
     Consumer_Token:
       type: object
       properties:
@@ -385,53 +432,6 @@ components:
         date:
           type: string
           format: date-time
-    Consumer_TokenCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Consumer_Token'
-    Consumer_TokenAccessToken:
-      type: object
-      properties:
-        access_token:
-          type: string
-        token_type:
-          type: string
-        expires_in:
-          type: integer
-        refresh_token:
-          type: string
-        scope:
-          type: string
-    Consumer_TokenUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-        expire:
-          type: string
-          format: date
-    Consumer_TokenCreate:
-      type: object
-      properties:
-        name:
-          type: string
-        scopes:
-          type: array
-          items:
-            type: string
-        expire:
-          type: string
-          format: date
   securitySchemes:
     app:
       type: oauth2

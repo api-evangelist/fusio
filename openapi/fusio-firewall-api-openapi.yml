@@ -189,10 +189,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
     Backend_Firewall:
       description: This object represents a firewall rule which blocks specific IP addresses
       type: object
@@ -215,6 +211,12 @@ components:
           format: date-time
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_FirewallCreate:
+      $ref: '#/components/schemas/Backend_Firewall'
     Backend_FirewallCollection:
       description: Base collection
       type: object
@@ -229,6 +231,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Firewall'
+    Backend_FirewallUpdate:
+      $ref: '#/components/schemas/Backend_Firewall'
     Common_Message:
       description: Common error message
       type: object
@@ -239,10 +243,6 @@ components:
           type: string
         id:
           type: string
-    Backend_FirewallUpdate:
-      $ref: '#/components/schemas/Backend_Firewall'
-    Backend_FirewallCreate:
-      $ref: '#/components/schemas/Backend_Firewall'
   securitySchemes:
     app:
       type: oauth2

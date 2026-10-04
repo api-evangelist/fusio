@@ -1688,16 +1688,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
     Backend_StatisticChart:
       type: object
       properties:
@@ -1720,6 +1710,16 @@ components:
         to:
           type: string
           format: date-time
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Backend_StatisticChartSeries:
       type: object
       properties:

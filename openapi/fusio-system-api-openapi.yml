@@ -222,10 +222,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    System_RoutePath:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/System_RouteMethod'
     System_AboutApps:
       type: object
       additionalProperties:
@@ -233,6 +229,26 @@ components:
     System_SchemaTypeSchema:
       type: object
       additionalProperties: {}
+    Passthru:
+      description: No schema information available
+      type: object
+      additionalProperties: {}
+    System_Route:
+      type: object
+      properties:
+        routes:
+          $ref: '#/components/schemas/System_RoutePath'
+    System_AboutLink:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+    System_RoutePath:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/System_RouteMethod'
     System_RouteMethod:
       type: object
       additionalProperties:
@@ -244,10 +260,23 @@ components:
           $ref: '#/components/schemas/System_SchemaTypeSchema'
         form:
           $ref: '#/components/schemas/System_SchemaForm'
-    Passthru:
-      description: No schema information available
+    System_HealthCheck:
       type: object
-      additionalProperties: {}
+      properties:
+        healthy:
+          type: boolean
+        error:
+          type: string
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     System_About:
       type: object
       properties:
@@ -288,35 +317,6 @@ components:
     System_SchemaForm:
       type: object
       additionalProperties: {}
-    System_Route:
-      type: object
-      properties:
-        routes:
-          $ref: '#/components/schemas/System_RoutePath'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
-    System_HealthCheck:
-      type: object
-      properties:
-        healthy:
-          type: boolean
-        error:
-          type: string
-    System_AboutLink:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
   securitySchemes:
     app:
       type: oauth2

@@ -51,16 +51,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_StatisticChartSeries'
-    Common_Message:
-      description: Common error message
+    Backend_StatisticChartSeries:
       type: object
       properties:
-        success:
-          type: boolean
-        message:
+        name:
           type: string
-        id:
-          type: string
+        data:
+          type: array
+          items:
+            type: number
     Backend_Dashboard:
       description: Represents an object containing all widget data for the dashboard
       type: object
@@ -83,15 +82,16 @@ components:
           $ref: '#/components/schemas/Backend_StatisticChart'
         userRegistrations:
           $ref: '#/components/schemas/Backend_StatisticChart'
-    Backend_StatisticChartSeries:
+    Common_Message:
+      description: Common error message
       type: object
       properties:
-        name:
+        success:
+          type: boolean
+        message:
           type: string
-        data:
-          type: array
-          items:
-            type: number
+        id:
+          type: string
   securitySchemes:
     app:
       type: oauth2

@@ -223,33 +223,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_Taxonomy:
-      description: This object represents a taxonomy. A taxonomy helps to internally organize operations, actions and other entities
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        parentId:
-          description: Identifier of the parent object
-          type: integer
-        name:
-          description: Unique name of the object
-          type: string
-    Backend_TaxonomyCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Taxonomy'
     Backend_TaxonomyMove:
       description: Moves the provided objects to a taxonomy
       type: object
@@ -278,6 +251,37 @@ components:
           type: array
           items:
             type: integer
+    Backend_TaxonomyUpdate:
+      $ref: '#/components/schemas/Backend_Taxonomy'
+    Backend_TaxonomyCreate:
+      $ref: '#/components/schemas/Backend_Taxonomy'
+    Backend_TaxonomyCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Taxonomy'
+    Backend_Taxonomy:
+      description: This object represents a taxonomy. A taxonomy helps to internally organize operations, actions and other entities
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        parentId:
+          description: Identifier of the parent object
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
     Common_Message:
       description: Common error message
       type: object
@@ -288,10 +292,6 @@ components:
           type: string
         id:
           type: string
-    Backend_TaxonomyCreate:
-      $ref: '#/components/schemas/Backend_Taxonomy'
-    Backend_TaxonomyUpdate:
-      $ref: '#/components/schemas/Backend_Taxonomy'
   securitySchemes:
     app:
       type: oauth2

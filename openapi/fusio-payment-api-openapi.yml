@@ -97,17 +97,22 @@ components:
       properties:
         approvalUrl:
           type: string
+    Consumer_PaymentPortalResponse:
+      type: object
+      properties:
+        redirectUrl:
+          type: string
+    Consumer_PaymentPortalRequest:
+      type: object
+      properties:
+        returnUrl:
+          type: string
     Consumer_PaymentCheckoutRequest:
       type: object
       properties:
         planId:
           type: integer
         returnUrl:
-          type: string
-    Consumer_PaymentPortalResponse:
-      type: object
-      properties:
-        redirectUrl:
           type: string
     Common_Message:
       description: Common error message
@@ -118,11 +123,6 @@ components:
         message:
           type: string
         id:
-          type: string
-    Consumer_PaymentPortalRequest:
-      type: object
-      properties:
-        returnUrl:
           type: string
   securitySchemes:
     app:

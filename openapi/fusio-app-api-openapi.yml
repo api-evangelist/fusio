@@ -419,6 +419,26 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
+    Backend_AppCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_App'
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_AppUpdate:
+      $ref: '#/components/schemas/Backend_App'
     Backend_Token:
       description: This object represents a token, this an access token which was requested by a user
       type: object
@@ -443,24 +463,8 @@ components:
         date:
           type: string
           format: date-time
-    Backend_AppCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_App'
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
+    Backend_AppCreate:
+      $ref: '#/components/schemas/Backend_App'
     Backend_App:
       description: This object represents an app to access the API on-behalf of a user
       type: object
@@ -514,11 +518,32 @@ components:
           type: string
         id:
           type: string
-    Backend_AppUpdate:
-      $ref: '#/components/schemas/Backend_App'
-    Backend_AppCreate:
-      $ref: '#/components/schemas/Backend_App'
+    Consumer_AppCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_App'
     Consumer_AppUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+    Consumer_AppCreate:
       type: object
       properties:
         name:
@@ -554,31 +579,6 @@ components:
             type: string
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Consumer_AppCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Consumer_App'
-    Consumer_AppCreate:
-      type: object
-      properties:
-        name:
-          type: string
-        url:
-          type: string
-        scopes:
-          type: array
-          items:
-            type: string
   securitySchemes:
     app:
       type: oauth2

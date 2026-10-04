@@ -92,6 +92,16 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Consumer_Grant:
+      type: object
+      properties:
+        id:
+          type: integer
+        app:
+          $ref: '#/components/schemas/Consumer_App'
+        createDate:
+          type: string
+          format: date-time
     Consumer_GrantCollection:
       description: Base collection
       type: object
@@ -145,16 +155,6 @@ components:
           type: string
         id:
           type: string
-    Consumer_Grant:
-      type: object
-      properties:
-        id:
-          type: integer
-        app:
-          $ref: '#/components/schemas/Consumer_App'
-        createDate:
-          type: string
-          format: date-time
   securitySchemes:
     app:
       type: oauth2

@@ -126,8 +126,23 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_ConfigUpdate:
-      $ref: '#/components/schemas/Backend_Config'
+    Backend_Config:
+      description: This object represents a system configuration
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        type:
+          description: The config value type
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        description:
+          description: A short description fo this configuration value
+          type: string
+        value: {}
     Backend_ConfigCollection:
       description: Base collection
       type: object
@@ -152,23 +167,8 @@ components:
           type: string
         id:
           type: string
-    Backend_Config:
-      description: This object represents a system configuration
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        type:
-          description: The config value type
-          type: integer
-        name:
-          description: Unique name of the object
-          type: string
-        description:
-          description: A short description fo this configuration value
-          type: string
-        value: {}
+    Backend_ConfigUpdate:
+      $ref: '#/components/schemas/Backend_Config'
   securitySchemes:
     app:
       type: oauth2
