@@ -1,0 +1,138 @@
+slug: fusio
+provider: Fusio
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 12
+edges:
+- tag: SDK
+  spec_file: fusio-sdk-api-openapi.yml
+  capability_id: BC-4270.20
+  capability_id_l1: BC-4270
+  capability_name: SDK & Client Library Management
+  confidence: 0.9
+  evidence: POST /backend/sdk  backend.sdk.generate  Backend sdk generate; Backend_SdkTypes, Backend_SdkResponse
+  reason: The endpoint generates client SDKs for the APIs built in the instance, which is directly SDK
+    and client library management for the developer ecosystem.
+- tag: Specification
+  spec_file: fusio-specification-api-openapi.yml
+  capability_id: BC-4270.10
+  capability_id_l1: BC-4270
+  capability_name: Public API Lifecycle Management
+  confidence: 0.8
+  evidence: POST /backend/specification  backend.specification.publish; GET /backend/specification/changelog;
+    POST /backend/specification/tag
+  reason: Publishing the API specification, tagging versions and producing a changelog is specification,
+    versioning and change communication for the APIs exposed to external developers.
+- tag: Webhook
+  spec_file: fusio-webhook-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.8
+  evidence: POST /consumer/webhook  consumer.webhook.create; schemas Consumer_WebhookCollection, Backend_WebhookResponse
+  reason: Both the operator backend and API consumers manage the lifecycle of outbound webhook subscriptions
+    (create, update, delete, inspect responses), which is precisely webhook and event subscription management
+    on a developer platform.
+- tag: Payment
+  spec_file: fusio-payment-api-openapi.yml
+  capability_id: BC-4250.40
+  capability_id_l1: BC-4250
+  capability_name: Payment Collection & Dunning
+  confidence: 0.75
+  evidence: POST /consumer/payment/{provider}/checkout  Consumer payment checkout; POST /consumer/payment/{provider}/portal;
+    Consumer_PaymentCheckoutRequest
+  reason: Consumer-side checkout against a payment provider plus a billing portal redirect is payment-method
+    management and payment authorisation for the API consumer's subscription, i.e. payment collection
+    in the subscription billing model.
+- tag: Plan
+  spec_file: fusio-plan-api-openapi.yml
+  capability_id: BC-4240.10
+  capability_id_l1: BC-4240
+  capability_name: Plan & Entitlement Design
+  confidence: 0.75
+  evidence: POST /backend/plan  backend.plan.create; Backend_Plan, Consumer_Plan, Consumer_PlanCollection
+  reason: Operators define plans in the backend and consumers browse them — definition of the commercial
+    plans an API consumer can subscribe to, which is plan and entitlement design. Schemas are generic
+    so some residual ambiguity remains.
+- tag: Rate
+  spec_file: fusio-rate-api-openapi.yml
+  capability_id: BC-4270.50
+  capability_id_l1: BC-4270
+  capability_name: API Consumption Governance
+  confidence: 0.75
+  evidence: POST /backend/rate  backend.rate.create; schema Backend_RateAllocation
+  reason: In an API management product 'rate' with a rate-allocation schema is rate limiting applied to
+    API consumers, which is quota and rate-limit governance of API consumption — not a pricing rate. Reading
+    is strong but the summaries themselves are generic CRUD.
+- tag: Tenant
+  spec_file: fusio-tenant-api-openapi.yml
+  capability_id: BC-4230.10
+  capability_id_l1: BC-4230
+  capability_name: Tenant Provisioning & Lifecycle
+  confidence: 0.75
+  evidence: PUT /backend/tenant/{tenant_id}  backend.tenant.setup  Backend tenant setup; DELETE /backend/tenant/{tenant_id}  backend.tenant.remove
+  reason: The two operations set up and remove a tenant by id in a self-hosted multi-tenant API management
+    platform, which is exactly tenant creation and decommissioning. Only 'setup'/'remove' is exposed,
+    so confidence is moderate rather than high.
+- tag: Account
+  spec_file: fusio-account-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: PUT /consumer/password_reset  consumer.account.executePasswordReset; POST /consumer/activate  consumer.account.activate;
+    Consumer_UserJWT, Consumer_UserLogin
+  reason: Operations are login, token refresh, account activation, authorisation and password reset —
+    end-user credential and access lifecycle. This is Identity & Access Management, not customer/financial
+    account management.
+- tag: App
+  spec_file: fusio-app-api-openapi.yml
+  capability_id: BC-4270.40
+  capability_id_l1: BC-4270
+  capability_name: Developer Identity & Credential Management
+  confidence: 0.72
+  evidence: DELETE /backend/app/{app_id}/token/{token_id}  backend.app.deleteToken; Consumer_AppCreate,
+    Backend_AppCollection
+  reason: '''App'' here is a registered client application holding API tokens, created by both operators
+    and consumers — issuance and stewardship of developer/OAuth client credentials on the API platform.'
+- tag: Operation
+  spec_file: fusio-operation-api-openapi.yml
+  capability_id: BC-4270.10
+  capability_id_l1: BC-4270
+  capability_name: Public API Lifecycle Management
+  confidence: 0.7
+  evidence: POST /backend/operation  backend.operation.create; schemas Backend_Operation, Backend_OperationParameters,
+    Backend_OperationSchema
+  reason: Per the vendor description, 'an operation binds an HTTP method and path to an action ... and
+    a TypeSchema-defined request and response shape'. CRUD over operations is the definition of the public
+    API surface this instance exposes, i.e. public API lifecycle management rather than any business-domain
+    capability.
+- tag: Role
+  spec_file: fusio-role-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /backend/role  backend.role.create; schemas Backend_Role, Backend_RoleCreate
+  reason: CRUD over roles in the platform backend is role-based access control administration for platform
+    users, i.e. identity and access management. Generic CRUD summaries keep confidence moderate.
+- tag: Statistic
+  spec_file: fusio-statistic-api-openapi.yml
+  capability_id: BC-4270.50
+  capability_id_l1: BC-4270
+  capability_name: API Consumption Governance
+  confidence: 0.7
+  evidence: GET /backend/statistic/requests_per_operation; GET /backend/statistic/errors_per_operation;
+    GET /backend/statistic/most_used_apps
+  reason: These are API consumption analytics — request counts per user, app, IP and operation plus issued
+    tokens — which sits under API consumption governance. An observability reading is possible but the
+    dimensions (user, app, token) are consumption-oriented rather than service-health oriented.
