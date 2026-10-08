@@ -1591,6 +1591,8 @@ apis:
   - type: OpenIDConnect
     url: well-known/fusio-openid-configuration.json
 common:
+- type: FinOps
+  url: finops/fusio-finops.yml
 - type: CapabilityMap
   url: capabilities/fusio-capability-edges.yml
   name: Fusio Business Capability Map
