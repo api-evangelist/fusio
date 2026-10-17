@@ -485,12 +485,6 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
-    Backend_UserUpdate:
-      $ref: '#/components/schemas/Backend_User'
     Backend_User:
       description: This object represents a user
       type: object
@@ -531,6 +525,28 @@ components:
           description: The insert date
           type: string
           format: date-time
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Backend_AccountChangePassword:
+      type: object
+      properties:
+        oldPassword:
+          description: The old password
+          type: string
+        newPassword:
+          description: The new password
+          type: string
+        verifyPassword:
+          description: To verify the new password must contain the same value as the new password
+          type: string
     Backend_Token:
       description: This object represents a token, this an access token which was requested by a user
       type: object
@@ -555,18 +571,8 @@ components:
         date:
           type: string
           format: date-time
-    Backend_AccountChangePassword:
-      type: object
-      properties:
-        oldPassword:
-          description: The old password
-          type: string
-        newPassword:
-          description: The new password
-          type: string
-        verifyPassword:
-          description: To verify the new password must contain the same value as the new password
-          type: string
+    Backend_UserUpdate:
+      $ref: '#/components/schemas/Backend_User'
     Backend_App:
       description: This object represents an app to access the API on-behalf of a user
       type: object
@@ -610,37 +616,40 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Token'
-    Common_Message:
-      description: Common error message
+    Common_Metadata:
       type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
-    Consumer_UserJWT:
+      additionalProperties:
+        type: string
+    Consumer_UserPasswordReset:
       type: object
       properties:
         token:
           type: string
-        expires_in:
-          type: integer
-        refresh_token:
+        newPassword:
           type: string
-        scope:
-          type: string
-    Consumer_UserRegister:
+    Consumer_UserLogin:
       type: object
       properties:
-        name:
-          type: string
-        email:
+        username:
           type: string
         password:
           type: string
-        captcha:
+        scopes:
+          type: array
+          items:
+            type: string
+    Consumer_AuthorizeResponse:
+      type: object
+      properties:
+        type:
+          type: string
+        code:
+          type: string
+        error:
+          type: string
+        state:
+          type: string
+        redirectUri:
           type: string
     Consumer_AuthorizeMeta:
       type: object
@@ -660,19 +669,33 @@ components:
           type: string
         captcha:
           type: string
-    Consumer_AuthorizeResponse:
+    Consumer_UserRefresh:
       type: object
       properties:
-        type:
+        refresh_token:
           type: string
-        code:
+    Consumer_UserRegister:
+      type: object
+      properties:
+        name:
           type: string
-        error:
+        email:
           type: string
-        state:
+        password:
           type: string
-        redirectUri:
+        captcha:
           type: string
+    Consumer_Scope:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
     Consumer_UserPlan:
       type: object
       properties:
@@ -686,17 +709,6 @@ components:
           type: integer
         period:
           type: integer
-    Consumer_UserLogin:
-      type: object
-      properties:
-        username:
-          type: string
-        password:
-          type: string
-        scopes:
-          type: array
-          items:
-            type: string
     Consumer_UserAccount:
       type: object
       properties:
@@ -725,24 +737,6 @@ components:
         date:
           type: string
           format: date-time
-    Consumer_Scope:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        description:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/Common_Metadata'
-    Consumer_UserPasswordReset:
-      type: object
-      properties:
-        token:
-          type: string
-        newPassword:
-          type: string
     Consumer_UserActivate:
       type: object
       properties:
@@ -763,10 +757,16 @@ components:
           type: string
         allow:
           type: boolean
-    Consumer_UserRefresh:
+    Consumer_UserJWT:
       type: object
       properties:
+        token:
+          type: string
+        expires_in:
+          type: integer
         refresh_token:
+          type: string
+        scope:
           type: string
   securitySchemes:
     app:

@@ -273,33 +273,6 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
-    Backend_FormCreate:
-      $ref: '#/components/schemas/Backend_Form'
-    Backend_FormUpdate:
-      $ref: '#/components/schemas/Backend_Form'
-    Backend_Form:
-      description: This object represents a form which helps to dynamically generate a form at a frontend app
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        status:
-          description: Status of the object either 1 = active or 0 = deleted
-          type: integer
-        name:
-          description: Unique name of the object
-          type: string
-        operationId:
-          description: Target operation which gets invoked through this form
-          type: integer
-        uiSchema: {}
-        metadata:
-          $ref: '#/components/schemas/Common_Metadata'
     Common_Message:
       description: Common error message
       type: object
@@ -324,6 +297,47 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Form'
+    Backend_FormUpdate:
+      $ref: '#/components/schemas/Backend_Form'
+    Backend_Form:
+      description: This object represents a form which helps to dynamically generate a form at a frontend app
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        status:
+          description: Status of the object either 1 = active or 0 = deleted
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        operationId:
+          description: Target operation which gets invoked through this form
+          type: integer
+        uiSchema: {}
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+    Backend_FormCreate:
+      $ref: '#/components/schemas/Backend_Form'
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Consumer_FormCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Form'
     Consumer_Form:
       type: object
       properties:
@@ -339,20 +353,6 @@ components:
         uiSchema: {}
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Consumer_FormCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Consumer_Form'
   securitySchemes:
     app:
       type: oauth2

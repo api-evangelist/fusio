@@ -102,6 +102,16 @@ components:
       properties:
         redirectUrl:
           type: string
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Consumer_PaymentPortalRequest:
       type: object
       properties:
@@ -113,16 +123,6 @@ components:
         planId:
           type: integer
         returnUrl:
-          type: string
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
           type: string
   securitySchemes:
     app:

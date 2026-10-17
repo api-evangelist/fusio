@@ -194,8 +194,16 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_TriggerUpdate:
-      $ref: '#/components/schemas/Backend_Trigger'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Common_Metadata:
       type: object
       additionalProperties:
@@ -232,16 +240,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Trigger'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
+    Backend_TriggerUpdate:
+      $ref: '#/components/schemas/Backend_Trigger'
     Backend_TriggerCreate:
       $ref: '#/components/schemas/Backend_Trigger'
   securitySchemes:

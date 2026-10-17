@@ -273,28 +273,18 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
-    Backend_PageCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Page'
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
     Backend_PageCreate:
       $ref: '#/components/schemas/Backend_Page'
-    Backend_PageUpdate:
-      $ref: '#/components/schemas/Backend_Page'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Backend_Page:
       description: This object represents a page at the developer portal
       type: object
@@ -316,16 +306,26 @@ components:
           type: string
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Common_Message:
-      description: Common error message
+    Backend_PageUpdate:
+      $ref: '#/components/schemas/Backend_Page'
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_PageCollection:
+      description: Base collection
       type: object
       properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Page'
     Consumer_PageCollection:
       description: Base collection
       type: object

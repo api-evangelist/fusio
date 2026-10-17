@@ -282,24 +282,25 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
-    Backend_SchemaCollection:
-      description: Base collection
+    Backend_SchemaCommit:
+      description: A schema commit which represents a change in the schema source
       type: object
       properties:
-        totalResults:
+        id:
+          description: Unique identifier for the object
           type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Schema'
+        user:
+          $ref: '#/components/schemas/Backend_User'
+        commitHash:
+          description: A unique hash which represents this commit
+          type: string
+        schema:
+          $ref: '#/components/schemas/Backend_SchemaSource'
+        insertDate:
+          type: string
+          format: date-time
+    Backend_SchemaUpdate:
+      $ref: '#/components/schemas/Backend_Schema'
     Backend_User:
       description: This object represents a user
       type: object
@@ -340,6 +341,46 @@ components:
           description: The insert date
           type: string
           format: date-time
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Backend_SchemaCommitCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_SchemaCommit'
+    Backend_SchemaCreate:
+      $ref: '#/components/schemas/Backend_Schema'
+    Backend_SchemaCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Schema'
     Backend_Token:
       description: This object represents a token, this an access token which was requested by a user
       type: object
@@ -381,50 +422,10 @@ components:
           $ref: '#/components/schemas/Backend_SchemaSource'
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Backend_SchemaUpdate:
-      $ref: '#/components/schemas/Backend_Schema'
     Backend_SchemaSource:
       description: Contains the TypeSchema specification
       type: object
       additionalProperties: {}
-    Backend_SchemaCommitCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_SchemaCommit'
-    Backend_SchemaPreviewResponse:
-      type: object
-      properties:
-        preview:
-          type: string
-    Backend_SchemaCommit:
-      description: A schema commit which represents a change in the schema source
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        user:
-          $ref: '#/components/schemas/Backend_User'
-        commitHash:
-          description: A unique hash which represents this commit
-          type: string
-        schema:
-          $ref: '#/components/schemas/Backend_SchemaSource'
-        insertDate:
-          type: string
-          format: date-time
-    Backend_SchemaCreate:
-      $ref: '#/components/schemas/Backend_Schema'
     Backend_App:
       description: This object represents an app to access the API on-behalf of a user
       type: object
@@ -468,15 +469,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Token'
-    Common_Message:
-      description: Common error message
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_SchemaPreviewResponse:
       type: object
       properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
+        preview:
           type: string
   securitySchemes:
     app:

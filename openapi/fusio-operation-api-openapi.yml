@@ -194,32 +194,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_OperationThrows:
-      type: object
-      additionalProperties:
-        type: string
-    Backend_OperationUpdate:
-      $ref: '#/components/schemas/Backend_Operation'
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
-    Backend_OperationCreate:
-      $ref: '#/components/schemas/Backend_Operation'
-    Backend_OperationCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Operation'
     Backend_Operation:
       description: This object represents an operation, an operation invokes an action in case a specific HTTP method and path was requested. It defines also schema information about the request and response payload
       type: object
@@ -277,6 +251,20 @@ components:
             type: string
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
+    Backend_OperationCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Operation'
     Common_Message:
       description: Common error message
       type: object
@@ -287,10 +275,22 @@ components:
           type: string
         id:
           type: string
+    Backend_OperationUpdate:
+      $ref: '#/components/schemas/Backend_Operation'
     Backend_OperationParameters:
       type: object
       additionalProperties:
         $ref: '#/components/schemas/Backend_OperationSchema'
+    Backend_OperationThrows:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_OperationCreate:
+      $ref: '#/components/schemas/Backend_Operation'
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
     Backend_OperationSchema:
       type: object
       properties:

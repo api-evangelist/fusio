@@ -89,18 +89,6 @@ components:
           type: string
         id:
           type: string
-    Backend_SdkGenerate:
-      type: object
-      properties:
-        format:
-          type: string
-        config:
-          type: string
-    Backend_SdkTypes:
-      description: Represents available SDK type which can be generated
-      type: object
-      additionalProperties:
-        type: string
     Backend_SdkMessage:
       type: object
       properties:
@@ -109,6 +97,18 @@ components:
         message:
           type: string
         link:
+          type: string
+    Backend_SdkTypes:
+      description: Represents available SDK type which can be generated
+      type: object
+      additionalProperties:
+        type: string
+    Backend_SdkGenerate:
+      type: object
+      properties:
+        format:
+          type: string
+        config:
           type: string
   securitySchemes:
     app:

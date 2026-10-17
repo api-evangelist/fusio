@@ -143,15 +143,6 @@ components:
       type: object
       properties:
         spec: {}
-    Backend_SpecificationPublish:
-      type: object
-      properties:
-        name:
-          type: string
-        filterName:
-          type: string
-        standalone:
-          type: boolean
     Backend_SpecificationChangelog:
       type: object
       properties:
@@ -161,6 +152,15 @@ components:
           type: string
         changelog:
           type: string
+    Backend_SpecificationPublish:
+      type: object
+      properties:
+        name:
+          type: string
+        filterName:
+          type: string
+        standalone:
+          type: boolean
     Passthru:
       description: No schema information available
       type: object

@@ -445,56 +445,13 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    MarketplaceAppCollection:
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/MarketplaceApp'
-    MarketplaceUser:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        verified:
-          type: boolean
-    MarketplaceBundleCollection:
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/MarketplaceBundle'
-    MarketplaceBundleEvent:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        schema:
-          type: string
-    MarketplaceActionConfig:
-      type: object
-      additionalProperties: {}
-    MarketplaceBundleActionConfig:
-      type: object
-      additionalProperties: {}
+    MarketplaceBundle:
+      allOf:
+      - $ref: '#/components/schemas/MarketplaceObject'
+      - type: object
+        properties:
+          config:
+            $ref: '#/components/schemas/MarketplaceBundleConfig'
     MarketplaceApp:
       allOf:
       - $ref: '#/components/schemas/MarketplaceObject'
@@ -508,28 +465,19 @@ components:
             type: string
           hash:
             type: string
-    MarketplaceBundleTrigger:
+    MarketplaceActionCollection:
       type: object
       properties:
-        name:
-          type: string
-        event:
-          type: string
-        action:
-          type: string
-    MarketplaceBundleSchema:
-      type: object
-      properties:
-        name:
-          type: string
-        source:
-          $ref: '#/components/schemas/MarketplaceBundleSchemaSource'
-    MarketplaceInstall:
-      description: Installs an object from the marketplace
-      type: object
-      properties:
-        name:
-          type: string
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceAction'
     MarketplaceBundleCronjob:
       type: object
       properties:
@@ -539,37 +487,6 @@ components:
           type: string
         action:
           type: string
-    MarketplaceBundleSchemaSource:
-      type: object
-      additionalProperties: {}
-    MarketplaceAction:
-      allOf:
-      - $ref: '#/components/schemas/MarketplaceObject'
-      - type: object
-        properties:
-          class:
-            type: string
-          config:
-            $ref: '#/components/schemas/MarketplaceActionConfig'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
-    MarketplaceBundleAction:
-      type: object
-      properties:
-        name:
-          type: string
-        class:
-          type: string
-        config:
-          $ref: '#/components/schemas/MarketplaceBundleActionConfig'
     MarketplaceBundleConfig:
       type: object
       properties:
@@ -593,6 +510,54 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MarketplaceBundleTrigger'
+    MarketplaceBundleActionConfig:
+      type: object
+      additionalProperties: {}
+    MarketplaceAppCollection:
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceApp'
+    MarketplaceBundleEvent:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        schema:
+          type: string
+    MarketplaceBundleCollection:
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/MarketplaceBundle'
+    MarketplaceActionConfig:
+      type: object
+      additionalProperties: {}
+    MarketplaceBundleSchema:
+      type: object
+      properties:
+        name:
+          type: string
+        source:
+          $ref: '#/components/schemas/MarketplaceBundleSchemaSource'
     MarketplaceObject:
       description: Base class of all objects on the marketplace
       type: object
@@ -619,13 +584,30 @@ components:
         insertDate:
           type: string
           format: date-time
-    MarketplaceBundle:
+    MarketplaceBundleTrigger:
+      type: object
+      properties:
+        name:
+          type: string
+        event:
+          type: string
+        action:
+          type: string
+    MarketplaceAction:
       allOf:
       - $ref: '#/components/schemas/MarketplaceObject'
       - type: object
         properties:
+          class:
+            type: string
           config:
-            $ref: '#/components/schemas/MarketplaceBundleConfig'
+            $ref: '#/components/schemas/MarketplaceActionConfig'
+    MarketplaceInstall:
+      description: Installs an object from the marketplace
+      type: object
+      properties:
+        name:
+          type: string
     MarketplaceMessage:
       type: object
       properties:
@@ -635,19 +617,37 @@ components:
           type: string
         id:
           type: string
-    MarketplaceActionCollection:
+    MarketplaceBundleAction:
       type: object
       properties:
-        totalResults:
+        name:
+          type: string
+        class:
+          type: string
+        config:
+          $ref: '#/components/schemas/MarketplaceBundleActionConfig'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    MarketplaceBundleSchemaSource:
+      type: object
+      additionalProperties: {}
+    MarketplaceUser:
+      type: object
+      properties:
+        id:
           type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/MarketplaceAction'
+        name:
+          type: string
+        verified:
+          type: boolean
   securitySchemes:
     app:
       type: oauth2

@@ -51,6 +51,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_StatisticChartSeries'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Backend_StatisticChartSeries:
       type: object
       properties:
@@ -82,16 +92,6 @@ components:
           $ref: '#/components/schemas/Backend_StatisticChart'
         userRegistrations:
           $ref: '#/components/schemas/Backend_StatisticChart'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
   securitySchemes:
     app:
       type: oauth2

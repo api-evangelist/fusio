@@ -75,28 +75,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_BackupExport:
-      description: Export of the complete system configuration
-      type: object
-      properties:
-        export:
-          type: string
-    Backend_BackupImport:
-      description: Import a previously exported system configuration
-      type: object
-      properties:
-        import:
-          type: string
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
     Backend_BackupImportResult:
       description: Result of a backup import operation
       type: object
@@ -109,6 +87,28 @@ components:
           type: array
           items:
             type: string
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Backend_BackupExport:
+      description: Export of the complete system configuration
+      type: object
+      properties:
+        export:
+          type: string
+    Backend_BackupImport:
+      description: Import a previously exported system configuration
+      type: object
+      properties:
+        import:
+          type: string
   securitySchemes:
     app:
       type: oauth2

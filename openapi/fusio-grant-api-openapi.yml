@@ -102,24 +102,16 @@ components:
         createDate:
           type: string
           format: date-time
-    Consumer_GrantCollection:
-      description: Base collection
+    Common_Message:
+      description: Common error message
       type: object
       properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Consumer_Grant'
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Consumer_App:
       type: object
       properties:
@@ -145,16 +137,24 @@ components:
             type: string
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Common_Message:
-      description: Common error message
+    Consumer_GrantCollection:
+      description: Base collection
       type: object
       properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Grant'
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
   securitySchemes:
     app:
       type: oauth2
