@@ -24,6 +24,7 @@ checked:
 - https://monid.ai/tools/fusio
 - https://n8n.io/integrations/fusio/
 - https://zapier.com/apps/fusio/integrations
+- vs-code-marketplace/integrations/vs-code-marketplace-integration-edges.yml
 summary: null
 marketplace_apps: []
 edges:
@@ -96,4 +97,24 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
+- partner_name: VS Code Marketplace (vs-code-marketplace)
+  partner: vs-code-marketplace
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: vs-code-marketplace
+  evidence: https://marketplace.visualstudio.com/publishers/Fusio
+  mirror_of: vs-code-marketplace/integrations/vs-code-marketplace-integration-edges.yml
+  apps:
+  - fusio
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: IDE / developer extension marketplace listing
+  badges:
+  - Verified publisher
+  - Verified domain
 templates: []
