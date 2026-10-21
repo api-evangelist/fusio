@@ -4,7 +4,7 @@ description: >-
   Undo a delete on a Fusio instance. Fusio never hard-deletes on a DELETE call - it soft-deletes,
   and this is how you find and restore the record.
 api: Fusio Backend API
-version: 1
+version: "1.0.0"
 generated: '2026-08-29'
 method: generated
 source: openapi/fusio-backend.json, https://docs.fusio-project.org/docs/backend/system/trash

@@ -374,6 +374,80 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
+    Common_FormElementTypeAPI:
+      $ref: '#/components/schemas/Common_FormElement'
+    Common_FormElementTypeSchema:
+      $ref: '#/components/schemas/Common_FormElement'
+    Common_FormElementInput:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents an input element
+        type: object
+        properties:
+          type:
+            description: The input type i.e. text or password, all HTML input types are allowed
+            type: string
+    Common_FormElementSelectOption:
+      description: Represents a concrete option entry
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    Common_FormElementCollection:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents a collection element
+        type: object
+        properties:
+          type:
+            description: The input type i.e. text or password, all HTML input types are allowed
+            type: string
+    Backend_IdentityIndexEntry:
+      description: Represents a concrete identity class
+      type: object
+      properties:
+        name:
+          description: Human-readable name of the identity class
+          type: string
+        class:
+          description: Technical identifier of the identity class
+          type: string
+    Backend_IdentityCreate:
+      $ref: '#/components/schemas/Backend_Identity'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Common_FormElementSelect:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents a select element
+        type: object
+        properties:
+          options:
+            description: Available options for the select element
+            type: array
+            items:
+              $ref: '#/components/schemas/Common_FormElementSelectOption'
+    Common_FormElementCheckbox:
+      $ref: '#/components/schemas/Common_FormElement'
+    Common_FormElementMap:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents a map element
+        type: object
+        properties:
+          type:
+            description: The input type i.e. text or password, all HTML input types are allowed
+            type: string
     Common_FormContainer:
       description: Represents a config form with a list of elements
       type: object
@@ -390,26 +464,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_IdentityIndexEntry'
-    Common_FormElementCollection:
-      allOf:
-      - $ref: '#/components/schemas/Common_FormElement'
-      - description: Form element which represents a collection element
-        type: object
-        properties:
-          type:
-            description: The input type i.e. text or password, all HTML input types are allowed
-            type: string
-    Common_FormElementMap:
-      allOf:
-      - $ref: '#/components/schemas/Common_FormElement'
-      - description: Form element which represents a map element
-        type: object
-        properties:
-          type:
-            description: The input type i.e. text or password, all HTML input types are allowed
-            type: string
-    Common_FormElementCheckbox:
-      $ref: '#/components/schemas/Common_FormElement'
     Common_FormElementTextArea:
       allOf:
       - $ref: '#/components/schemas/Common_FormElement'
@@ -419,86 +473,8 @@ components:
           mode:
             description: Describes which data is provided at the textarea, this can be i.e. a programming language like php, java or python or also a data format like json
             type: string
-    Backend_IdentityCreate:
-      $ref: '#/components/schemas/Backend_Identity'
-    Common_FormElementTypeSchema:
-      $ref: '#/components/schemas/Common_FormElement'
-    Backend_IdentityConfig:
-      type: object
-      additionalProperties: {}
     Backend_IdentityUpdate:
       $ref: '#/components/schemas/Backend_Identity'
-    Common_FormElementSelectOption:
-      description: Represents a concrete option entry
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-    Common_FormElement:
-      oneOf:
-      - $ref: '#/components/schemas/Common_FormElementCheckbox'
-      - $ref: '#/components/schemas/Common_FormElementCollection'
-      - $ref: '#/components/schemas/Common_FormElementInput'
-      - $ref: '#/components/schemas/Common_FormElementMap'
-      - $ref: '#/components/schemas/Common_FormElementSelect'
-      - $ref: '#/components/schemas/Common_FormElementTextArea'
-      - $ref: '#/components/schemas/Common_FormElementTypeAPI'
-      - $ref: '#/components/schemas/Common_FormElementTypeSchema'
-      discriminator: type
-      mapping:
-        checkbox: '#/components/schemas/Common_FormElementCheckbox'
-        collection: '#/components/schemas/Common_FormElementCollection'
-        input: '#/components/schemas/Common_FormElementInput'
-        map: '#/components/schemas/Common_FormElementMap'
-        select: '#/components/schemas/Common_FormElementSelect'
-        textarea: '#/components/schemas/Common_FormElementTextArea'
-        typeapi: '#/components/schemas/Common_FormElementTypeAPI'
-        typeschema: '#/components/schemas/Common_FormElementTypeSchema'
-    Common_FormElementInput:
-      allOf:
-      - $ref: '#/components/schemas/Common_FormElement'
-      - description: Form element which represents an input element
-        type: object
-        properties:
-          type:
-            description: The input type i.e. text or password, all HTML input types are allowed
-            type: string
-    Backend_IdentityCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Identity'
-    Backend_IdentityIndexEntry:
-      description: Represents a concrete identity class
-      type: object
-      properties:
-        name:
-          description: Human-readable name of the identity class
-          type: string
-        class:
-          description: Technical identifier of the identity class
-          type: string
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
     Backend_Identity:
       description: This object represents an identity which allows to authenticate with a remote identity provider
       type: object
@@ -525,19 +501,43 @@ components:
           $ref: '#/components/schemas/Backend_IdentityConfig'
         allowCreate:
           type: boolean
-    Common_FormElementTypeAPI:
-      $ref: '#/components/schemas/Common_FormElement'
-    Common_FormElementSelect:
-      allOf:
-      - $ref: '#/components/schemas/Common_FormElement'
-      - description: Form element which represents a select element
-        type: object
-        properties:
-          options:
-            description: Available options for the select element
-            type: array
-            items:
-              $ref: '#/components/schemas/Common_FormElementSelectOption'
+    Backend_IdentityCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Identity'
+    Common_FormElement:
+      oneOf:
+      - $ref: '#/components/schemas/Common_FormElementCheckbox'
+      - $ref: '#/components/schemas/Common_FormElementCollection'
+      - $ref: '#/components/schemas/Common_FormElementInput'
+      - $ref: '#/components/schemas/Common_FormElementMap'
+      - $ref: '#/components/schemas/Common_FormElementSelect'
+      - $ref: '#/components/schemas/Common_FormElementTextArea'
+      - $ref: '#/components/schemas/Common_FormElementTypeAPI'
+      - $ref: '#/components/schemas/Common_FormElementTypeSchema'
+      discriminator: type
+      mapping:
+        checkbox: '#/components/schemas/Common_FormElementCheckbox'
+        collection: '#/components/schemas/Common_FormElementCollection'
+        input: '#/components/schemas/Common_FormElementInput'
+        map: '#/components/schemas/Common_FormElementMap'
+        select: '#/components/schemas/Common_FormElementSelect'
+        textarea: '#/components/schemas/Common_FormElementTextArea'
+        typeapi: '#/components/schemas/Common_FormElementTypeAPI'
+        typeschema: '#/components/schemas/Common_FormElementTypeSchema'
+    Backend_IdentityConfig:
+      type: object
+      additionalProperties: {}
     Consumer_IdentityCollection:
       description: Base collection
       type: object
@@ -552,6 +552,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Consumer_Identity'
+    Passthru:
+      description: No schema information available
+      type: object
+      additionalProperties: {}
     Consumer_Identity:
       type: object
       properties:
@@ -563,10 +567,6 @@ components:
           type: string
         redirect:
           type: string
-    Passthru:
-      description: No schema information available
-      type: object
-      additionalProperties: {}
   securitySchemes:
     app:
       type: oauth2

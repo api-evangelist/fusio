@@ -467,23 +467,6 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
-    Backend_AgentTools:
-      description: Represents a collection of available tools
-      type: object
-      properties:
-        tools:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_AgentTool'
-    Backend_AgentUpdate:
-      $ref: '#/components/schemas/Backend_Agent'
-    Agent_ItemObject:
-      allOf:
-      - $ref: '#/components/schemas/Agent_Item'
-      - description: Structured agent message
-        type: object
-        properties:
-          payload: {}
     Agent_ItemToolCallFunction:
       description: Concrete values for a function tool call
       type: object
@@ -494,15 +477,6 @@ components:
           type: string
         arguments:
           type: string
-    Agent_Output:
-      description: This object represents an agent output
-      type: object
-      properties:
-        id:
-          description: Chat id of this conversation
-          type: string
-        item:
-          $ref: '#/components/schemas/Agent_Item'
     Backend_Agent:
       description: This object represents an agent
       type: object
@@ -550,42 +524,8 @@ components:
           format: date-time
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Backend_AgentMessageCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_AgentMessage'
     Backend_AgentCreate:
       $ref: '#/components/schemas/Backend_Agent'
-    Agent_ItemToolCall:
-      allOf:
-      - $ref: '#/components/schemas/Agent_Item'
-      - description: Tool call agent message
-        type: object
-        properties:
-          functions:
-            description: An array of concrete functions
-            type: array
-            items:
-              $ref: '#/components/schemas/Agent_ItemToolCallFunction'
-    Agent_Input:
-      description: This object represents an agent input
-      type: object
-      properties:
-        previousId:
-          description: Optional the chat id of this conversation
-          type: string
-        item:
-          $ref: '#/components/schemas/Agent_Item'
     Backend_AgentMessage:
       description: This object represents an agent message
       type: object
@@ -618,21 +558,52 @@ components:
         object: '#/components/schemas/Agent_ItemObject'
         text: '#/components/schemas/Agent_ItemText'
         tool_call: '#/components/schemas/Agent_ItemToolCall'
-    Agent_ItemChoice:
+    Agent_Output:
+      description: This object represents an agent output
+      type: object
+      properties:
+        id:
+          description: Chat id of this conversation
+          type: string
+        item:
+          $ref: '#/components/schemas/Agent_Item'
+    Agent_ItemBinary:
       allOf:
       - $ref: '#/components/schemas/Agent_Item'
-      - description: Choice agent message
+      - description: Binary agent message
         type: object
         properties:
-          items:
-            description: Contains multiple agent items
-            type: array
-            items:
-              $ref: '#/components/schemas/Agent_Item'
-    Common_Metadata:
+          mime:
+            description: The mime of the binary data
+            type: string
+          data:
+            description: The base64 encoded binary data
+            type: string
+    Backend_AgentMessageCollection:
+      description: Base collection
       type: object
-      additionalProperties:
-        type: string
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_AgentMessage'
+    Backend_AgentUpdate:
+      $ref: '#/components/schemas/Backend_Agent'
+    Agent_Input:
+      description: This object represents an agent input
+      type: object
+      properties:
+        previousId:
+          description: Optional the chat id of this conversation
+          type: string
+        item:
+          $ref: '#/components/schemas/Agent_Item'
     Backend_AgentTool:
       description: Represents a concrete tool
       type: object
@@ -643,6 +614,10 @@ components:
         description:
           description: Description of the tool
           type: string
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
     Common_Message:
       description: Common error message
       type: object
@@ -662,18 +637,6 @@ components:
           content:
             description: The content text
             type: string
-    Agent_ItemBinary:
-      allOf:
-      - $ref: '#/components/schemas/Agent_Item'
-      - description: Binary agent message
-        type: object
-        properties:
-          mime:
-            description: The mime of the binary data
-            type: string
-          data:
-            description: The base64 encoded binary data
-            type: string
     Backend_AgentCollection:
       description: Base collection
       type: object
@@ -688,34 +651,43 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Agent'
-    Consumer_AgentMessageCollection:
-      description: Base collection
+    Agent_ItemObject:
+      allOf:
+      - $ref: '#/components/schemas/Agent_Item'
+      - description: Structured agent message
+        type: object
+        properties:
+          payload: {}
+    Agent_ItemToolCall:
+      allOf:
+      - $ref: '#/components/schemas/Agent_Item'
+      - description: Tool call agent message
+        type: object
+        properties:
+          functions:
+            description: An array of concrete functions
+            type: array
+            items:
+              $ref: '#/components/schemas/Agent_ItemToolCallFunction'
+    Backend_AgentTools:
+      description: Represents a collection of available tools
       type: object
       properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
+        tools:
           type: array
           items:
-            $ref: '#/components/schemas/Consumer_AgentMessage'
-    Consumer_AgentCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
+            $ref: '#/components/schemas/Backend_AgentTool'
+    Agent_ItemChoice:
+      allOf:
+      - $ref: '#/components/schemas/Agent_Item'
+      - description: Choice agent message
+        type: object
+        properties:
           items:
-            $ref: '#/components/schemas/Consumer_Agent'
+            description: Contains multiple agent items
+            type: array
+            items:
+              $ref: '#/components/schemas/Agent_Item'
     Consumer_Agent:
       description: This object represents an agent
       type: object
@@ -747,6 +719,34 @@ components:
         insertDate:
           type: string
           format: date-time
+    Consumer_AgentMessageCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_AgentMessage'
+    Consumer_AgentCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Agent'
   securitySchemes:
     app:
       type: oauth2

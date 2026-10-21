@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-action-execute-request-schema.json",
+  "title": "Backend_ActionExecuteRequest",
+  "description": "Represents a request to execute an action",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-action-api-openapi.yml#/components/schemas/Backend_ActionExecuteRequest",
+  "type": "object",
+  "properties": {
+    "method": {
+      "description": "HTTP method i.e. GET, POST",
+      "type": "string"
+    },
+    "uriFragments": {
+      "description": "URL-encoded uri fragments i.e. foo=bar&bar=foo",
+      "type": "string"
+    },
+    "parameters": {
+      "description": "URL-encoded query parameters i.e. foo=bar&bar=foo",
+      "type": "string"
+    },
+    "headers": {
+      "description": "URL-encoded headers i.e. foo=bar&bar=foo",
+      "type": "string"
+    },
+    "body": {
+      "$ref": "#/$defs/Backend_ActionExecuteRequestBody"
+    }
+  },
+  "$defs": {
+    "Backend_ActionExecuteRequestBody": {
+      "description": "Represents a request body",
+      "type": "object",
+      "additionalProperties": {}
+    }
+  }
+}

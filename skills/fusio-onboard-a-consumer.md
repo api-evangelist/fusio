@@ -4,7 +4,7 @@ description: >-
   Onboard a third-party developer onto a Fusio-managed API - create the user, grant scopes, create
   the OAuth2 app, issue and later revoke tokens.
 api: Fusio Backend API
-version: 1
+version: "1.0.0"
 generated: '2026-08-29'
 method: generated
 source: openapi/fusio-backend.json, openapi/fusio-consumer.json, openapi/fusio-authorization.json

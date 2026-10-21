@@ -4,8 +4,8 @@ source: https://github.com/apioo/fusio/blob/master/CHANGELOG.md
 provider: Fusio
 providerId: fusio
 scheme: semver
-current_version: 7.1.1
-current_version_date: '2026-08-16'
+current_version: 7.2.0
+current_version_date: '2026-10-04'
 format: markdown
 feeds:
   - type: GitHub releases
@@ -20,6 +20,16 @@ note: >-
   (the file dates 7.1.0 as 2025-07-28 where the tag was published 2026-07-18) - a provider-side
   typo worth reporting rather than a second release history.
 entries:
+  - version: 7.2.0
+    date: '2026-10-04'
+    breaking: false
+    highlights:
+      - Add missing API descriptions
+      - Add kind property
+      - Implemented proof of work captcha system
+      - Add stricter rate limits to the authorization endpoints
+      - Updated mcp/sdk package
+      - Add custom agent registry
   - version: 7.1.1
     date: '2026-08-16'
     breaking: false

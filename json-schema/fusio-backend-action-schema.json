@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-action-schema.json",
+  "title": "Backend_Action",
+  "description": "This object represents the business logic which can be executed either through an operation or cronjob",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-action-api-openapi.yml#/components/schemas/Backend_Action",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier for the object",
+      "type": "integer"
+    },
+    "status": {
+      "description": "Status of the object either 1 = active or 0 = deleted",
+      "type": "integer"
+    },
+    "name": {
+      "description": "Unique name of the object",
+      "type": "string"
+    },
+    "class": {
+      "description": "Underlying class of this action which handles the action logic",
+      "type": "string"
+    },
+    "async": {
+      "description": "Whether to execute the action asynchronously, if true the action directly returns a 202 response and the action is executed later on in the background, useful for expensive operations",
+      "type": "boolean"
+    },
+    "config": {
+      "$ref": "#/$defs/Backend_ActionConfig"
+    },
+    "metadata": {
+      "$ref": "#/$defs/Common_Metadata"
+    }
+  },
+  "$defs": {
+    "Backend_ActionConfig": {
+      "description": "The action configuration which contains arbitrary key-value entries",
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "Common_Metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

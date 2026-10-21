@@ -300,6 +300,10 @@ components:
           type: string
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
+    Backend_EventUpdate:
+      $ref: '#/components/schemas/Backend_Event'
+    Backend_EventCreate:
+      $ref: '#/components/schemas/Backend_Event'
     Common_Message:
       description: Common error message
       type: object
@@ -310,6 +314,10 @@ components:
           type: string
         id:
           type: string
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
     Backend_EventCollection:
       description: Base collection
       type: object
@@ -324,14 +332,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Event'
-    Backend_EventCreate:
-      $ref: '#/components/schemas/Backend_Event'
-    Backend_EventUpdate:
-      $ref: '#/components/schemas/Backend_Event'
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
     Consumer_EventCollection:
       description: Base collection
       type: object

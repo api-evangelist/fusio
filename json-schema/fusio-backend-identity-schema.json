@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-identity-schema.json",
+  "title": "Backend_Identity",
+  "description": "This object represents an identity which allows to authenticate with a remote identity provider",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-identity-api-openapi.yml#/components/schemas/Backend_Identity",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier for the object",
+      "type": "integer"
+    },
+    "appId": {
+      "description": "The target app for this identity",
+      "type": "integer"
+    },
+    "roleId": {
+      "description": "Role which is assigned to new users",
+      "type": "integer"
+    },
+    "name": {
+      "description": "Unique name of the object",
+      "type": "string"
+    },
+    "icon": {
+      "description": "An icon for this identity provider",
+      "type": "string"
+    },
+    "class": {
+      "description": "Underlying class of this identity provider",
+      "type": "string"
+    },
+    "config": {
+      "$ref": "#/$defs/Backend_IdentityConfig"
+    },
+    "allowCreate": {
+      "type": "boolean"
+    }
+  },
+  "$defs": {
+    "Backend_IdentityConfig": {
+      "type": "object",
+      "additionalProperties": {}
+    }
+  }
+}

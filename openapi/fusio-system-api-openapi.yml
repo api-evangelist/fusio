@@ -227,6 +227,12 @@ components:
       properties:
         routes:
           $ref: '#/components/schemas/System_RoutePath'
+    System_SchemaTypeSchema:
+      type: object
+      additionalProperties: {}
+    System_SchemaForm:
+      type: object
+      additionalProperties: {}
     System_About:
       type: object
       properties:
@@ -264,21 +270,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/System_AboutLink'
-    System_HealthCheck:
-      type: object
-      properties:
-        healthy:
-          type: boolean
-        error:
-          type: string
-    System_RoutePath:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/System_RouteMethod'
     Passthru:
       description: No schema information available
       type: object
       additionalProperties: {}
+    System_Schema:
+      type: object
+      properties:
+        schema:
+          $ref: '#/components/schemas/System_SchemaTypeSchema'
+        form:
+          $ref: '#/components/schemas/System_SchemaForm'
     Common_Message:
       description: Common error message
       type: object
@@ -289,13 +291,18 @@ components:
           type: string
         id:
           type: string
+    System_RouteMethod:
+      type: object
+      additionalProperties:
+        type: string
     System_AboutApps:
       type: object
       additionalProperties:
         type: string
-    System_SchemaForm:
+    System_RoutePath:
       type: object
-      additionalProperties: {}
+      additionalProperties:
+        $ref: '#/components/schemas/System_RouteMethod'
     System_AboutLink:
       type: object
       properties:
@@ -303,20 +310,13 @@ components:
           type: string
         href:
           type: string
-    System_Schema:
+    System_HealthCheck:
       type: object
       properties:
-        schema:
-          $ref: '#/components/schemas/System_SchemaTypeSchema'
-        form:
-          $ref: '#/components/schemas/System_SchemaForm'
-    System_SchemaTypeSchema:
-      type: object
-      additionalProperties: {}
-    System_RouteMethod:
-      type: object
-      additionalProperties:
-        type: string
+        healthy:
+          type: boolean
+        error:
+          type: string
   securitySchemes:
     app:
       type: oauth2

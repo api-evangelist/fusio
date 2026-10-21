@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-sdk-response-schema.json",
+  "title": "Backend_SdkResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-sdk-api-openapi.yml#/components/schemas/Backend_SdkResponse",
+  "type": "object",
+  "properties": {
+    "types": {
+      "$ref": "#/$defs/Backend_SdkTypes"
+    }
+  },
+  "$defs": {
+    "Backend_SdkTypes": {
+      "description": "Represents available SDK type which can be generated",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

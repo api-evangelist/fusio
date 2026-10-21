@@ -139,10 +139,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_SpecificationGet:
-      type: object
-      properties:
-        spec: {}
     Backend_SpecificationChangelog:
       type: object
       properties:
@@ -175,6 +171,10 @@ components:
           type: string
         id:
           type: string
+    Backend_SpecificationGet:
+      type: object
+      properties:
+        spec: {}
   securitySchemes:
     app:
       type: oauth2

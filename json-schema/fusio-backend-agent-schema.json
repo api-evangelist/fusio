@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-agent-schema.json",
+  "title": "Backend_Agent",
+  "description": "This object represents an agent",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-agent-api-openapi.yml#/components/schemas/Backend_Agent",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier for the object",
+      "type": "integer"
+    },
+    "connection": {
+      "description": "The agent connection which should be used",
+      "type": "integer"
+    },
+    "type": {
+      "description": "The agent type",
+      "type": "integer"
+    },
+    "public": {
+      "description": "Indicates whether the agent is public",
+      "type": "boolean"
+    },
+    "name": {
+      "description": "Name of the agent",
+      "type": "string"
+    },
+    "description": {
+      "description": "Description of the agent",
+      "type": "string"
+    },
+    "introduction": {
+      "description": "Introduction message",
+      "type": "string"
+    },
+    "temperature": {
+      "description": "The used temperature default is 1.0",
+      "type": "number"
+    },
+    "costs": {
+      "description": "Costs per token",
+      "type": "integer"
+    },
+    "tools": {
+      "description": "Tools available to this agent",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "outgoing": {
+      "description": "Describes the outgoing response payload, this must contain a schema name",
+      "type": "string"
+    },
+    "action": {
+      "description": "Action which gets invoked for each generated response",
+      "type": "string"
+    },
+    "insertDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "metadata": {
+      "$ref": "#/$defs/Common_Metadata"
+    }
+  },
+  "$defs": {
+    "Common_Metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

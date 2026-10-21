@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-marketplace-bundle-schema.json",
+  "title": "MarketplaceBundle",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-marketplace-api-openapi.yml#/components/schemas/MarketplaceBundle",
+  "allOf": [
+    {
+      "$ref": "#/$defs/MarketplaceObject"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "config": {
+          "$ref": "#/$defs/MarketplaceBundleConfig"
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "MarketplaceBundleAction": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "class": {
+          "type": "string"
+        },
+        "config": {
+          "$ref": "#/$defs/MarketplaceBundleActionConfig"
+        }
+      }
+    },
+    "MarketplaceBundleActionConfig": {
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "MarketplaceBundleConfig": {
+      "type": "object",
+      "properties": {
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MarketplaceBundleAction"
+          }
+        },
+        "schemas": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MarketplaceBundleSchema"
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MarketplaceBundleEvent"
+          }
+        },
+        "cronjobs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MarketplaceBundleCronjob"
+          }
+        },
+        "triggers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MarketplaceBundleTrigger"
+          }
+        }
+      }
+    },
+    "MarketplaceBundleCronjob": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "cron": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string"
+        }
+      }
+    },
+    "MarketplaceBundleEvent": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "MarketplaceBundleSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/MarketplaceBundleSchemaSource"
+        }
+      }
+    },
+    "MarketplaceBundleSchemaSource": {
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "MarketplaceBundleTrigger": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "event": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string"
+        }
+      }
+    },
+    "MarketplaceObject": {
+      "description": "Base class of all objects on the marketplace",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "author": {
+          "$ref": "#/$defs/MarketplaceUser"
+        },
+        "version": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "cost": {
+          "type": "integer"
+        },
+        "updateDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "insertDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "MarketplaceUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "verified": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

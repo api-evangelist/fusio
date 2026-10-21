@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-generator-provider-schema.json",
+  "title": "Backend_GeneratorProvider",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-generator-api-openapi.yml#/components/schemas/Backend_GeneratorProvider",
+  "type": "object",
+  "properties": {
+    "path": {
+      "type": "string"
+    },
+    "scopes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "public": {
+      "type": "boolean"
+    },
+    "config": {
+      "$ref": "#/$defs/Backend_GeneratorProviderConfig"
+    }
+  },
+  "$defs": {
+    "Backend_GeneratorProviderConfig": {
+      "type": "object",
+      "additionalProperties": {}
+    }
+  }
+}

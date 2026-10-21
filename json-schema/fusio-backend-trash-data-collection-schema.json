@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-trash-data-collection-schema.json",
+  "title": "Backend_TrashDataCollection",
+  "description": "Base collection",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-trash-api-openapi.yml#/components/schemas/Backend_TrashDataCollection",
+  "type": "object",
+  "properties": {
+    "totalResults": {
+      "type": "integer"
+    },
+    "startIndex": {
+      "type": "integer"
+    },
+    "itemsPerPage": {
+      "type": "integer"
+    },
+    "entry": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Backend_TrashData"
+      }
+    }
+  },
+  "$defs": {
+    "Backend_TrashData": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier for the object",
+          "type": "integer"
+        },
+        "status": {
+          "description": "Status of the object either 1 = active or 0 = deleted",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

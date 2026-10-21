@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-database-table-schema.json",
+  "title": "Backend_DatabaseTable",
+  "description": "This object represents a relational table on a database connection",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-connection-api-openapi.yml#/components/schemas/Backend_DatabaseTable",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "Name of the table",
+      "type": "string"
+    },
+    "columns": {
+      "description": "Available columns on the table",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Backend_DatabaseTableColumn"
+      }
+    },
+    "primaryKey": {
+      "description": "The primary key column",
+      "type": "string"
+    },
+    "indexes": {
+      "description": "Available indices on the table",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Backend_DatabaseTableIndex"
+      }
+    },
+    "foreignKeys": {
+      "description": "Available foreign key constraints",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Backend_DatabaseTableForeignKeyConstraint"
+      }
+    }
+  },
+  "$defs": {
+    "Backend_DatabaseTableColumn": {
+      "description": "This object represents a column at a relation table",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the column",
+          "type": "string"
+        },
+        "type": {
+          "description": "The column type i.e. integer or string",
+          "type": "string"
+        },
+        "length": {
+          "description": "Optional the max length of the column",
+          "type": "integer"
+        },
+        "precision": {
+          "description": "Optional the precision of the column",
+          "type": "integer"
+        },
+        "scale": {
+          "description": "Optional the scale of the column",
+          "type": "integer"
+        },
+        "unsigned": {
+          "description": "Indicates whether the column is unsigned, relevant for integer types",
+          "type": "boolean"
+        },
+        "fixed": {
+          "description": "Indicates whether the column has a fixed length",
+          "type": "boolean"
+        },
+        "notNull": {
+          "description": "Indicates whether the column allows null",
+          "type": "boolean"
+        },
+        "autoIncrement": {
+          "description": "Indicates whether this column is an auto increment column",
+          "type": "boolean"
+        },
+        "default": {},
+        "comment": {
+          "description": "Optional a comment for this column",
+          "type": "string"
+        }
+      }
+    },
+    "Backend_DatabaseTableForeignKeyConstraint": {
+      "description": "This object represents a foreign key constraint on a relational database",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the foreign key constraint",
+          "type": "string"
+        },
+        "foreignTable": {
+          "description": "Name of the foreign table",
+          "type": "string"
+        },
+        "localColumnNames": {
+          "description": "Local column names",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "foreignColumnNames": {
+          "description": "Foreign column names",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Backend_DatabaseTableIndex": {
+      "description": "This object represents a table index on a relational database",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the index",
+          "type": "string"
+        },
+        "unique": {
+          "description": "Indicates whether the index is unique",
+          "type": "boolean"
+        },
+        "columns": {
+          "description": "Columns assigned ot the index",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

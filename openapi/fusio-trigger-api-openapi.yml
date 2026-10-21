@@ -194,6 +194,20 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Backend_TriggerCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Trigger'
     Common_Message:
       description: Common error message
       type: object
@@ -226,23 +240,9 @@ components:
           type: string
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Backend_TriggerCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Trigger'
-    Backend_TriggerUpdate:
-      $ref: '#/components/schemas/Backend_Trigger'
     Backend_TriggerCreate:
+      $ref: '#/components/schemas/Backend_Trigger'
+    Backend_TriggerUpdate:
       $ref: '#/components/schemas/Backend_Trigger'
   securitySchemes:
     app:

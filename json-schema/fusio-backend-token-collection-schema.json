@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-token-collection-schema.json",
+  "title": "Backend_TokenCollection",
+  "description": "Base collection",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-token-api-openapi.yml#/components/schemas/Backend_TokenCollection",
+  "type": "object",
+  "properties": {
+    "totalResults": {
+      "type": "integer"
+    },
+    "startIndex": {
+      "type": "integer"
+    },
+    "itemsPerPage": {
+      "type": "integer"
+    },
+    "entry": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Backend_Token"
+      }
+    }
+  },
+  "$defs": {
+    "Backend_Token": {
+      "description": "This object represents a token, this an access token which was requested by a user",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier for the object",
+          "type": "integer"
+        },
+        "status": {
+          "description": "Status of the object either 1 = active or 2 = deleted",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ip": {
+          "type": "string"
+        },
+        "expire": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

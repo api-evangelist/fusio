@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-specification-publish-schema.json",
+  "title": "Backend_SpecificationPublish",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-specification-api-openapi.yml#/components/schemas/Backend_SpecificationPublish",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "filterName": {
+      "type": "string"
+    },
+    "standalone": {
+      "type": "boolean"
+    }
+  }
+}

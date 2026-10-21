@@ -1010,44 +1010,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_ConnectionConfig:
-      description: The connection configuration which contains arbitrary key-value entries
-      type: object
-      additionalProperties: {}
-    Common_FormContainer:
-      description: Represents a config form with a list of elements
-      type: object
-      properties:
-        element:
-          type: array
-          items:
-            $ref: '#/components/schemas/Common_FormElement'
-    Passthru:
-      description: No schema information available
-      type: object
-      additionalProperties: {}
-    Common_FormElementCollection:
-      allOf:
-      - $ref: '#/components/schemas/Common_FormElement'
-      - description: Form element which represents a collection element
-        type: object
-        properties:
-          type:
-            description: The input type i.e. text or password, all HTML input types are allowed
-            type: string
-    Agent_ItemObject:
-      allOf:
-      - $ref: '#/components/schemas/Agent_Item'
-      - description: Structured agent message
-        type: object
-        properties:
-          payload: {}
-    Backend_ConnectionRedirectResponse:
-      description: Redirect response to initiate an OAuth2 flow
-      type: object
-      properties:
-        redirectUri:
-          type: string
     Agent_ItemToolCallFunction:
       description: Concrete values for a function tool call
       type: object
@@ -1058,14 +1020,202 @@ components:
           type: string
         arguments:
           type: string
-    Common_FormElementMap:
+    Backend_ConnectionIndex:
+      description: Contains all possible classes which can be used at an connection as class
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_ConnectionIndexEntry'
+    Common_FormElementTypeAPI:
+      $ref: '#/components/schemas/Common_FormElement'
+    Passthru:
+      description: No schema information available
+      type: object
+      additionalProperties: {}
+    Common_FormElementTypeSchema:
+      $ref: '#/components/schemas/Common_FormElement'
+    Backend_DatabaseTableIndex:
+      description: This object represents a table index on a relational database
+      type: object
+      properties:
+        name:
+          description: Name of the index
+          type: string
+        unique:
+          description: Indicates whether the index is unique
+          type: boolean
+        columns:
+          description: Columns assigned ot the index
+          type: array
+          items:
+            type: string
+    Common_FormElementInput:
       allOf:
       - $ref: '#/components/schemas/Common_FormElement'
-      - description: Form element which represents a map element
+      - description: Form element which represents an input element
         type: object
         properties:
           type:
             description: The input type i.e. text or password, all HTML input types are allowed
+            type: string
+    Backend_HttpRequest:
+      description: This object represents a HTTP request
+      type: object
+      properties:
+        method:
+          description: HTTP method i.e. GET, POST
+          type: string
+        uri:
+          description: HTTP request uri
+          type: string
+        headers:
+          description: HTTP request headers
+          type: object
+          additionalProperties:
+            type: string
+        body:
+          description: HTTP request body
+          type: string
+    Common_FormElementSelectOption:
+      description: Represents a concrete option entry
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    Backend_DatabaseTable:
+      description: This object represents a relational table on a database connection
+      type: object
+      properties:
+        name:
+          description: Name of the table
+          type: string
+        columns:
+          description: Available columns on the table
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_DatabaseTableColumn'
+        primaryKey:
+          description: The primary key column
+          type: string
+        indexes:
+          description: Available indices on the table
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_DatabaseTableIndex'
+        foreignKeys:
+          description: Available foreign key constraints
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_DatabaseTableForeignKeyConstraint'
+    Backend_ConnectionCreate:
+      $ref: '#/components/schemas/Backend_Connection'
+    Backend_ConnectionRedirectResponse:
+      description: Redirect response to initiate an OAuth2 flow
+      type: object
+      properties:
+        redirectUri:
+          type: string
+    Agent_Item:
+      oneOf:
+      - $ref: '#/components/schemas/Agent_ItemBinary'
+      - $ref: '#/components/schemas/Agent_ItemChoice'
+      - $ref: '#/components/schemas/Agent_ItemObject'
+      - $ref: '#/components/schemas/Agent_ItemText'
+      - $ref: '#/components/schemas/Agent_ItemToolCall'
+      discriminator: type
+      mapping:
+        binary: '#/components/schemas/Agent_ItemBinary'
+        choice: '#/components/schemas/Agent_ItemChoice'
+        object: '#/components/schemas/Agent_ItemObject'
+        text: '#/components/schemas/Agent_ItemText'
+        tool_call: '#/components/schemas/Agent_ItemToolCall'
+    Backend_DatabaseTableCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_DatabaseTable'
+    Backend_ConnectionCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Connection'
+    Common_FormElementCollection:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents a collection element
+        type: object
+        properties:
+          type:
+            description: The input type i.e. text or password, all HTML input types are allowed
+            type: string
+    Agent_Output:
+      description: This object represents an agent output
+      type: object
+      properties:
+        id:
+          description: Chat id of this conversation
+          type: string
+        item:
+          $ref: '#/components/schemas/Agent_Item'
+    Agent_ItemBinary:
+      allOf:
+      - $ref: '#/components/schemas/Agent_Item'
+      - description: Binary agent message
+        type: object
+        properties:
+          mime:
+            description: The mime of the binary data
+            type: string
+          data:
+            description: The base64 encoded binary data
+            type: string
+    Backend_ConnectionConfig:
+      description: The connection configuration which contains arbitrary key-value entries
+      type: object
+      additionalProperties: {}
+    Backend_ConnectionUpdate:
+      $ref: '#/components/schemas/Backend_Connection'
+    Backend_DatabaseTableForeignKeyConstraint:
+      description: This object represents a foreign key constraint on a relational database
+      type: object
+      properties:
+        name:
+          description: Name of the foreign key constraint
+          type: string
+        foreignTable:
+          description: Name of the foreign table
+          type: string
+        localColumnNames:
+          description: Local column names
+          type: array
+          items:
+            type: string
+        foreignColumnNames:
+          description: Foreign column names
+          type: array
+          items:
             type: string
     Backend_DatabaseTableColumn:
       description: This object represents a column at a relation table
@@ -1102,18 +1252,62 @@ components:
         comment:
           description: Optional a comment for this column
           type: string
-    Common_FormElementCheckbox:
-      $ref: '#/components/schemas/Common_FormElement'
-    Common_FormElementTextArea:
+    Agent_Input:
+      description: This object represents an agent input
+      type: object
+      properties:
+        previousId:
+          description: Optional the chat id of this conversation
+          type: string
+        item:
+          $ref: '#/components/schemas/Agent_Item'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_DatabaseRow:
+      description: This object represents a row on a relational table
+      type: object
+      additionalProperties: {}
+    Common_FormElementSelect:
       allOf:
       - $ref: '#/components/schemas/Common_FormElement'
-      - description: Form element which represents a textarea
+      - description: Form element which represents a select element
         type: object
         properties:
-          mode:
-            description: Describes which data is provided at the textarea, this can be i.e. a programming language like php, java or python or also a data format like json
+          options:
+            description: Available options for the select element
+            type: array
+            items:
+              $ref: '#/components/schemas/Common_FormElementSelectOption'
+    Common_FormElementCheckbox:
+      $ref: '#/components/schemas/Common_FormElement'
+    Backend_HttpResponse:
+      description: This object represents a HTTP response
+      type: object
+      properties:
+        statusCode:
+          description: HTTP status code
+          type: integer
+        headers:
+          description: HTTP response headers
+          type: object
+          additionalProperties:
             type: string
-    Backend_FileCollection:
+        body:
+          description: HTTP response body
+          type: string
+    Backend_DatabaseRowCollection:
       description: Base collection
       type: object
       properties:
@@ -1126,38 +1320,7 @@ components:
         entry:
           type: array
           items:
-            $ref: '#/components/schemas/Backend_File'
-    Agent_Output:
-      description: This object represents an agent output
-      type: object
-      properties:
-        id:
-          description: Chat id of this conversation
-          type: string
-        item:
-          $ref: '#/components/schemas/Agent_Item'
-    Common_FormElementTypeSchema:
-      $ref: '#/components/schemas/Common_FormElement'
-    Backend_ConnectionUpdate:
-      $ref: '#/components/schemas/Backend_Connection'
-    Backend_HttpRequest:
-      description: This object represents a HTTP request
-      type: object
-      properties:
-        method:
-          description: HTTP method i.e. GET, POST
-          type: string
-        uri:
-          description: HTTP request uri
-          type: string
-        headers:
-          description: HTTP request headers
-          type: object
-          additionalProperties:
-            type: string
-        body:
-          description: HTTP request body
-          type: string
+            $ref: '#/components/schemas/Backend_DatabaseRow'
     Backend_Connection:
       description: This object represents a connection to an external system like i.e. a database, message-queue or client-sdk
       type: object
@@ -1178,71 +1341,58 @@ components:
           $ref: '#/components/schemas/Backend_ConnectionConfig'
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Backend_DatabaseRowCollection:
-      description: Base collection
+    Common_FormElementMap:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents a map element
+        type: object
+        properties:
+          type:
+            description: The input type i.e. text or password, all HTML input types are allowed
+            type: string
+    Common_FormContainer:
+      description: Represents a config form with a list of elements
       type: object
       properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
+        element:
           type: array
           items:
-            $ref: '#/components/schemas/Backend_DatabaseRow'
-    Backend_DatabaseRow:
-      description: This object represents a row on a relational table
-      type: object
-      additionalProperties: {}
-    Backend_DatabaseTable:
-      description: This object represents a relational table on a database connection
+            $ref: '#/components/schemas/Common_FormElement'
+    Backend_ConnectionIndexEntry:
+      description: Represents a concrete connection class
       type: object
       properties:
         name:
-          description: Name of the table
+          description: Human-readable name of the connection class
           type: string
-        columns:
-          description: Available columns on the table
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_DatabaseTableColumn'
-        primaryKey:
-          description: The primary key column
+        class:
+          description: Technical identifier of the connection class
           type: string
-        indexes:
-          description: Available indices on the table
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_DatabaseTableIndex'
-        foreignKeys:
-          description: Available foreign key constraints
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_DatabaseTableForeignKeyConstraint'
-    Backend_DatabaseTableCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_DatabaseTable'
-    Common_FormElementSelectOption:
-      description: Represents a concrete option entry
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
+    Agent_ItemText:
+      allOf:
+      - $ref: '#/components/schemas/Agent_Item'
+      - description: Text agent message
+        type: object
+        properties:
+          content:
+            description: The content text
+            type: string
+    Common_FormElementTextArea:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents a textarea
+        type: object
+        properties:
+          mode:
+            description: Describes which data is provided at the textarea, this can be i.e. a programming language like php, java or python or also a data format like json
+            type: string
+    Agent_ItemObject:
+      allOf:
+      - $ref: '#/components/schemas/Agent_Item'
+      - description: Structured agent message
+        type: object
+        properties:
+          payload: {}
     Agent_ItemToolCall:
       allOf:
       - $ref: '#/components/schemas/Agent_Item'
@@ -1254,30 +1404,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Agent_ItemToolCallFunction'
-    Agent_Input:
-      description: This object represents an agent input
-      type: object
-      properties:
-        previousId:
-          description: Optional the chat id of this conversation
-          type: string
-        item:
-          $ref: '#/components/schemas/Agent_Item'
-    Backend_HttpResponse:
-      description: This object represents a HTTP response
-      type: object
-      properties:
-        statusCode:
-          description: HTTP status code
-          type: integer
-        headers:
-          description: HTTP response headers
-          type: object
-          additionalProperties:
-            type: string
-        body:
-          description: HTTP response body
-          type: string
     Common_FormElement:
       oneOf:
       - $ref: '#/components/schemas/Common_FormElementCheckbox'
@@ -1298,55 +1424,20 @@ components:
         textarea: '#/components/schemas/Common_FormElementTextArea'
         typeapi: '#/components/schemas/Common_FormElementTypeAPI'
         typeschema: '#/components/schemas/Common_FormElementTypeSchema'
-    Agent_Item:
-      oneOf:
-      - $ref: '#/components/schemas/Agent_ItemBinary'
-      - $ref: '#/components/schemas/Agent_ItemChoice'
-      - $ref: '#/components/schemas/Agent_ItemObject'
-      - $ref: '#/components/schemas/Agent_ItemText'
-      - $ref: '#/components/schemas/Agent_ItemToolCall'
-      discriminator: type
-      mapping:
-        binary: '#/components/schemas/Agent_ItemBinary'
-        choice: '#/components/schemas/Agent_ItemChoice'
-        object: '#/components/schemas/Agent_ItemObject'
-        text: '#/components/schemas/Agent_ItemText'
-        tool_call: '#/components/schemas/Agent_ItemToolCall'
-    Backend_DatabaseTableIndex:
-      description: This object represents a table index on a relational database
+    Backend_FileCollection:
+      description: Base collection
       type: object
       properties:
-        name:
-          description: Name of the index
-          type: string
-        unique:
-          description: Indicates whether the index is unique
-          type: boolean
-        columns:
-          description: Columns assigned ot the index
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
           type: array
           items:
-            type: string
-    Agent_ItemChoice:
-      allOf:
-      - $ref: '#/components/schemas/Agent_Item'
-      - description: Choice agent message
-        type: object
-        properties:
-          items:
-            description: Contains multiple agent items
-            type: array
-            items:
-              $ref: '#/components/schemas/Agent_Item'
-    Common_FormElementInput:
-      allOf:
-      - $ref: '#/components/schemas/Common_FormElement'
-      - description: Form element which represents an input element
-        type: object
-        properties:
-          type:
-            description: The input type i.e. text or password, all HTML input types are allowed
-            type: string
+            $ref: '#/components/schemas/Backend_File'
     Backend_File:
       description: This object represents a file on the filesystem
       type: object
@@ -1367,108 +1458,17 @@ components:
           description: Last modified date of the file
           type: string
           format: date-time
-    Backend_ConnectionCreate:
-      $ref: '#/components/schemas/Backend_Connection'
-    Backend_ConnectionCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Connection'
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
-    Agent_ItemText:
+    Agent_ItemChoice:
       allOf:
       - $ref: '#/components/schemas/Agent_Item'
-      - description: Text agent message
+      - description: Choice agent message
         type: object
         properties:
-          content:
-            description: The content text
-            type: string
-    Agent_ItemBinary:
-      allOf:
-      - $ref: '#/components/schemas/Agent_Item'
-      - description: Binary agent message
-        type: object
-        properties:
-          mime:
-            description: The mime of the binary data
-            type: string
-          data:
-            description: The base64 encoded binary data
-            type: string
-    Backend_DatabaseTableForeignKeyConstraint:
-      description: This object represents a foreign key constraint on a relational database
-      type: object
-      properties:
-        name:
-          description: Name of the foreign key constraint
-          type: string
-        foreignTable:
-          description: Name of the foreign table
-          type: string
-        localColumnNames:
-          description: Local column names
-          type: array
           items:
-            type: string
-        foreignColumnNames:
-          description: Foreign column names
-          type: array
-          items:
-            type: string
-    Common_FormElementTypeAPI:
-      $ref: '#/components/schemas/Common_FormElement'
-    Backend_ConnectionIndexEntry:
-      description: Represents a concrete connection class
-      type: object
-      properties:
-        name:
-          description: Human-readable name of the connection class
-          type: string
-        class:
-          description: Technical identifier of the connection class
-          type: string
-    Common_FormElementSelect:
-      allOf:
-      - $ref: '#/components/schemas/Common_FormElement'
-      - description: Form element which represents a select element
-        type: object
-        properties:
-          options:
-            description: Available options for the select element
+            description: Contains multiple agent items
             type: array
             items:
-              $ref: '#/components/schemas/Common_FormElementSelectOption'
-    Backend_ConnectionIndex:
-      description: Contains all possible classes which can be used at an connection as class
-      type: object
-      properties:
-        connections:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_ConnectionIndexEntry'
+              $ref: '#/components/schemas/Agent_Item'
   securitySchemes:
     app:
       type: oauth2

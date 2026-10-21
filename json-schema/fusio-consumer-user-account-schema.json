@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-consumer-user-account-schema.json",
+  "title": "Consumer_UserAccount",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-account-api-openapi.yml#/components/schemas/Consumer_UserAccount",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "planId": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "points": {
+      "type": "integer"
+    },
+    "scopes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "plans": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Consumer_UserPlan"
+      }
+    },
+    "metadata": {
+      "$ref": "#/$defs/Common_Metadata"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "$defs": {
+    "Common_Metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "Consumer_UserPlan": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "points": {
+          "type": "integer"
+        },
+        "period": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

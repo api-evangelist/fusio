@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-consumer-webhook-create-schema.json",
+  "title": "Consumer_WebhookCreate",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-webhook-api-openapi.yml#/components/schemas/Consumer_WebhookCreate",
+  "type": "object",
+  "properties": {
+    "event": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "endpoint": {
+      "type": "string"
+    }
+  }
+}

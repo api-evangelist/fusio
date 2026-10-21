@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-generator-provider-changelog-schema.json",
+  "title": "Backend_GeneratorProviderChangelog",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-generator-api-openapi.yml#/components/schemas/Backend_GeneratorProviderChangelog",
+  "type": "object",
+  "properties": {
+    "schemas": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Backend_Schema"
+      }
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Backend_Action"
+      }
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Backend_Operation"
+      }
+    }
+  },
+  "$defs": {
+    "Backend_Action": {
+      "description": "This object represents the business logic which can be executed either through an operation or cronjob",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier for the object",
+          "type": "integer"
+        },
+        "status": {
+          "description": "Status of the object either 1 = active or 0 = deleted",
+          "type": "integer"
+        },
+        "name": {
+          "description": "Unique name of the object",
+          "type": "string"
+        },
+        "class": {
+          "description": "Underlying class of this action which handles the action logic",
+          "type": "string"
+        },
+        "async": {
+          "description": "Whether to execute the action asynchronously, if true the action directly returns a 202 response and the action is executed later on in the background, useful for expensive operations",
+          "type": "boolean"
+        },
+        "config": {
+          "$ref": "#/$defs/Backend_ActionConfig"
+        },
+        "metadata": {
+          "$ref": "#/$defs/Common_Metadata"
+        }
+      }
+    },
+    "Backend_ActionConfig": {
+      "description": "The action configuration which contains arbitrary key-value entries",
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "Backend_Operation": {
+      "description": "This object represents an operation, an operation invokes an action in case a specific HTTP method and path was requested. It defines also schema information about the request and response payload",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier for the object",
+          "type": "integer"
+        },
+        "status": {
+          "description": "Status of the object either 1 = active or 0 = deleted",
+          "type": "integer"
+        },
+        "active": {
+          "description": "Indicates whether the operation is active",
+          "type": "boolean"
+        },
+        "public": {
+          "description": "Indicates whether the operation is public, if false a user must provide an Authorization header with an Bearer access token",
+          "type": "boolean"
+        },
+        "stability": {
+          "description": "Describes the stability of this operation 0 = deprecated, 1 = experimental, 2 = stable and 3 = legacy",
+          "type": "integer"
+        },
+        "description": {
+          "description": "A short description of this operation, it should explain the operation in a simple and precise way",
+          "type": "string"
+        },
+        "httpMethod": {
+          "description": "The target HTTP method i.e. GET or POST",
+          "type": "string"
+        },
+        "httpPath": {
+          "description": "The target HTTP path i.e. /foo or /product/:product_id",
+          "type": "string"
+        },
+        "httpCode": {
+          "description": "The success HTTP code i.e. 200 or 201",
+          "type": "integer"
+        },
+        "name": {
+          "description": "Unique name of the object. It is recommended to group your operations into logical units by using a dot i.e. product.getAll and product.insert which has also an effect on the automatically generated SDK",
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "#/$defs/Backend_OperationParameters"
+        },
+        "incoming": {
+          "description": "Describes the incoming request payload, this must contain a schema name",
+          "type": "string"
+        },
+        "outgoing": {
+          "description": "Describes the outgoing response payload, this must contain a schema name",
+          "type": "string"
+        },
+        "throws": {
+          "$ref": "#/$defs/Backend_OperationThrows"
+        },
+        "action": {
+          "description": "The target action to invoke, this must contain an action name",
+          "type": "string"
+        },
+        "costs": {
+          "description": "Costs to invoke this operation. A user can only invoke this operation in case he has enough points",
+          "type": "integer"
+        },
+        "scopes": {
+          "description": "Scopes which are required to invoke this operation",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "metadata": {
+          "$ref": "#/$defs/Common_Metadata"
+        }
+      }
+    },
+    "Backend_OperationParameters": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/Backend_OperationSchema"
+      }
+    },
+    "Backend_OperationSchema": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        },
+        "enum": {
+          "type": "string"
+        }
+      }
+    },
+    "Backend_OperationThrows": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "Backend_Schema": {
+      "description": "This object represents a schema to describe a JSON payload",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier for the object",
+          "type": "integer"
+        },
+        "status": {
+          "description": "Status of the object either 1 = active or 0 = deleted",
+          "type": "integer"
+        },
+        "name": {
+          "description": "Unique name of the object",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Backend_SchemaSource"
+        },
+        "metadata": {
+          "$ref": "#/$defs/Common_Metadata"
+        }
+      }
+    },
+    "Backend_SchemaSource": {
+      "description": "Contains the TypeSchema specification",
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "Common_Metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

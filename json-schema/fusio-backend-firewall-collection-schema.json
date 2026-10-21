@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-firewall-collection-schema.json",
+  "title": "Backend_FirewallCollection",
+  "description": "Base collection",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-firewall-api-openapi.yml#/components/schemas/Backend_FirewallCollection",
+  "type": "object",
+  "properties": {
+    "totalResults": {
+      "type": "integer"
+    },
+    "startIndex": {
+      "type": "integer"
+    },
+    "itemsPerPage": {
+      "type": "integer"
+    },
+    "entry": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Backend_Firewall"
+      }
+    }
+  },
+  "$defs": {
+    "Backend_Firewall": {
+      "description": "This object represents a firewall rule which blocks specific IP addresses",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier for the object",
+          "type": "integer"
+        },
+        "name": {
+          "description": "Unique name of the object",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the rule either 1 = allow or 0 = deny",
+          "type": "integer"
+        },
+        "ip": {
+          "description": "The target IP address",
+          "type": "string"
+        },
+        "expire": {
+          "description": "The expire date",
+          "type": "string",
+          "format": "date-time"
+        },
+        "metadata": {
+          "$ref": "#/$defs/Common_Metadata"
+        }
+      }
+    },
+    "Common_Metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

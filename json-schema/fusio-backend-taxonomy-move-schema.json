@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-taxonomy-move-schema.json",
+  "title": "Backend_TaxonomyMove",
+  "description": "Moves the provided objects to a taxonomy",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-taxonomy-api-openapi.yml#/components/schemas/Backend_TaxonomyMove",
+  "type": "object",
+  "properties": {
+    "operations": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "schemas": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "cronjobs": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "triggers": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-log-schema.json",
+  "title": "Backend_Log",
+  "description": "This object represents a log entry. Every HTTP requests to the system generates such a log entry.",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-log-api-openapi.yml#/components/schemas/Backend_Log",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier for the object",
+      "type": "integer"
+    },
+    "ip": {
+      "description": "The remote IP which has initiated the request",
+      "type": "string"
+    },
+    "userAgent": {
+      "description": "The user agent provided by the HTTP user agent header",
+      "type": "string"
+    },
+    "method": {
+      "description": "The HTTP method i.e. GET or POST",
+      "type": "string"
+    },
+    "path": {
+      "description": "The target path",
+      "type": "string"
+    },
+    "header": {
+      "description": "The provided HTTP headers",
+      "type": "string"
+    },
+    "body": {
+      "description": "The provided HTTP body",
+      "type": "string"
+    },
+    "date": {
+      "description": "Insert date of this request",
+      "type": "string",
+      "format": "date-time"
+    },
+    "errors": {
+      "description": "An array of errors which occurred through this request",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Backend_LogError"
+      }
+    }
+  },
+  "$defs": {
+    "Backend_LogError": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier for the object",
+          "type": "integer"
+        },
+        "logId": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        },
+        "trace": {
+          "type": "string"
+        },
+        "file": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer"
+        },
+        "insertDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

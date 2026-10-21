@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-consumer-webhook-collection-schema.json",
+  "title": "Consumer_WebhookCollection",
+  "description": "Base collection",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-webhook-api-openapi.yml#/components/schemas/Consumer_WebhookCollection",
+  "type": "object",
+  "properties": {
+    "totalResults": {
+      "type": "integer"
+    },
+    "startIndex": {
+      "type": "integer"
+    },
+    "itemsPerPage": {
+      "type": "integer"
+    },
+    "entry": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Consumer_Webhook"
+      }
+    }
+  },
+  "$defs": {
+    "Consumer_Webhook": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "event": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "responses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Consumer_WebhookResponse"
+          }
+        }
+      }
+    },
+    "Consumer_WebhookResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer"
+        },
+        "code": {
+          "type": "integer"
+        },
+        "attempts": {
+          "type": "string"
+        },
+        "executeDate": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

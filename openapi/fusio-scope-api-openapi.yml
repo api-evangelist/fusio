@@ -325,43 +325,6 @@ components:
             $ref: '#/components/schemas/Backend_ScopeOperation'
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Backend_ScopeOperation:
-      type: object
-      properties:
-        operationId:
-          type: integer
-        allow:
-          type: boolean
-    Backend_ScopeCategories:
-      type: object
-      properties:
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_ScopeCategory'
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
-    Backend_ScopeCategoryScope:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        description:
-          type: string
-    Backend_ScopeCreate:
-      $ref: '#/components/schemas/Backend_Scope'
-    Backend_ScopeUpdate:
-      $ref: '#/components/schemas/Backend_Scope'
     Backend_ScopeCollection:
       description: Base collection
       type: object
@@ -376,6 +339,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Scope'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Backend_ScopeCreate:
+      $ref: '#/components/schemas/Backend_Scope'
     Common_Metadata:
       type: object
       additionalProperties:
@@ -391,6 +366,31 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_ScopeCategoryScope'
+    Backend_ScopeCategoryScope:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+    Backend_ScopeCategories:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_ScopeCategory'
+    Backend_ScopeOperation:
+      type: object
+      properties:
+        operationId:
+          type: integer
+        allow:
+          type: boolean
+    Backend_ScopeUpdate:
+      $ref: '#/components/schemas/Backend_Scope'
     Consumer_Scope:
       type: object
       properties:
@@ -411,13 +411,6 @@ components:
           type: string
         description:
           type: string
-    Consumer_ScopeCategories:
-      type: object
-      properties:
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/Consumer_ScopeCategory'
     Consumer_ScopeCategory:
       type: object
       properties:
@@ -443,6 +436,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Consumer_Scope'
+    Consumer_ScopeCategories:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_ScopeCategory'
   securitySchemes:
     app:
       type: oauth2

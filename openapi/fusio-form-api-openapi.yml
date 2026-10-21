@@ -273,6 +273,8 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
+    Backend_FormUpdate:
+      $ref: '#/components/schemas/Backend_Form'
     Common_Message:
       description: Common error message
       type: object
@@ -283,6 +285,10 @@ components:
           type: string
         id:
           type: string
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
     Backend_FormCollection:
       description: Base collection
       type: object
@@ -297,7 +303,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Form'
-    Backend_FormUpdate:
+    Backend_FormCreate:
       $ref: '#/components/schemas/Backend_Form'
     Backend_Form:
       description: This object represents a form which helps to dynamically generate a form at a frontend app
@@ -318,12 +324,6 @@ components:
         uiSchema: {}
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Backend_FormCreate:
-      $ref: '#/components/schemas/Backend_Form'
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
     Consumer_FormCollection:
       description: Base collection
       type: object

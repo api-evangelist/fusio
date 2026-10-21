@@ -7,7 +7,7 @@ info:
 x-generated: '2026-08-29'
 x-method: generated
 x-source: openapi/fusio-system.json (harvested from https://demo.fusio-project.org/system/generator/spec-openapi?filter=system)
-extends: openapi/fusio-system.json
+extends: ../openapi/_original/fusio-system.json
 actions:
   - target: $.info
     description: >-

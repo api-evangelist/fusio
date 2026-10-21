@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-consumer-plan-schema.json",
+  "title": "Consumer_Plan",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-plan-api-openapi.yml#/components/schemas/Consumer_Plan",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "price": {
+      "type": "number"
+    },
+    "points": {
+      "type": "integer"
+    },
+    "period": {
+      "type": "integer"
+    },
+    "metadata": {
+      "$ref": "#/$defs/Common_Metadata"
+    }
+  },
+  "$defs": {
+    "Common_Metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

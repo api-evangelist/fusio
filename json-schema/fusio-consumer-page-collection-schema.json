@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-consumer-page-collection-schema.json",
+  "title": "Consumer_PageCollection",
+  "description": "Base collection",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-page-api-openapi.yml#/components/schemas/Consumer_PageCollection",
+  "type": "object",
+  "properties": {
+    "totalResults": {
+      "type": "integer"
+    },
+    "startIndex": {
+      "type": "integer"
+    },
+    "itemsPerPage": {
+      "type": "integer"
+    },
+    "entry": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Consumer_Page"
+      }
+    }
+  },
+  "$defs": {
+    "Common_Metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "Consumer_Page": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/$defs/Common_Metadata"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-page-create-schema.json",
+  "title": "Backend_PageCreate",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-page-api-openapi.yml#/components/schemas/Backend_PageCreate",
+  "$ref": "#/$defs/Backend_Page",
+  "$defs": {
+    "Backend_Page": {
+      "description": "This object represents a page at the developer portal",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier for the object",
+          "type": "integer"
+        },
+        "status": {
+          "description": "Status of the object either 1 = visible, 2 = invisible or 0 = deleted",
+          "type": "integer"
+        },
+        "title": {
+          "description": "Title of the page",
+          "type": "string"
+        },
+        "slug": {
+          "description": "Slug of the page which gets dynamically generated from the title",
+          "type": "string"
+        },
+        "content": {
+          "description": "HTML content of this page",
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/$defs/Common_Metadata"
+        }
+      }
+    },
+    "Common_Metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

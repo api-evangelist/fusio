@@ -144,6 +144,93 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Backend_OperationThrows:
+      type: object
+      additionalProperties:
+        type: string
+    Backend_GeneratorProviderConfig:
+      type: object
+      additionalProperties: {}
+    Common_FormElementTypeAPI:
+      $ref: '#/components/schemas/Common_FormElement'
+    Backend_OperationParameters:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Backend_OperationSchema'
+    Common_FormElementTypeSchema:
+      $ref: '#/components/schemas/Common_FormElement'
+    Common_FormElementInput:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents an input element
+        type: object
+        properties:
+          type:
+            description: The input type i.e. text or password, all HTML input types are allowed
+            type: string
+    Common_FormElementSelectOption:
+      description: Represents a concrete option entry
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    Backend_ActionConfig:
+      description: The action configuration which contains arbitrary key-value entries
+      type: object
+      additionalProperties: {}
+    Backend_OperationSchema:
+      type: object
+      properties:
+        description:
+          type: string
+        type:
+          type: string
+        format:
+          type: string
+        enum:
+          type: string
+    Backend_SchemaSource:
+      description: Contains the TypeSchema specification
+      type: object
+      additionalProperties: {}
+    Common_FormElementCollection:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents a collection element
+        type: object
+        properties:
+          type:
+            description: The input type i.e. text or password, all HTML input types are allowed
+            type: string
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Common_FormElementSelect:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents a select element
+        type: object
+        properties:
+          options:
+            description: Available options for the select element
+            type: array
+            items:
+              $ref: '#/components/schemas/Common_FormElementSelectOption'
+    Common_FormElementCheckbox:
+      $ref: '#/components/schemas/Common_FormElement'
     Backend_Operation:
       description: This object represents an operation, an operation invokes an action in case a specific HTTP method and path was requested. It defines also schema information about the request and response payload
       type: object
@@ -201,6 +288,23 @@ components:
             type: string
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
+    Common_FormElementMap:
+      allOf:
+      - $ref: '#/components/schemas/Common_FormElement'
+      - description: Form element which represents a map element
+        type: object
+        properties:
+          type:
+            description: The input type i.e. text or password, all HTML input types are allowed
+            type: string
+    Backend_GeneratorIndexProviders:
+      description: Contains all possible classes which can be used at an generator as class
+      type: object
+      properties:
+        providers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_GeneratorIndexProvider'
     Common_FormContainer:
       description: Represents a config form with a list of elements
       type: object
@@ -209,15 +313,38 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Common_FormElement'
-    Common_FormElementCollection:
+    Backend_GeneratorIndexProvider:
+      description: Represents a concrete generator class
+      type: object
+      properties:
+        name:
+          description: Human-readable name of the generator class
+          type: string
+        class:
+          description: Technical identifier of the generator class
+          type: string
+    Common_FormElementTextArea:
       allOf:
       - $ref: '#/components/schemas/Common_FormElement'
-      - description: Form element which represents a collection element
+      - description: Form element which represents a textarea
         type: object
         properties:
-          type:
-            description: The input type i.e. text or password, all HTML input types are allowed
+          mode:
+            description: Describes which data is provided at the textarea, this can be i.e. a programming language like php, java or python or also a data format like json
             type: string
+    Backend_GeneratorProvider:
+      type: object
+      properties:
+        path:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        public:
+          type: boolean
+        config:
+          $ref: '#/components/schemas/Backend_GeneratorProviderConfig'
     Backend_Schema:
       description: This object represents a schema to describe a JSON payload
       type: object
@@ -235,47 +362,6 @@ components:
           $ref: '#/components/schemas/Backend_SchemaSource'
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Backend_SchemaSource:
-      description: Contains the TypeSchema specification
-      type: object
-      additionalProperties: {}
-    Common_FormElementMap:
-      allOf:
-      - $ref: '#/components/schemas/Common_FormElement'
-      - description: Form element which represents a map element
-        type: object
-        properties:
-          type:
-            description: The input type i.e. text or password, all HTML input types are allowed
-            type: string
-    Common_FormElementCheckbox:
-      $ref: '#/components/schemas/Common_FormElement'
-    Common_FormElementTextArea:
-      allOf:
-      - $ref: '#/components/schemas/Common_FormElement'
-      - description: Form element which represents a textarea
-        type: object
-        properties:
-          mode:
-            description: Describes which data is provided at the textarea, this can be i.e. a programming language like php, java or python or also a data format like json
-            type: string
-    Common_FormElementTypeSchema:
-      $ref: '#/components/schemas/Common_FormElement'
-    Backend_GeneratorProviderConfig:
-      type: object
-      additionalProperties: {}
-    Common_FormElementSelectOption:
-      description: Represents a concrete option entry
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-    Backend_OperationParameters:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/Backend_OperationSchema'
     Common_FormElement:
       oneOf:
       - $ref: '#/components/schemas/Common_FormElementCheckbox'
@@ -296,53 +382,6 @@ components:
         textarea: '#/components/schemas/Common_FormElementTextArea'
         typeapi: '#/components/schemas/Common_FormElementTypeAPI'
         typeschema: '#/components/schemas/Common_FormElementTypeSchema'
-    Backend_GeneratorIndexProvider:
-      description: Represents a concrete generator class
-      type: object
-      properties:
-        name:
-          description: Human-readable name of the generator class
-          type: string
-        class:
-          description: Technical identifier of the generator class
-          type: string
-    Common_FormElementInput:
-      allOf:
-      - $ref: '#/components/schemas/Common_FormElement'
-      - description: Form element which represents an input element
-        type: object
-        properties:
-          type:
-            description: The input type i.e. text or password, all HTML input types are allowed
-            type: string
-    Backend_GeneratorProviderChangelog:
-      type: object
-      properties:
-        schemas:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Schema'
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Action'
-        operations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Operation'
-    Backend_GeneratorProvider:
-      type: object
-      properties:
-        path:
-          type: string
-        scopes:
-          type: array
-          items:
-            type: string
-        public:
-          type: boolean
-        config:
-          $ref: '#/components/schemas/Backend_GeneratorProviderConfig'
     Backend_Action:
       description: This object represents the business logic which can be executed either through an operation or cronjob
       type: object
@@ -366,60 +405,21 @@ components:
           $ref: '#/components/schemas/Backend_ActionConfig'
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Backend_GeneratorIndexProviders:
-      description: Contains all possible classes which can be used at an generator as class
+    Backend_GeneratorProviderChangelog:
       type: object
       properties:
-        providers:
+        schemas:
           type: array
           items:
-            $ref: '#/components/schemas/Backend_GeneratorIndexProvider'
-    Backend_ActionConfig:
-      description: The action configuration which contains arbitrary key-value entries
-      type: object
-      additionalProperties: {}
-    Backend_OperationThrows:
-      type: object
-      additionalProperties:
-        type: string
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
-    Common_FormElementTypeAPI:
-      $ref: '#/components/schemas/Common_FormElement'
-    Common_FormElementSelect:
-      allOf:
-      - $ref: '#/components/schemas/Common_FormElement'
-      - description: Form element which represents a select element
-        type: object
-        properties:
-          options:
-            description: Available options for the select element
-            type: array
-            items:
-              $ref: '#/components/schemas/Common_FormElementSelectOption'
-    Backend_OperationSchema:
-      type: object
-      properties:
-        description:
-          type: string
-        type:
-          type: string
-        format:
-          type: string
-        enum:
-          type: string
+            $ref: '#/components/schemas/Backend_Schema'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Action'
+        operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Operation'
   securitySchemes:
     app:
       type: oauth2

@@ -75,6 +75,12 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Backend_BackupImport:
+      description: Import a previously exported system configuration
+      type: object
+      properties:
+        import:
+          type: string
     Backend_BackupImportResult:
       description: Result of a backup import operation
       type: object
@@ -102,12 +108,6 @@ components:
       type: object
       properties:
         export:
-          type: string
-    Backend_BackupImport:
-      description: Import a previously exported system configuration
-      type: object
-      properties:
-        import:
           type: string
   securitySchemes:
     app:

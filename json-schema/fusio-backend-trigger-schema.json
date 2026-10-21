@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-trigger-schema.json",
+  "title": "Backend_Trigger",
+  "description": "This object represents a trigger which can invoke an action on a custom event",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-trigger-api-openapi.yml#/components/schemas/Backend_Trigger",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier for the object",
+      "type": "integer"
+    },
+    "name": {
+      "description": "Unique name of the object",
+      "type": "string"
+    },
+    "event": {
+      "description": "The name of the trigger event",
+      "type": "string"
+    },
+    "action": {
+      "description": "The target action which gets invoked",
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/$defs/Common_Metadata"
+    }
+  },
+  "$defs": {
+    "Common_Metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-schema-preview-response-schema.json",
+  "title": "Backend_SchemaPreviewResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-schema-api-openapi.yml#/components/schemas/Backend_SchemaPreviewResponse",
+  "type": "object",
+  "properties": {
+    "preview": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,55 @@
+generated: '2026-10-20'
+method: probed
+source: pre-flight dossier (docs platform, portal detections) + CNAME chains and response headers of the hosts apis.yml names
+registry: all/0-working/vendors.yml
+areas_vocabulary:
+- documentation
+- developer-portal
+- api-gateway
+- cdn
+- hosting
+- sdk-generation
+- api-collections
+- status-page
+- support
+- community
+- identity
+- mcp-hosting
+vendors:
+- vendor: discord
+  name: Discord
+  area: community
+  host: discord.com
+  evidence: https://discord.com/invite/eMrMgwsc6e
+  signal: url:discord.com/invite
+  confidence: high
+  kin_score:
+  - community_present
+- vendor: docusaurus
+  name: Docusaurus
+  area: documentation
+  host: docs.fusio-project.org
+  evidence: markup:docusaurus
+  signal: docs-platform
+  confidence: medium
+  kin_score: []
+reliance:
+  areas_vendor_served:
+  - community
+  - documentation
+  vendor_count: 2
+  areas_observed: 12
+  share_of_observable_areas: 0.167
+  note: areas where a third party was DETECTED serving this provider; an area absent here was either self-run or not observed, and this script
+    cannot tell those apart
+checked:
+- 'docs-platform: docusaurus'
+- www.fusio-project.org (Website)
+- www.fusio-project.org (DeveloperPortal)
+- demo.fusio-project.org (APIReference)
+- docs.fusio-project.org (Documentation)
+- docs.fusio-project.org (GettingStarted)
+- discord.com (Support)
+- '{worker_host}:9092 (baseURL)'
+- demo.fusio-project.org (baseURL)
+- '{your-fusio-instance} (mcp)'

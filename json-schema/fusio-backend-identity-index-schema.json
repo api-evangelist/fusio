@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-identity-index-schema.json",
+  "title": "Backend_IdentityIndex",
+  "description": "Contains all possible classes which can be used at an identity as class",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-identity-api-openapi.yml#/components/schemas/Backend_IdentityIndex",
+  "type": "object",
+  "properties": {
+    "providers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Backend_IdentityIndexEntry"
+      }
+    }
+  },
+  "$defs": {
+    "Backend_IdentityIndexEntry": {
+      "description": "Represents a concrete identity class",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Human-readable name of the identity class",
+          "type": "string"
+        },
+        "class": {
+          "description": "Technical identifier of the identity class",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

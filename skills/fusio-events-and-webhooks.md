@@ -4,7 +4,7 @@ description: >-
   Register an event on a Fusio instance, let consumers subscribe webhooks to it, dispatch it, and
   read back delivery outcomes.
 api: Fusio Backend API
-version: 1
+version: "1.0.0"
 generated: '2026-08-29'
 method: generated
 source: openapi/fusio-backend.json, openapi/fusio-consumer.json, https://docs.fusio-project.org/docs/backend/api/event

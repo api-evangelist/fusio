@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-common-form-container-schema.json",
+  "title": "Common_FormContainer",
+  "description": "Represents a config form with a list of elements",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-generator-api-openapi.yml#/components/schemas/Common_FormContainer",
+  "type": "object",
+  "properties": {
+    "element": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Common_FormElement"
+      }
+    }
+  },
+  "$defs": {
+    "Common_FormElement": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/Common_FormElementCheckbox"
+        },
+        {
+          "$ref": "#/$defs/Common_FormElementCollection"
+        },
+        {
+          "$ref": "#/$defs/Common_FormElementInput"
+        },
+        {
+          "$ref": "#/$defs/Common_FormElementMap"
+        },
+        {
+          "$ref": "#/$defs/Common_FormElementSelect"
+        },
+        {
+          "$ref": "#/$defs/Common_FormElementTextArea"
+        },
+        {
+          "$ref": "#/$defs/Common_FormElementTypeAPI"
+        },
+        {
+          "$ref": "#/$defs/Common_FormElementTypeSchema"
+        }
+      ],
+      "mapping": {
+        "checkbox": "#/components/schemas/Common_FormElementCheckbox",
+        "collection": "#/components/schemas/Common_FormElementCollection",
+        "input": "#/components/schemas/Common_FormElementInput",
+        "map": "#/components/schemas/Common_FormElementMap",
+        "select": "#/components/schemas/Common_FormElementSelect",
+        "textarea": "#/components/schemas/Common_FormElementTextArea",
+        "typeapi": "#/components/schemas/Common_FormElementTypeAPI",
+        "typeschema": "#/components/schemas/Common_FormElementTypeSchema"
+      }
+    },
+    "Common_FormElementCheckbox": {
+      "$ref": "#/$defs/Common_FormElement"
+    },
+    "Common_FormElementCollection": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Common_FormElement"
+        },
+        {
+          "description": "Form element which represents a collection element",
+          "type": "object",
+          "properties": {
+            "type": {
+              "description": "The input type i.e. text or password, all HTML input types are allowed",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "Common_FormElementInput": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Common_FormElement"
+        },
+        {
+          "description": "Form element which represents an input element",
+          "type": "object",
+          "properties": {
+            "type": {
+              "description": "The input type i.e. text or password, all HTML input types are allowed",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "Common_FormElementMap": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Common_FormElement"
+        },
+        {
+          "description": "Form element which represents a map element",
+          "type": "object",
+          "properties": {
+            "type": {
+              "description": "The input type i.e. text or password, all HTML input types are allowed",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "Common_FormElementSelect": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Common_FormElement"
+        },
+        {
+          "description": "Form element which represents a select element",
+          "type": "object",
+          "properties": {
+            "options": {
+              "description": "Available options for the select element",
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Common_FormElementSelectOption"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Common_FormElementSelectOption": {
+      "description": "Represents a concrete option entry",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "Common_FormElementTextArea": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Common_FormElement"
+        },
+        {
+          "description": "Form element which represents a textarea",
+          "type": "object",
+          "properties": {
+            "mode": {
+              "description": "Describes which data is provided at the textarea, this can be i.e. a programming language like php, java or python or also a data format like json",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "Common_FormElementTypeAPI": {
+      "$ref": "#/$defs/Common_FormElement"
+    },
+    "Common_FormElementTypeSchema": {
+      "$ref": "#/$defs/Common_FormElement"
+    }
+  }
+}

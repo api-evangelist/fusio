@@ -189,8 +189,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Backend_RoleUpdate:
-      $ref: '#/components/schemas/Backend_Role'
     Backend_Role:
       description: This object represents a role, every user is assigned to a role and all scopes of the role are automatically attached to the user
       type: object
@@ -209,6 +207,8 @@ components:
           type: array
           items:
             type: string
+    Backend_RoleUpdate:
+      $ref: '#/components/schemas/Backend_Role'
     Common_Message:
       description: Common error message
       type: object

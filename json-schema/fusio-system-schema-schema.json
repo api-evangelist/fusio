@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-system-schema-schema.json",
+  "title": "System_Schema",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-system-api-openapi.yml#/components/schemas/System_Schema",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "$ref": "#/$defs/System_SchemaTypeSchema"
+    },
+    "form": {
+      "$ref": "#/$defs/System_SchemaForm"
+    }
+  },
+  "$defs": {
+    "System_SchemaForm": {
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "System_SchemaTypeSchema": {
+      "type": "object",
+      "additionalProperties": {}
+    }
+  }
+}

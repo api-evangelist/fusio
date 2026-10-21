@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-agent-message-collection-schema.json",
+  "title": "Backend_AgentMessageCollection",
+  "description": "Base collection",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-agent-api-openapi.yml#/components/schemas/Backend_AgentMessageCollection",
+  "type": "object",
+  "properties": {
+    "totalResults": {
+      "type": "integer"
+    },
+    "startIndex": {
+      "type": "integer"
+    },
+    "itemsPerPage": {
+      "type": "integer"
+    },
+    "entry": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Backend_AgentMessage"
+      }
+    }
+  },
+  "$defs": {
+    "Agent_Item": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/Agent_ItemBinary"
+        },
+        {
+          "$ref": "#/$defs/Agent_ItemChoice"
+        },
+        {
+          "$ref": "#/$defs/Agent_ItemObject"
+        },
+        {
+          "$ref": "#/$defs/Agent_ItemText"
+        },
+        {
+          "$ref": "#/$defs/Agent_ItemToolCall"
+        }
+      ],
+      "mapping": {
+        "binary": "#/components/schemas/Agent_ItemBinary",
+        "choice": "#/components/schemas/Agent_ItemChoice",
+        "object": "#/components/schemas/Agent_ItemObject",
+        "text": "#/components/schemas/Agent_ItemText",
+        "tool_call": "#/components/schemas/Agent_ItemToolCall"
+      }
+    },
+    "Agent_ItemBinary": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Agent_Item"
+        },
+        {
+          "description": "Binary agent message",
+          "type": "object",
+          "properties": {
+            "mime": {
+              "description": "The mime of the binary data",
+              "type": "string"
+            },
+            "data": {
+              "description": "The base64 encoded binary data",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "Agent_ItemChoice": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Agent_Item"
+        },
+        {
+          "description": "Choice agent message",
+          "type": "object",
+          "properties": {
+            "items": {
+              "description": "Contains multiple agent items",
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Agent_Item"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Agent_ItemObject": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Agent_Item"
+        },
+        {
+          "description": "Structured agent message",
+          "type": "object",
+          "properties": {
+            "payload": {}
+          }
+        }
+      ]
+    },
+    "Agent_ItemText": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Agent_Item"
+        },
+        {
+          "description": "Text agent message",
+          "type": "object",
+          "properties": {
+            "content": {
+              "description": "The content text",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "Agent_ItemToolCall": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Agent_Item"
+        },
+        {
+          "description": "Tool call agent message",
+          "type": "object",
+          "properties": {
+            "functions": {
+              "description": "An array of concrete functions",
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Agent_ItemToolCallFunction"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Agent_ItemToolCallFunction": {
+      "description": "Concrete values for a function tool call",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "arguments": {
+          "type": "string"
+        }
+      }
+    },
+    "Backend_AgentMessage": {
+      "description": "This object represents an agent message",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier for the object",
+          "type": "integer"
+        },
+        "chatId": {
+          "description": "The assigned chat id which can be used to load the complete conversation",
+          "type": "string"
+        },
+        "role": {
+          "description": "The role of this message i.e. user, assistant or system",
+          "type": "string"
+        },
+        "item": {
+          "$ref": "#/$defs/Agent_Item"
+        },
+        "insertDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

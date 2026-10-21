@@ -5,7 +5,7 @@ description: >-
   the action that produces it, bind both to an HTTP method and path, scope it, rehearse it, and
   promote it to stable.
 api: Fusio Backend API
-version: 1
+version: "1.0.0"
 generated: '2026-08-29'
 method: generated
 source: openapi/fusio-backend.json

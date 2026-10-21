@@ -1,0 +1,4083 @@
+generated: '2026-10-20'
+method: generated
+source: openapi/fusio-account-api-openapi.yml, openapi/fusio-action-api-openapi.yml, openapi/fusio-agent-api-openapi.yml,
+  openapi/fusio-app-api-openapi.yml, openapi/fusio-audit-api-openapi.yml, openapi/fusio-authorization-api-openapi.yml,
+  openapi/fusio-backup-api-openapi.yml, openapi/fusio-bundle-api-openapi.yml, openapi/fusio-category-api-openapi.yml,
+  openapi/fusio-config-api-openapi.yml, openapi/fusio-connection-api-openapi.yml, openapi/fusio-cronjob-api-openapi.yml,
+  openapi/fusio-dashboard-api-openapi.yml, openapi/fusio-event-api-openapi.yml, openapi/fusio-firewall-api-openapi.yml,
+  openapi/fusio-form-api-openapi.yml, openapi/fusio-generator-api-openapi.yml, openapi/fusio-grant-api-openapi.yml,
+  openapi/fusio-identity-api-openapi.yml, openapi/fusio-log-api-openapi.yml, openapi/fusio-marketplace-api-openapi.yml,
+  openapi/fusio-operation-api-openapi.yml, openapi/fusio-page-api-openapi.yml, openapi/fusio-payment-api-openapi.yml,
+  openapi/fusio-plan-api-openapi.yml, openapi/fusio-rate-api-openapi.yml, openapi/fusio-role-api-openapi.yml,
+  openapi/fusio-schema-api-openapi.yml, openapi/fusio-scope-api-openapi.yml, openapi/fusio-sdk-api-openapi.yml,
+  openapi/fusio-specification-api-openapi.yml, openapi/fusio-statistic-api-openapi.yml, openapi/fusio-system-api-openapi.yml,
+  openapi/fusio-taxonomy-api-openapi.yml, openapi/fusio-tenant-api-openapi.yml, openapi/fusio-test-api-openapi.yml,
+  openapi/fusio-token-api-openapi.yml, openapi/fusio-transaction-api-openapi.yml, openapi/fusio-trash-api-openapi.yml,
+  openapi/fusio-trigger-api-openapi.yml, openapi/fusio-user-api-openapi.yml, openapi/fusio-webhook-api-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 275
+  by_action_class:
+    acting: 131
+    connected: 144
+  by_consequence:
+    write: 123
+    read: 144
+    safety-critical: 3
+    physical: 5
+  human_in_the_loop_required: 3
+operations:
+- path: /backend/account/change_password
+  method: put
+  operationId: backend.account.changePassword
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.account
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/account
+  method: get
+  operationId: backend.account.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.account
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/account
+  method: put
+  operationId: backend.account.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.account
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/activate
+  method: post
+  operationId: consumer.account.activate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/authorize
+  method: get
+  operationId: consumer.account.getApp
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/authorize
+  method: post
+  operationId: consumer.account.authorize
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/account/change_password
+  method: put
+  operationId: consumer.account.changePassword
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - consumer.account
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/password_reset
+  method: put
+  operationId: consumer.account.executePasswordReset
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /consumer/password_reset
+  method: post
+  operationId: consumer.account.requestPasswordReset
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /consumer/account
+  method: get
+  operationId: consumer.account.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.account
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/account
+  method: put
+  operationId: consumer.account.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - consumer.account
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/login
+  method: put
+  operationId: consumer.account.refresh
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/login
+  method: post
+  operationId: consumer.account.login
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/register
+  method: post
+  operationId: consumer.account.register
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/action
+  method: get
+  operationId: backend.action.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.action
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/action
+  method: post
+  operationId: backend.action.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.action
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/action/{action_id}
+  method: get
+  operationId: backend.action.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.action
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/action/{action_id}
+  method: put
+  operationId: backend.action.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.action
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/action/{action_id}
+  method: delete
+  operationId: backend.action.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.action
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/action/execute/{action_id}
+  method: post
+  operationId: backend.action.execute
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.action
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/action/list
+  method: get
+  operationId: backend.action.getClasses
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.action
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/action/{action_id}/commit
+  method: get
+  operationId: backend.action.getCommits
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.action
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/action/form
+  method: get
+  operationId: backend.action.getForm
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.action
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/agent
+  method: get
+  operationId: backend.agent.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.agent
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/agent
+  method: post
+  operationId: backend.agent.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.agent
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/agent/{agent_id}
+  method: get
+  operationId: backend.agent.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.agent
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/agent/{agent_id}
+  method: put
+  operationId: backend.agent.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.agent
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/agent/{agent_id}
+  method: delete
+  operationId: backend.agent.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.agent
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/agent/tools
+  method: get
+  operationId: backend.agent.getTools
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.agent
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/agent/{agent_id}/message
+  method: get
+  operationId: backend.agent.message.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.agent
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/agent/{agent_id}/message
+  method: post
+  operationId: backend.agent.message.submit
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.agent
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/agent/{agent_id}
+  method: get
+  operationId: consumer.agent.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.agent
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/agent
+  method: get
+  operationId: consumer.agent.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.agent
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/agent/{agent_id}/message
+  method: get
+  operationId: consumer.agent.message.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.agent
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/agent/{agent_id}/message
+  method: post
+  operationId: consumer.agent.message.submit
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - consumer.agent
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/app
+  method: get
+  operationId: backend.app.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.app
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/app
+  method: post
+  operationId: backend.app.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.app
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/app/{app_id}
+  method: get
+  operationId: backend.app.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.app
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/app/{app_id}
+  method: put
+  operationId: backend.app.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.app
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/app/{app_id}
+  method: delete
+  operationId: backend.app.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.app
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/app/{app_id}/token/{token_id}
+  method: delete
+  operationId: backend.app.deleteToken
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.app
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/app
+  method: get
+  operationId: consumer.app.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.app
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/app
+  method: post
+  operationId: consumer.app.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - consumer.app
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/app/{app_id}
+  method: get
+  operationId: consumer.app.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.app
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/app/{app_id}
+  method: put
+  operationId: consumer.app.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - consumer.app
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/app/{app_id}
+  method: delete
+  operationId: consumer.app.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - consumer.app
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/audit/{audit_id}
+  method: get
+  operationId: backend.audit.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.audit
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/audit
+  method: get
+  operationId: backend.audit.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.audit
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /authorization/whoami
+  method: get
+  operationId: authorization.getWhoami
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - authorization
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /authorization/revoke
+  method: post
+  operationId: authorization.revoke
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - authorization
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /backend/backup/export
+  method: post
+  operationId: backend.backup.export
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.backup
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/backup/import
+  method: post
+  operationId: backend.backup.import
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.backup
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/bundle
+  method: get
+  operationId: backend.bundle.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.bundle
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/bundle
+  method: post
+  operationId: backend.bundle.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.bundle
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/bundle/{bundle_id}
+  method: get
+  operationId: backend.bundle.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.bundle
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/bundle/{bundle_id}
+  method: put
+  operationId: backend.bundle.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.bundle
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/bundle/{bundle_id}
+  method: delete
+  operationId: backend.bundle.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.bundle
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/bundle/{bundle_id}/publish
+  method: post
+  operationId: backend.bundle.publish
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.bundle
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/category
+  method: get
+  operationId: backend.category.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.category
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/category
+  method: post
+  operationId: backend.category.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.category
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/category/{category_id}
+  method: get
+  operationId: backend.category.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.category
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/category/{category_id}
+  method: put
+  operationId: backend.category.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.category
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/category/{category_id}
+  method: delete
+  operationId: backend.category.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.category
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/config/{config_id}
+  method: get
+  operationId: backend.config.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.config
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/config/{config_id}
+  method: put
+  operationId: backend.config.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.config
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/config
+  method: get
+  operationId: backend.config.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.config
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/connection/{connection_id}/agent
+  method: post
+  operationId: backend.connection.agent.send
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - backend.connection
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/connection
+  method: get
+  operationId: backend.connection.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.connection
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/connection
+  method: post
+  operationId: backend.connection.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.connection
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/connection/{connection_id}/database/{table_name}/rows
+  method: get
+  operationId: backend.connection.database.getRows
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.connection
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/connection/{connection_id}/database/{table_name}/rows
+  method: post
+  operationId: backend.connection.database.createRow
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.connection
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/connection/{connection_id}/database
+  method: get
+  operationId: backend.connection.database.getTables
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.connection
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/connection/{connection_id}/database
+  method: post
+  operationId: backend.connection.database.createTable
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.connection
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/connection/{connection_id}/database/{table_name}/rows/{id}
+  method: get
+  operationId: backend.connection.database.getRow
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.connection
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/connection/{connection_id}/database/{table_name}/rows/{id}
+  method: put
+  operationId: backend.connection.database.updateRow
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.connection
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/connection/{connection_id}/database/{table_name}/rows/{id}
+  method: delete
+  operationId: backend.connection.database.deleteRow
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.connection
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/connection/{connection_id}/database/{table_name}
+  method: get
+  operationId: backend.connection.database.getTable
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.connection
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/connection/{connection_id}/database/{table_name}
+  method: put
+  operationId: backend.connection.database.updateTable
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.connection
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/connection/{connection_id}/database/{table_name}
+  method: delete
+  operationId: backend.connection.database.deleteTable
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.connection
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/connection/{connection_id}
+  method: get
+  operationId: backend.connection.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.connection
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/connection/{connection_id}
+  method: put
+  operationId: backend.connection.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.connection
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/connection/{connection_id}
+  method: delete
+  operationId: backend.connection.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.connection
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/connection/{connection_id}/filesystem
+  method: get
+  operationId: backend.connection.filesystem.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.connection
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/connection/{connection_id}/filesystem
+  method: post
+  operationId: backend.connection.filesystem.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.connection
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/connection/{connection_id}/filesystem/{file_id}
+  method: get
+  operationId: backend.connection.filesystem.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.connection
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/connection/{connection_id}/filesystem/{file_id}
+  method: put
+  operationId: backend.connection.filesystem.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.connection
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/connection/{connection_id}/filesystem/{file_id}
+  method: delete
+  operationId: backend.connection.filesystem.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.connection
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/connection/list
+  method: get
+  operationId: backend.connection.getClasses
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.connection
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/connection/form
+  method: get
+  operationId: backend.connection.getForm
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.connection
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/connection/{connection_id}/redirect
+  method: get
+  operationId: backend.connection.getRedirect
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.connection
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/connection/{connection_id}/http
+  method: post
+  operationId: backend.connection.http.execute
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.connection
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/connection/{connection_id}/sdk
+  method: get
+  operationId: backend.connection.sdk.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.connection
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/cronjob
+  method: get
+  operationId: backend.cronjob.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.cronjob
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/cronjob
+  method: post
+  operationId: backend.cronjob.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.cronjob
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/cronjob/{cronjob_id}
+  method: get
+  operationId: backend.cronjob.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.cronjob
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/cronjob/{cronjob_id}
+  method: put
+  operationId: backend.cronjob.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.cronjob
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/cronjob/{cronjob_id}
+  method: delete
+  operationId: backend.cronjob.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.cronjob
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/dashboard
+  method: get
+  operationId: backend.dashboard.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.dashboard
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/event
+  method: get
+  operationId: backend.event.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.event
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/event
+  method: post
+  operationId: backend.event.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.event
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/event/{event_id}
+  method: get
+  operationId: backend.event.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.event
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/event/{event_id}
+  method: put
+  operationId: backend.event.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.event
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/event/{event_id}
+  method: delete
+  operationId: backend.event.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.event
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/event/{event_id}
+  method: get
+  operationId: consumer.event.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.event
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/event
+  method: get
+  operationId: consumer.event.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.event
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/firewall
+  method: get
+  operationId: backend.firewall.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.firewall
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/firewall
+  method: post
+  operationId: backend.firewall.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.firewall
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/firewall/{firewall_id}
+  method: get
+  operationId: backend.firewall.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.firewall
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/firewall/{firewall_id}
+  method: put
+  operationId: backend.firewall.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.firewall
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/firewall/{firewall_id}
+  method: delete
+  operationId: backend.firewall.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.firewall
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/form
+  method: get
+  operationId: backend.form.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.form
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/form
+  method: post
+  operationId: backend.form.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.form
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/form/{form_id}
+  method: get
+  operationId: backend.form.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.form
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/form/{form_id}
+  method: put
+  operationId: backend.form.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.form
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/form/{form_id}
+  method: delete
+  operationId: backend.form.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.form
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/form/{form_id}
+  method: get
+  operationId: consumer.form.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/form
+  method: get
+  operationId: consumer.form.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/generator/{provider}
+  method: get
+  operationId: backend.generator.getForm
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.generator
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/generator/{provider}
+  method: put
+  operationId: backend.generator.getChangelog
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.generator
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/generator/{provider}
+  method: post
+  operationId: backend.generator.executeProvider
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.generator
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/generator
+  method: get
+  operationId: backend.generator.getClasses
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.generator
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/grant/{grant_id}
+  method: delete
+  operationId: consumer.grant.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - consumer.grant
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/grant
+  method: get
+  operationId: consumer.grant.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.grant
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/identity
+  method: get
+  operationId: backend.identity.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.identity
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/identity
+  method: post
+  operationId: backend.identity.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.identity
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/identity/{identity_id}
+  method: get
+  operationId: backend.identity.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.identity
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/identity/{identity_id}
+  method: put
+  operationId: backend.identity.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.identity
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/identity/{identity_id}
+  method: delete
+  operationId: backend.identity.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.identity
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/identity/list
+  method: get
+  operationId: backend.identity.getClasses
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.identity
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/identity/form
+  method: get
+  operationId: backend.identity.getForm
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.identity
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/identity/{identity}/exchange
+  method: get
+  operationId: consumer.identity.exchange
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/identity
+  method: get
+  operationId: consumer.identity.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/identity/{identity}/redirect
+  method: get
+  operationId: consumer.identity.redirect
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/log/{log_id}
+  method: get
+  operationId: backend.log.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.log
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/log
+  method: get
+  operationId: backend.log.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.log
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/log/error
+  method: get
+  operationId: backend.log.getAllErrors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.log
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/log/error/{error_id}
+  method: get
+  operationId: backend.log.getError
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.log
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/log/{log_id}
+  method: get
+  operationId: consumer.log.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.log
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/log
+  method: get
+  operationId: consumer.log.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.log
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/marketplace/action/{user}/{name}
+  method: get
+  operationId: backend.marketplace.action.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.marketplace
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/marketplace/action/{user}/{name}
+  method: put
+  operationId: backend.marketplace.action.upgrade
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.marketplace
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/marketplace/action
+  method: get
+  operationId: backend.marketplace.action.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.marketplace
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/marketplace/action
+  method: post
+  operationId: backend.marketplace.action.install
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.marketplace
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/marketplace/app/{user}/{name}
+  method: get
+  operationId: backend.marketplace.app.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.marketplace
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/marketplace/app/{user}/{name}
+  method: put
+  operationId: backend.marketplace.app.upgrade
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.marketplace
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/marketplace/app
+  method: get
+  operationId: backend.marketplace.app.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.marketplace
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/marketplace/app
+  method: post
+  operationId: backend.marketplace.app.install
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.marketplace
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/marketplace/bundle/{user}/{name}
+  method: get
+  operationId: backend.marketplace.bundle.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.marketplace
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/marketplace/bundle/{user}/{name}
+  method: put
+  operationId: backend.marketplace.bundle.upgrade
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.marketplace
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/marketplace/bundle
+  method: get
+  operationId: backend.marketplace.bundle.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.marketplace
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/marketplace/bundle
+  method: post
+  operationId: backend.marketplace.bundle.install
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.marketplace
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/operation
+  method: get
+  operationId: backend.operation.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.operation
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/operation
+  method: post
+  operationId: backend.operation.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.operation
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/operation/{operation_id}
+  method: get
+  operationId: backend.operation.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.operation
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/operation/{operation_id}
+  method: put
+  operationId: backend.operation.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.operation
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/operation/{operation_id}
+  method: delete
+  operationId: backend.operation.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.operation
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/page
+  method: get
+  operationId: backend.page.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.page
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/page
+  method: post
+  operationId: backend.page.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.page
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/page/{page_id}
+  method: get
+  operationId: backend.page.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.page
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/page/{page_id}
+  method: put
+  operationId: backend.page.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.page
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/page/{page_id}
+  method: delete
+  operationId: backend.page.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.page
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/page/{page_id}
+  method: get
+  operationId: consumer.page.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/page
+  method: get
+  operationId: consumer.page.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/payment/{provider}/checkout
+  method: post
+  operationId: consumer.payment.checkout
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - consumer.payment
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/payment/{provider}/portal
+  method: post
+  operationId: consumer.payment.portal
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - consumer.payment
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/plan
+  method: get
+  operationId: backend.plan.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.plan
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/plan
+  method: post
+  operationId: backend.plan.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.plan
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/plan/{plan_id}
+  method: get
+  operationId: backend.plan.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.plan
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/plan/{plan_id}
+  method: put
+  operationId: backend.plan.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.plan
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/plan/{plan_id}
+  method: delete
+  operationId: backend.plan.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.plan
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/plan/{plan_id}
+  method: get
+  operationId: consumer.plan.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.plan
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/plan
+  method: get
+  operationId: consumer.plan.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.plan
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/rate
+  method: get
+  operationId: backend.rate.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.rate
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/rate
+  method: post
+  operationId: backend.rate.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.rate
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/rate/{rate_id}
+  method: get
+  operationId: backend.rate.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.rate
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/rate/{rate_id}
+  method: put
+  operationId: backend.rate.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.rate
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/rate/{rate_id}
+  method: delete
+  operationId: backend.rate.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.rate
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/role
+  method: get
+  operationId: backend.role.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.role
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/role
+  method: post
+  operationId: backend.role.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.role
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/role/{role_id}
+  method: get
+  operationId: backend.role.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.role
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/role/{role_id}
+  method: put
+  operationId: backend.role.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.role
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/role/{role_id}
+  method: delete
+  operationId: backend.role.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.role
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/schema
+  method: get
+  operationId: backend.schema.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.schema
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/schema
+  method: post
+  operationId: backend.schema.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.schema
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/schema/{schema_id}
+  method: get
+  operationId: backend.schema.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.schema
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/schema/{schema_id}
+  method: put
+  operationId: backend.schema.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.schema
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/schema/{schema_id}
+  method: delete
+  operationId: backend.schema.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.schema
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/schema/{schema_id}/commit
+  method: get
+  operationId: backend.schema.getCommits
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.schema
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/schema/preview/{schema_id}
+  method: post
+  operationId: backend.schema.getPreview
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.schema
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/scope
+  method: get
+  operationId: backend.scope.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.scope
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/scope
+  method: post
+  operationId: backend.scope.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.scope
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/scope/{scope_id}
+  method: get
+  operationId: backend.scope.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.scope
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/scope/{scope_id}
+  method: put
+  operationId: backend.scope.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.scope
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/scope/{scope_id}
+  method: delete
+  operationId: backend.scope.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.scope
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/scope/categories
+  method: get
+  operationId: backend.scope.getCategories
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.scope
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/scope
+  method: get
+  operationId: consumer.scope.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.scope
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/scope/categories
+  method: get
+  operationId: consumer.scope.getCategories
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.scope
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/sdk
+  method: get
+  operationId: backend.sdk.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.sdk
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/sdk
+  method: post
+  operationId: backend.sdk.generate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.sdk
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/specification
+  method: get
+  operationId: backend.specification.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.specification
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/specification
+  method: post
+  operationId: backend.specification.publish
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.specification
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/specification/changelog
+  method: get
+  operationId: backend.specification.getChangelog
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.specification
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/specification/tag
+  method: post
+  operationId: backend.specification.tag
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.specification
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/statistic/activities_per_user
+  method: get
+  operationId: backend.statistic.getActivitiesPerUser
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.statistic
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/statistic/count_requests
+  method: get
+  operationId: backend.statistic.getCountRequests
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.statistic
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/statistic/errors_per_operation
+  method: get
+  operationId: backend.statistic.getErrorsPerOperation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.statistic
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/statistic/incoming_requests
+  method: get
+  operationId: backend.statistic.getIncomingRequests
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.statistic
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/statistic/incoming_transactions
+  method: get
+  operationId: backend.statistic.getIncomingTransactions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.statistic
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/statistic/issued_tokens
+  method: get
+  operationId: backend.statistic.getIssuedTokens
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.statistic
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/statistic/most_used_activities
+  method: get
+  operationId: backend.statistic.getMostUsedActivities
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.statistic
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/statistic/most_used_apps
+  method: get
+  operationId: backend.statistic.getMostUsedApps
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.statistic
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/statistic/most_used_operations
+  method: get
+  operationId: backend.statistic.getMostUsedOperations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.statistic
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/statistic/requests_per_ip
+  method: get
+  operationId: backend.statistic.getRequestsPerIP
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.statistic
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/statistic/requests_per_operation
+  method: get
+  operationId: backend.statistic.getRequestsPerOperation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.statistic
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/statistic/requests_per_user
+  method: get
+  operationId: backend.statistic.getRequestsPerUser
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.statistic
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/statistic/test_coverage
+  method: get
+  operationId: backend.statistic.getTestCoverage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.statistic
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/statistic/time_average
+  method: get
+  operationId: backend.statistic.getTimeAverage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.statistic
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/statistic/time_per_operation
+  method: get
+  operationId: backend.statistic.getTimePerOperation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.statistic
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/statistic/used_points
+  method: get
+  operationId: backend.statistic.getUsedPoints
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.statistic
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/statistic/user_registrations
+  method: get
+  operationId: backend.statistic.getUserRegistrations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.statistic
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /system/connection/{name}/callback
+  method: get
+  operationId: system.connection.callback
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /system/about
+  method: get
+  operationId: system.meta.getAbout
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /system/debug
+  method: post
+  operationId: system.meta.getDebug
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /system/health
+  method: get
+  operationId: system.meta.getHealth
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /system/route
+  method: get
+  operationId: system.meta.getRoutes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /system/schema/{name}
+  method: get
+  operationId: system.meta.getSchema
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /system/payment/{provider}/webhook
+  method: post
+  operationId: system.payment.webhook
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/taxonomy
+  method: get
+  operationId: backend.taxonomy.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.taxonomy
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/taxonomy
+  method: post
+  operationId: backend.taxonomy.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.taxonomy
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/taxonomy/{taxonomy_id}
+  method: get
+  operationId: backend.taxonomy.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.taxonomy
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/taxonomy/{taxonomy_id}
+  method: put
+  operationId: backend.taxonomy.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.taxonomy
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/taxonomy/{taxonomy_id}
+  method: post
+  operationId: backend.taxonomy.move
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.taxonomy
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/taxonomy/{taxonomy_id}
+  method: delete
+  operationId: backend.taxonomy.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.taxonomy
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/tenant/{tenant_id}
+  method: put
+  operationId: backend.tenant.setup
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.tenant
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/tenant/{tenant_id}
+  method: delete
+  operationId: backend.tenant.remove
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.tenant
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/test/{test_id}
+  method: get
+  operationId: backend.test.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.test
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/test/{test_id}
+  method: put
+  operationId: backend.test.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.test
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/test
+  method: get
+  operationId: backend.test.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.test
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/test
+  method: put
+  operationId: backend.test.refresh
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.test
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/test
+  method: post
+  operationId: backend.test.run
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.test
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/token/{token_id}
+  method: get
+  operationId: backend.token.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.token
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/token
+  method: get
+  operationId: backend.token.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.token
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/token
+  method: get
+  operationId: consumer.token.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.token
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/token
+  method: post
+  operationId: consumer.token.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - consumer.token
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/token/{token_id}
+  method: get
+  operationId: consumer.token.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.token
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/token/{token_id}
+  method: put
+  operationId: consumer.token.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - consumer.token
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/token/{token_id}
+  method: delete
+  operationId: consumer.token.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - consumer.token
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/transaction/{transaction_id}
+  method: get
+  operationId: backend.transaction.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.transaction
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/transaction
+  method: get
+  operationId: backend.transaction.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.transaction
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/transaction/{transaction_id}
+  method: get
+  operationId: consumer.transaction.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.transaction
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/transaction
+  method: get
+  operationId: consumer.transaction.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.transaction
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/trash/{type}
+  method: get
+  operationId: backend.trash.getAllByType
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.trash
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/trash/{type}
+  method: post
+  operationId: backend.trash.restore
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.trash
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/trash
+  method: get
+  operationId: backend.trash.getTypes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.trash
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/trigger
+  method: get
+  operationId: backend.trigger.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.trigger
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/trigger
+  method: post
+  operationId: backend.trigger.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.trigger
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/trigger/{trigger_id}
+  method: get
+  operationId: backend.trigger.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.trigger
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/trigger/{trigger_id}
+  method: put
+  operationId: backend.trigger.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.trigger
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/trigger/{trigger_id}
+  method: delete
+  operationId: backend.trigger.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.trigger
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/user
+  method: get
+  operationId: backend.user.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/user
+  method: post
+  operationId: backend.user.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.user
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/user/{user_id}
+  method: get
+  operationId: backend.user.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/user/{user_id}
+  method: put
+  operationId: backend.user.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.user
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/user/{user_id}
+  method: delete
+  operationId: backend.user.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.user
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/user/{user_id}/resend
+  method: post
+  operationId: backend.user.resend
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - backend.user
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/webhook
+  method: get
+  operationId: backend.webhook.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.webhook
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/webhook
+  method: post
+  operationId: backend.webhook.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.webhook
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/webhook/{webhook_id}
+  method: get
+  operationId: backend.webhook.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - backend.webhook
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /backend/webhook/{webhook_id}
+  method: put
+  operationId: backend.webhook.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.webhook
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /backend/webhook/{webhook_id}
+  method: delete
+  operationId: backend.webhook.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - backend.webhook
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/webhook
+  method: get
+  operationId: consumer.webhook.getAll
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.webhook
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/webhook
+  method: post
+  operationId: consumer.webhook.create
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - consumer.webhook
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/webhook/{webhook_id}
+  method: get
+  operationId: consumer.webhook.get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - consumer.webhook
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /consumer/webhook/{webhook_id}
+  method: put
+  operationId: consumer.webhook.update
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - consumer.webhook
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /consumer/webhook/{webhook_id}
+  method: delete
+  operationId: consumer.webhook.delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - consumer.webhook
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required

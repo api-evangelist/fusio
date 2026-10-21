@@ -376,18 +376,24 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
-    Backend_WebhookCreate:
-      $ref: '#/components/schemas/Backend_Webhook'
-    Common_Message:
-      description: Common error message
+    Backend_WebhookResponse:
       type: object
       properties:
-        success:
-          type: boolean
-        message:
-          type: string
         id:
+          type: integer
+        status:
+          type: integer
+        code:
+          type: integer
+        attempts:
+          type: integer
+        error:
           type: string
+        executeDate:
+          type: string
+          format: date-time
+    Backend_WebhookUpdate:
+      $ref: '#/components/schemas/Backend_Webhook'
     Backend_Webhook:
       description: This object represents a webhook, a webhook is called in case a specific event was triggered
       type: object
@@ -407,6 +413,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_WebhookResponse'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+    Backend_WebhookCreate:
+      $ref: '#/components/schemas/Backend_Webhook'
     Backend_WebhookCollection:
       description: Base collection
       type: object
@@ -421,24 +439,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Webhook'
-    Backend_WebhookResponse:
+    Consumer_WebhookResponse:
       type: object
       properties:
-        id:
-          type: integer
         status:
           type: integer
         code:
           type: integer
         attempts:
-          type: integer
-        error:
           type: string
         executeDate:
           type: string
-          format: date-time
-    Backend_WebhookUpdate:
-      $ref: '#/components/schemas/Backend_Webhook'
     Consumer_WebhookUpdate:
       type: object
       properties:
@@ -448,6 +459,20 @@ components:
           type: string
         endpoint:
           type: string
+    Consumer_WebhookCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Webhook'
     Consumer_WebhookCreate:
       type: object
       properties:
@@ -474,31 +499,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Consumer_WebhookResponse'
-    Consumer_WebhookCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Consumer_Webhook'
-    Consumer_WebhookResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-        code:
-          type: integer
-        attempts:
-          type: string
-        executeDate:
-          type: string
   securitySchemes:
     app:
       type: oauth2

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-category-schema.json",
+  "title": "Backend_Category",
+  "description": "This object represents a category. Every user is assigned to a category and can only view objects which are also assigned to the same category, through this it is possible to build separate areas for external developers",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-category-api-openapi.yml#/components/schemas/Backend_Category",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier for the object",
+      "type": "integer"
+    },
+    "name": {
+      "description": "Unique name of the object",
+      "type": "string"
+    }
+  }
+}

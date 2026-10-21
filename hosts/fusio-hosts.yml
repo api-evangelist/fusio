@@ -1,0 +1,115 @@
+generated: '2026-10-20'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 6
+  own: 4
+  other_domain: 0
+  platform: 2
+  roles:
+  - api
+  - docs
+  - source
+  - support
+  - website
+hosts:
+- host: api.fusio-project.org
+  found_by:
+  - probed
+  - site-links
+  - namespace-probe
+  - contract-discovery
+  - well-known
+  types: []
+  serves: []
+  status: 200
+  registrable_domain: fusio-project.org
+  role: api
+  relation: own
+- host: demo.fusio-project.org
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - site-links
+  - docs-index
+  - spec-found
+  - contract-discovery
+  - well-known
+  types:
+  - APIReference
+  serves:
+  - api
+  - docs
+  - spec
+  registrable_domain: fusio-project.org
+  role: docs
+  relation: own
+- host: discord.com
+  found_by:
+  - pointer
+  - vendor-detect
+  types:
+  - Support
+  serves:
+  - community
+  vendor: discord
+  registrable_domain: discord.com
+  role: support
+  relation: platform
+- host: docs.fusio-project.org
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - site-links
+  - docs-index
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - Documentation
+  - GettingStarted
+  - SDKs
+  serves:
+  - docs
+  - documentation
+  vendor: docusaurus
+  registrable_domain: fusio-project.org
+  role: docs
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - Roadmap
+  - IssueTracker
+  - Releases
+  - ContributionGuide
+  - License
+  - ChangeLog
+  - GitHubOrganization
+  - GitHubRepository
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: www.fusio-project.org
+  found_by:
+  - pointer
+  - probed
+  - docs-index
+  - contract-discovery
+  - well-known
+  types:
+  - Website
+  - DeveloperPortal
+  - Demo
+  - Blog
+  - Marketplace
+  serves:
+  - docs
+  registrable_domain: fusio-project.org
+  role: website
+  relation: own

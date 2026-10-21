@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-backup-import-result-schema.json",
+  "title": "Backend_BackupImportResult",
+  "description": "Result of a backup import operation",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-backup-api-openapi.yml#/components/schemas/Backend_BackupImportResult",
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean"
+    },
+    "message": {
+      "type": "string"
+    },
+    "logs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

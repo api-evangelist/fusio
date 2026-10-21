@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-plan-collection-schema.json",
+  "title": "Backend_PlanCollection",
+  "description": "Base collection",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-plan-api-openapi.yml#/components/schemas/Backend_PlanCollection",
+  "type": "object",
+  "properties": {
+    "totalResults": {
+      "type": "integer"
+    },
+    "startIndex": {
+      "type": "integer"
+    },
+    "itemsPerPage": {
+      "type": "integer"
+    },
+    "entry": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Backend_Plan"
+      }
+    }
+  },
+  "$defs": {
+    "Backend_Plan": {
+      "description": "This object represents a plan, a plan allows users to obtain points or in general subscribe to your app",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier for the object",
+          "type": "integer"
+        },
+        "name": {
+          "description": "Name of the plan",
+          "type": "string"
+        },
+        "description": {
+          "description": "Short description of the plan",
+          "type": "string"
+        },
+        "price": {
+          "description": "The price of this plan",
+          "type": "number"
+        },
+        "points": {
+          "description": "The points which are assigned to the user on purchase",
+          "type": "integer"
+        },
+        "period": {
+          "description": "Whether the plan is one-time or periodically",
+          "type": "integer"
+        },
+        "externalId": {
+          "description": "An external id of a remote payment provider like Stripe",
+          "type": "string"
+        },
+        "scopes": {
+          "description": "Scopes which are assigned dynamically to the user on purchase",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "metadata": {
+          "$ref": "#/$defs/Common_Metadata"
+        }
+      }
+    },
+    "Common_Metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

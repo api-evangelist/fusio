@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-consumer-payment-portal-response-schema.json",
+  "title": "Consumer_PaymentPortalResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-payment-api-openapi.yml#/components/schemas/Consumer_PaymentPortalResponse",
+  "type": "object",
+  "properties": {
+    "redirectUrl": {
+      "type": "string"
+    }
+  }
+}

@@ -7,7 +7,7 @@ info:
 x-generated: '2026-08-29'
 x-method: generated
 x-source: openapi/fusio-authorization.json (harvested from https://demo.fusio-project.org/system/generator/spec-openapi?filter=authorization)
-extends: openapi/fusio-authorization.json
+extends: ../openapi/_original/fusio-authorization.json
 actions:
   - target: $.info
     description: >-

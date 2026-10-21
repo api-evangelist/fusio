@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-app-schema.json",
+  "title": "Backend_App",
+  "description": "This object represents an app to access the API on-behalf of a user",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-app-api-openapi.yml#/components/schemas/Backend_App",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier for the object",
+      "type": "integer"
+    },
+    "userId": {
+      "type": "integer"
+    },
+    "status": {
+      "description": "Status of the object either 1 = active, 2 = pending, 3 = deactivated or 4 = deleted",
+      "type": "integer"
+    },
+    "name": {
+      "description": "Unique name of the object",
+      "type": "string"
+    },
+    "url": {
+      "description": "Url where the app is hosted",
+      "type": "string"
+    },
+    "parameters": {
+      "description": "Optional URL-encoded parameters of the app i.e. foo=bar&bar=foo",
+      "type": "string"
+    },
+    "appKey": {
+      "description": "The app key also known as client id which is generated on creation",
+      "type": "string"
+    },
+    "appSecret": {
+      "description": "The app secret also known as client secret which is generated on creation",
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/$defs/Common_Metadata"
+    },
+    "date": {
+      "description": "The create date of this object",
+      "type": "string",
+      "format": "date-time"
+    },
+    "scopes": {
+      "description": "A list of assigned scopes for this app",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tokens": {
+      "description": "A list of tokens which are assigned to this app",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Backend_Token"
+      }
+    }
+  },
+  "$defs": {
+    "Backend_Token": {
+      "description": "This object represents a token, this an access token which was requested by a user",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier for the object",
+          "type": "integer"
+        },
+        "status": {
+          "description": "Status of the object either 1 = active or 2 = deleted",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ip": {
+          "type": "string"
+        },
+        "expire": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Common_Metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

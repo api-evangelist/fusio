@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-webhook-collection-schema.json",
+  "title": "Backend_WebhookCollection",
+  "description": "Base collection",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-webhook-api-openapi.yml#/components/schemas/Backend_WebhookCollection",
+  "type": "object",
+  "properties": {
+    "totalResults": {
+      "type": "integer"
+    },
+    "startIndex": {
+      "type": "integer"
+    },
+    "itemsPerPage": {
+      "type": "integer"
+    },
+    "entry": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Backend_Webhook"
+      }
+    }
+  },
+  "$defs": {
+    "Backend_Webhook": {
+      "description": "This object represents a webhook, a webhook is called in case a specific event was triggered",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier for the object",
+          "type": "integer"
+        },
+        "eventId": {
+          "type": "integer"
+        },
+        "userId": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "responses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Backend_WebhookResponse"
+          }
+        }
+      }
+    },
+    "Backend_WebhookResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "code": {
+          "type": "integer"
+        },
+        "attempts": {
+          "type": "integer"
+        },
+        "error": {
+          "type": "string"
+        },
+        "executeDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-config-schema.json",
+  "title": "Backend_Config",
+  "description": "This object represents a system configuration",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-config-api-openapi.yml#/components/schemas/Backend_Config",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier for the object",
+      "type": "integer"
+    },
+    "type": {
+      "description": "The config value type",
+      "type": "integer"
+    },
+    "name": {
+      "description": "Unique name of the object",
+      "type": "string"
+    },
+    "description": {
+      "description": "A short description fo this configuration value",
+      "type": "string"
+    },
+    "value": {}
+  }
+}

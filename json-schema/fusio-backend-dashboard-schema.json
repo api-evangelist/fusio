@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-dashboard-schema.json",
+  "title": "Backend_Dashboard",
+  "description": "Represents an object containing all widget data for the dashboard",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-dashboard-api-openapi.yml#/components/schemas/Backend_Dashboard",
+  "type": "object",
+  "properties": {
+    "errorsPerOperation": {
+      "$ref": "#/$defs/Backend_StatisticChart"
+    },
+    "incomingRequests": {
+      "$ref": "#/$defs/Backend_StatisticChart"
+    },
+    "incomingTransactions": {
+      "$ref": "#/$defs/Backend_StatisticChart"
+    },
+    "mostUsedOperations": {
+      "$ref": "#/$defs/Backend_StatisticChart"
+    },
+    "timePerOperation": {
+      "$ref": "#/$defs/Backend_StatisticChart"
+    },
+    "testCoverage": {
+      "$ref": "#/$defs/Backend_StatisticChart"
+    },
+    "mostUsedActivities": {
+      "$ref": "#/$defs/Backend_StatisticChart"
+    },
+    "activitiesPerUser": {
+      "$ref": "#/$defs/Backend_StatisticChart"
+    },
+    "userRegistrations": {
+      "$ref": "#/$defs/Backend_StatisticChart"
+    }
+  },
+  "$defs": {
+    "Backend_StatisticChart": {
+      "type": "object",
+      "properties": {
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "series": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Backend_StatisticChartSeries"
+          }
+        }
+      }
+    },
+    "Backend_StatisticChartSeries": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
+}

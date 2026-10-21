@@ -112,6 +112,24 @@ components:
           type: string
         id:
           type: string
+    Common_Metadata:
+      type: object
+      additionalProperties:
+        type: string
+    Consumer_GrantCollection:
+      description: Base collection
+      type: object
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Grant'
     Consumer_App:
       type: object
       properties:
@@ -137,24 +155,6 @@ components:
             type: string
         metadata:
           $ref: '#/components/schemas/Common_Metadata'
-    Consumer_GrantCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Consumer_Grant'
-    Common_Metadata:
-      type: object
-      additionalProperties:
-        type: string
   securitySchemes:
     app:
       type: oauth2

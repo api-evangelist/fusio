@@ -184,6 +184,8 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Backend_TestConfig:
+      $ref: '#/components/schemas/Backend_ActionExecuteRequest'
     Common_Message:
       description: Common error message
       type: object
@@ -194,20 +196,6 @@ components:
           type: string
         id:
           type: string
-    Backend_TestCollection:
-      description: Base collection
-      type: object
-      properties:
-        totalResults:
-          type: integer
-        startIndex:
-          type: integer
-        itemsPerPage:
-          type: integer
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_Test'
     Backend_ActionExecuteRequest:
       description: Represents a request to execute an action
       type: object
@@ -226,12 +214,20 @@ components:
           type: string
         body:
           $ref: '#/components/schemas/Backend_ActionExecuteRequestBody'
-    Backend_ActionExecuteRequestBody:
-      description: Represents a request body
+    Backend_TestCollection:
+      description: Base collection
       type: object
-      additionalProperties: {}
-    Backend_TestConfig:
-      $ref: '#/components/schemas/Backend_ActionExecuteRequest'
+      properties:
+        totalResults:
+          type: integer
+        startIndex:
+          type: integer
+        itemsPerPage:
+          type: integer
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_Test'
     Backend_Test:
       description: This object represents a test. A test helps to verify that all operations work as expected
       type: object
@@ -250,6 +246,10 @@ components:
           type: string
         config:
           $ref: '#/components/schemas/Backend_TestConfig'
+    Backend_ActionExecuteRequestBody:
+      description: Represents a request body
+      type: object
+      additionalProperties: {}
   securitySchemes:
     app:
       type: oauth2

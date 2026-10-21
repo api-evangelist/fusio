@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-marketplace-action-schema.json",
+  "title": "MarketplaceAction",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-marketplace-api-openapi.yml#/components/schemas/MarketplaceAction",
+  "allOf": [
+    {
+      "$ref": "#/$defs/MarketplaceObject"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "class": {
+          "type": "string"
+        },
+        "config": {
+          "$ref": "#/$defs/MarketplaceActionConfig"
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "MarketplaceActionConfig": {
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "MarketplaceObject": {
+      "description": "Base class of all objects on the marketplace",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "author": {
+          "$ref": "#/$defs/MarketplaceUser"
+        },
+        "version": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "cost": {
+          "type": "integer"
+        },
+        "updateDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "insertDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "MarketplaceUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "verified": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

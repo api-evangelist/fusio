@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-consumer-log-collection-schema.json",
+  "title": "Consumer_LogCollection",
+  "description": "Base collection",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-log-api-openapi.yml#/components/schemas/Consumer_LogCollection",
+  "type": "object",
+  "properties": {
+    "totalResults": {
+      "type": "integer"
+    },
+    "startIndex": {
+      "type": "integer"
+    },
+    "itemsPerPage": {
+      "type": "integer"
+    },
+    "entry": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Consumer_Log"
+      }
+    }
+  },
+  "$defs": {
+    "Consumer_Log": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "appId": {
+          "type": "integer"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "userAgent": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "header": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fusio/main/json-schema/fusio-backend-role-update-schema.json",
+  "title": "Backend_RoleUpdate",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/fusio-role-api-openapi.yml#/components/schemas/Backend_RoleUpdate",
+  "$ref": "#/$defs/Backend_Role",
+  "$defs": {
+    "Backend_Role": {
+      "description": "This object represents a role, every user is assigned to a role and all scopes of the role are automatically attached to the user",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier for the object",
+          "type": "integer"
+        },
+        "categoryId": {
+          "description": "The assigned category id of this role",
+          "type": "integer"
+        },
+        "name": {
+          "description": "Unique name of the object",
+          "type": "string"
+        },
+        "scopes": {
+          "description": "All scopes which are assigned to this role",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,761 @@
+{
+  "@context": {
+    "@vocab": "https://fusio-project.org/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "fusio": "https://fusio-project.org/schema#",
+    "Backend_User": "fusio:Backend_User",
+    "id": {
+      "@id": "fusio:id",
+      "@type": "xsd:integer"
+    },
+    "roleId": {
+      "@id": "fusio:roleId",
+      "@type": "xsd:integer"
+    },
+    "planId": {
+      "@id": "fusio:planId",
+      "@type": "xsd:integer"
+    },
+    "status": {
+      "@id": "fusio:status",
+      "@type": "xsd:integer"
+    },
+    "name": {
+      "@id": "fusio:name",
+      "@type": "xsd:string"
+    },
+    "email": {
+      "@id": "fusio:email",
+      "@type": "xsd:string"
+    },
+    "points": {
+      "@id": "fusio:points",
+      "@type": "xsd:integer"
+    },
+    "scopes": {
+      "@id": "fusio:scopes",
+      "@container": "@list"
+    },
+    "apps": {
+      "@id": "fusio:apps",
+      "@container": "@list"
+    },
+    "metadata": {
+      "@id": "fusio:metadata",
+      "@type": "@id"
+    },
+    "date": {
+      "@id": "fusio:date",
+      "@type": "xsd:dateTime"
+    },
+    "Common_Message": "fusio:Common_Message",
+    "success": {
+      "@id": "fusio:success",
+      "@type": "xsd:boolean"
+    },
+    "message": {
+      "@id": "fusio:message",
+      "@type": "xsd:string"
+    },
+    "Backend_AccountChangePassword": "fusio:Backend_AccountChangePassword",
+    "oldPassword": {
+      "@id": "fusio:oldPassword",
+      "@type": "xsd:string"
+    },
+    "newPassword": {
+      "@id": "fusio:newPassword",
+      "@type": "xsd:string"
+    },
+    "verifyPassword": {
+      "@id": "fusio:verifyPassword",
+      "@type": "xsd:string"
+    },
+    "Backend_Token": "fusio:Backend_Token",
+    "ip": {
+      "@id": "fusio:ip",
+      "@type": "xsd:string"
+    },
+    "expire": {
+      "@id": "fusio:expire",
+      "@type": "xsd:dateTime"
+    },
+    "Backend_App": "fusio:Backend_App",
+    "userId": {
+      "@id": "fusio:userId",
+      "@type": "xsd:integer"
+    },
+    "url": {
+      "@id": "fusio:url",
+      "@type": "xsd:string"
+    },
+    "parameters": {
+      "@id": "fusio:parameters",
+      "@type": "xsd:string"
+    },
+    "appKey": {
+      "@id": "fusio:appKey",
+      "@type": "xsd:string"
+    },
+    "appSecret": {
+      "@id": "fusio:appSecret",
+      "@type": "xsd:string"
+    },
+    "tokens": {
+      "@id": "fusio:tokens",
+      "@container": "@list"
+    },
+    "Consumer_UserPasswordReset": "fusio:Consumer_UserPasswordReset",
+    "token": {
+      "@id": "fusio:token",
+      "@type": "xsd:string"
+    },
+    "Consumer_UserLogin": "fusio:Consumer_UserLogin",
+    "username": {
+      "@id": "fusio:username",
+      "@type": "xsd:string"
+    },
+    "password": {
+      "@id": "fusio:password",
+      "@type": "xsd:string"
+    },
+    "Consumer_AuthorizeResponse": "fusio:Consumer_AuthorizeResponse",
+    "type": {
+      "@id": "fusio:type",
+      "@type": "xsd:string"
+    },
+    "code": {
+      "@id": "fusio:code",
+      "@type": "xsd:string"
+    },
+    "error": {
+      "@id": "fusio:error",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "fusio:state",
+      "@type": "xsd:string"
+    },
+    "redirectUri": {
+      "@id": "fusio:redirectUri",
+      "@type": "xsd:string"
+    },
+    "Consumer_AuthorizeMeta": "fusio:Consumer_AuthorizeMeta",
+    "Consumer_UserEmail": "fusio:Consumer_UserEmail",
+    "captcha": {
+      "@id": "fusio:captcha",
+      "@type": "xsd:string"
+    },
+    "Consumer_UserRefresh": "fusio:Consumer_UserRefresh",
+    "refresh_token": {
+      "@id": "fusio:refresh_token",
+      "@type": "xsd:string"
+    },
+    "Consumer_UserRegister": "fusio:Consumer_UserRegister",
+    "Consumer_Scope": "fusio:Consumer_Scope",
+    "description": {
+      "@id": "fusio:description",
+      "@type": "xsd:string"
+    },
+    "Consumer_UserPlan": "fusio:Consumer_UserPlan",
+    "price": {
+      "@id": "fusio:price",
+      "@type": "xsd:integer"
+    },
+    "period": {
+      "@id": "fusio:period",
+      "@type": "xsd:integer"
+    },
+    "Consumer_UserAccount": "fusio:Consumer_UserAccount",
+    "plans": {
+      "@id": "fusio:plans",
+      "@container": "@list"
+    },
+    "Consumer_UserActivate": "fusio:Consumer_UserActivate",
+    "Consumer_AuthorizeRequest": "fusio:Consumer_AuthorizeRequest",
+    "responseType": {
+      "@id": "fusio:responseType",
+      "@type": "xsd:string"
+    },
+    "clientId": {
+      "@id": "fusio:clientId",
+      "@type": "xsd:string"
+    },
+    "scope": {
+      "@id": "fusio:scope",
+      "@type": "xsd:string"
+    },
+    "allow": {
+      "@id": "fusio:allow",
+      "@type": "xsd:boolean"
+    },
+    "Consumer_UserJWT": "fusio:Consumer_UserJWT",
+    "expires_in": {
+      "@id": "fusio:expires_in",
+      "@type": "xsd:integer"
+    },
+    "Common_FormContainer": "fusio:Common_FormContainer",
+    "element": {
+      "@id": "fusio:element",
+      "@container": "@list"
+    },
+    "Backend_ActionExecuteResponse": "fusio:Backend_ActionExecuteResponse",
+    "statusCode": {
+      "@id": "fusio:statusCode",
+      "@type": "xsd:integer"
+    },
+    "headers": {
+      "@id": "fusio:headers",
+      "@type": "@id"
+    },
+    "body": {
+      "@id": "fusio:body",
+      "@type": "@id"
+    },
+    "Common_FormElementSelectOption": "fusio:Common_FormElementSelectOption",
+    "key": {
+      "@id": "fusio:key",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "fusio:value",
+      "@type": "xsd:string"
+    },
+    "Backend_ActionIndexEntry": "fusio:Backend_ActionIndexEntry",
+    "class": {
+      "@id": "fusio:class",
+      "@type": "xsd:string"
+    },
+    "Backend_ActionCommit": "fusio:Backend_ActionCommit",
+    "user": {
+      "@id": "fusio:user",
+      "@type": "@id"
+    },
+    "commitHash": {
+      "@id": "fusio:commitHash",
+      "@type": "xsd:string"
+    },
+    "config": {
+      "@id": "fusio:config",
+      "@type": "@id"
+    },
+    "insertDate": {
+      "@id": "fusio:insertDate",
+      "@type": "xsd:dateTime"
+    },
+    "Backend_ActionCommitCollection": "fusio:Backend_ActionCommitCollection",
+    "totalResults": {
+      "@id": "fusio:totalResults",
+      "@type": "xsd:integer"
+    },
+    "startIndex": {
+      "@id": "fusio:startIndex",
+      "@type": "xsd:integer"
+    },
+    "itemsPerPage": {
+      "@id": "fusio:itemsPerPage",
+      "@type": "xsd:integer"
+    },
+    "entry": {
+      "@id": "fusio:entry",
+      "@container": "@list"
+    },
+    "Backend_Action": "fusio:Backend_Action",
+    "async": {
+      "@id": "fusio:async",
+      "@type": "xsd:boolean"
+    },
+    "Backend_ActionCollection": "fusio:Backend_ActionCollection",
+    "Backend_ActionExecuteRequest": "fusio:Backend_ActionExecuteRequest",
+    "method": {
+      "@id": "fusio:method",
+      "@type": "xsd:string"
+    },
+    "uriFragments": {
+      "@id": "fusio:uriFragments",
+      "@type": "xsd:string"
+    },
+    "Backend_ActionIndex": "fusio:Backend_ActionIndex",
+    "actions": {
+      "@id": "fusio:actions",
+      "@container": "@list"
+    },
+    "Backend_AgentTools": "fusio:Backend_AgentTools",
+    "tools": {
+      "@id": "fusio:tools",
+      "@container": "@list"
+    },
+    "Agent_ItemToolCallFunction": "fusio:Agent_ItemToolCallFunction",
+    "arguments": {
+      "@id": "fusio:arguments",
+      "@type": "xsd:string"
+    },
+    "Agent_Output": "fusio:Agent_Output",
+    "item": {
+      "@id": "fusio:item",
+      "@type": "@id"
+    },
+    "Backend_Agent": "fusio:Backend_Agent",
+    "connection": {
+      "@id": "fusio:connection",
+      "@type": "xsd:integer"
+    },
+    "public": {
+      "@id": "fusio:public",
+      "@type": "xsd:boolean"
+    },
+    "introduction": {
+      "@id": "fusio:introduction",
+      "@type": "xsd:string"
+    },
+    "temperature": {
+      "@id": "fusio:temperature",
+      "@type": "xsd:decimal"
+    },
+    "costs": {
+      "@id": "fusio:costs",
+      "@type": "xsd:integer"
+    },
+    "outgoing": {
+      "@id": "fusio:outgoing",
+      "@type": "xsd:string"
+    },
+    "action": {
+      "@id": "fusio:action",
+      "@type": "xsd:string"
+    },
+    "Backend_AgentMessageCollection": "fusio:Backend_AgentMessageCollection",
+    "Agent_Input": "fusio:Agent_Input",
+    "previousId": {
+      "@id": "fusio:previousId",
+      "@type": "xsd:string"
+    },
+    "Backend_AgentMessage": "fusio:Backend_AgentMessage",
+    "chatId": {
+      "@id": "fusio:chatId",
+      "@type": "xsd:string"
+    },
+    "role": {
+      "@id": "fusio:role",
+      "@type": "xsd:string"
+    },
+    "Backend_AgentTool": "fusio:Backend_AgentTool",
+    "Backend_AgentCollection": "fusio:Backend_AgentCollection",
+    "Consumer_AgentMessageCollection": "fusio:Consumer_AgentMessageCollection",
+    "Consumer_AgentCollection": "fusio:Consumer_AgentCollection",
+    "Consumer_Agent": "fusio:Consumer_Agent",
+    "Consumer_AgentMessage": "fusio:Consumer_AgentMessage",
+    "Backend_AppCollection": "fusio:Backend_AppCollection",
+    "Consumer_AppCollection": "fusio:Consumer_AppCollection",
+    "Consumer_App": "fusio:Consumer_App",
+    "Consumer_AppUpdate": "fusio:Consumer_AppUpdate",
+    "Consumer_AppCreate": "fusio:Consumer_AppCreate",
+    "Backend_AuditCollection": "fusio:Backend_AuditCollection",
+    "Backend_Audit": "fusio:Backend_Audit",
+    "app": {
+      "@id": "fusio:app",
+      "@type": "@id"
+    },
+    "event": {
+      "@id": "fusio:event",
+      "@type": "xsd:string"
+    },
+    "content": {
+      "@id": "fusio:content",
+      "@type": "@id"
+    },
+    "Backend_BackupImportResult": "fusio:Backend_BackupImportResult",
+    "logs": {
+      "@id": "fusio:logs",
+      "@container": "@list"
+    },
+    "Backend_BackupExport": "fusio:Backend_BackupExport",
+    "export": {
+      "@id": "fusio:export",
+      "@type": "xsd:string"
+    },
+    "Backend_BackupImport": "fusio:Backend_BackupImport",
+    "import": {
+      "@id": "fusio:import",
+      "@type": "xsd:string"
+    },
+    "Backend_BundleCollection": "fusio:Backend_BundleCollection",
+    "Backend_Bundle": "fusio:Backend_Bundle",
+    "version": {
+      "@id": "fusio:version",
+      "@type": "xsd:string"
+    },
+    "icon": {
+      "@id": "fusio:icon",
+      "@type": "xsd:string"
+    },
+    "summary": {
+      "@id": "fusio:summary",
+      "@type": "xsd:string"
+    },
+    "cost": {
+      "@id": "fusio:cost",
+      "@type": "xsd:integer"
+    },
+    "Backend_Category": "fusio:Backend_Category",
+    "Backend_CategoryCollection": "fusio:Backend_CategoryCollection",
+    "Backend_ConfigCollection": "fusio:Backend_ConfigCollection",
+    "Backend_Config": "fusio:Backend_Config",
+    "Backend_ConnectionRedirectResponse": "fusio:Backend_ConnectionRedirectResponse",
+    "Backend_DatabaseTableColumn": "fusio:Backend_DatabaseTableColumn",
+    "length": {
+      "@id": "fusio:length",
+      "@type": "xsd:integer"
+    },
+    "precision": {
+      "@id": "fusio:precision",
+      "@type": "xsd:integer"
+    },
+    "scale": {
+      "@id": "fusio:scale",
+      "@type": "xsd:integer"
+    },
+    "unsigned": {
+      "@id": "fusio:unsigned",
+      "@type": "xsd:boolean"
+    },
+    "fixed": {
+      "@id": "fusio:fixed",
+      "@type": "xsd:boolean"
+    },
+    "notNull": {
+      "@id": "fusio:notNull",
+      "@type": "xsd:boolean"
+    },
+    "autoIncrement": {
+      "@id": "fusio:autoIncrement",
+      "@type": "xsd:boolean"
+    },
+    "default": {
+      "@id": "fusio:default"
+    },
+    "comment": {
+      "@id": "fusio:comment",
+      "@type": "xsd:string"
+    },
+    "Backend_FileCollection": "fusio:Backend_FileCollection",
+    "Backend_HttpRequest": "fusio:Backend_HttpRequest",
+    "uri": {
+      "@id": "fusio:uri",
+      "@type": "xsd:string"
+    },
+    "Backend_Connection": "fusio:Backend_Connection",
+    "oauth2": {
+      "@id": "fusio:oauth2",
+      "@type": "xsd:boolean"
+    },
+    "Backend_DatabaseRowCollection": "fusio:Backend_DatabaseRowCollection",
+    "Backend_DatabaseTable": "fusio:Backend_DatabaseTable",
+    "columns": {
+      "@id": "fusio:columns",
+      "@container": "@list"
+    },
+    "primaryKey": {
+      "@id": "fusio:primaryKey",
+      "@type": "xsd:string"
+    },
+    "indexes": {
+      "@id": "fusio:indexes",
+      "@container": "@list"
+    },
+    "foreignKeys": {
+      "@id": "fusio:foreignKeys",
+      "@container": "@list"
+    },
+    "Backend_DatabaseTableCollection": "fusio:Backend_DatabaseTableCollection",
+    "Backend_HttpResponse": "fusio:Backend_HttpResponse",
+    "Backend_DatabaseTableIndex": "fusio:Backend_DatabaseTableIndex",
+    "unique": {
+      "@id": "fusio:unique",
+      "@type": "xsd:boolean"
+    },
+    "Backend_File": "fusio:Backend_File",
+    "contentType": {
+      "@id": "fusio:contentType",
+      "@type": "xsd:string"
+    },
+    "checksum": {
+      "@id": "fusio:checksum",
+      "@type": "xsd:string"
+    },
+    "lastModified": {
+      "@id": "fusio:lastModified",
+      "@type": "xsd:dateTime"
+    },
+    "Backend_ConnectionCollection": "fusio:Backend_ConnectionCollection",
+    "Backend_DatabaseTableForeignKeyConstraint": "fusio:Backend_DatabaseTableForeignKeyConstraint",
+    "foreignTable": {
+      "@id": "fusio:foreignTable",
+      "@type": "xsd:string"
+    },
+    "localColumnNames": {
+      "@id": "fusio:localColumnNames",
+      "@container": "@list"
+    },
+    "foreignColumnNames": {
+      "@id": "fusio:foreignColumnNames",
+      "@container": "@list"
+    },
+    "Backend_ConnectionIndexEntry": "fusio:Backend_ConnectionIndexEntry",
+    "Backend_ConnectionIndex": "fusio:Backend_ConnectionIndex",
+    "connections": {
+      "@id": "fusio:connections",
+      "@container": "@list"
+    },
+    "Backend_Cronjob": "fusio:Backend_Cronjob",
+    "cron": {
+      "@id": "fusio:cron",
+      "@type": "xsd:string"
+    },
+    "executeDate": {
+      "@id": "fusio:executeDate",
+      "@type": "xsd:dateTime"
+    },
+    "exitCode": {
+      "@id": "fusio:exitCode",
+      "@type": "xsd:integer"
+    },
+    "errors": {
+      "@id": "fusio:errors",
+      "@container": "@list"
+    },
+    "Backend_CronjobError": "fusio:Backend_CronjobError",
+    "trace": {
+      "@id": "fusio:trace",
+      "@type": "xsd:string"
+    },
+    "file": {
+      "@id": "fusio:file",
+      "@type": "xsd:string"
+    },
+    "line": {
+      "@id": "fusio:line",
+      "@type": "xsd:integer"
+    },
+    "Backend_CronjobCollection": "fusio:Backend_CronjobCollection",
+    "Backend_StatisticChart": "fusio:Backend_StatisticChart",
+    "labels": {
+      "@id": "fusio:labels",
+      "@container": "@list"
+    },
+    "series": {
+      "@id": "fusio:series",
+      "@container": "@list"
+    },
+    "Backend_StatisticChartSeries": "fusio:Backend_StatisticChartSeries",
+    "data": {
+      "@id": "fusio:data",
+      "@container": "@list"
+    },
+    "Backend_Dashboard": "fusio:Backend_Dashboard",
+    "errorsPerOperation": {
+      "@id": "fusio:errorsPerOperation",
+      "@type": "@id"
+    },
+    "incomingRequests": {
+      "@id": "fusio:incomingRequests",
+      "@type": "@id"
+    },
+    "incomingTransactions": {
+      "@id": "fusio:incomingTransactions",
+      "@type": "@id"
+    },
+    "mostUsedOperations": {
+      "@id": "fusio:mostUsedOperations",
+      "@type": "@id"
+    },
+    "timePerOperation": {
+      "@id": "fusio:timePerOperation",
+      "@type": "@id"
+    },
+    "testCoverage": {
+      "@id": "fusio:testCoverage",
+      "@type": "@id"
+    },
+    "mostUsedActivities": {
+      "@id": "fusio:mostUsedActivities",
+      "@type": "@id"
+    },
+    "activitiesPerUser": {
+      "@id": "fusio:activitiesPerUser",
+      "@type": "@id"
+    },
+    "userRegistrations": {
+      "@id": "fusio:userRegistrations",
+      "@type": "@id"
+    },
+    "Backend_Event": "fusio:Backend_Event",
+    "Backend_EventCollection": "fusio:Backend_EventCollection",
+    "Consumer_EventCollection": "fusio:Consumer_EventCollection",
+    "Consumer_Event": "fusio:Consumer_Event",
+    "Backend_Firewall": "fusio:Backend_Firewall",
+    "Backend_FirewallCollection": "fusio:Backend_FirewallCollection",
+    "Backend_FormCollection": "fusio:Backend_FormCollection",
+    "Backend_Form": "fusio:Backend_Form",
+    "operationId": {
+      "@id": "fusio:operationId",
+      "@type": "xsd:integer"
+    },
+    "uiSchema": {
+      "@id": "fusio:uiSchema"
+    },
+    "Consumer_FormCollection": "fusio:Consumer_FormCollection",
+    "Consumer_Form": "fusio:Consumer_Form",
+    "jsonSchema": {
+      "@id": "fusio:jsonSchema"
+    },
+    "Backend_Operation": "fusio:Backend_Operation",
+    "active": {
+      "@id": "fusio:active",
+      "@type": "xsd:boolean"
+    },
+    "stability": {
+      "@id": "fusio:stability",
+      "@type": "xsd:integer"
+    },
+    "httpMethod": {
+      "@id": "fusio:httpMethod",
+      "@type": "xsd:string"
+    },
+    "httpPath": {
+      "@id": "fusio:httpPath",
+      "@type": "xsd:string"
+    },
+    "httpCode": {
+      "@id": "fusio:httpCode",
+      "@type": "xsd:integer"
+    },
+    "incoming": {
+      "@id": "fusio:incoming",
+      "@type": "xsd:string"
+    },
+    "throws": {
+      "@id": "fusio:throws",
+      "@type": "@id"
+    },
+    "Backend_Schema": "fusio:Backend_Schema",
+    "source": {
+      "@id": "fusio:source",
+      "@type": "@id"
+    },
+    "Backend_GeneratorIndexProvider": "fusio:Backend_GeneratorIndexProvider",
+    "Backend_GeneratorProviderChangelog": "fusio:Backend_GeneratorProviderChangelog",
+    "schemas": {
+      "@id": "fusio:schemas",
+      "@container": "@list"
+    },
+    "operations": {
+      "@id": "fusio:operations",
+      "@container": "@list"
+    },
+    "Backend_GeneratorProvider": "fusio:Backend_GeneratorProvider",
+    "path": {
+      "@id": "fusio:path",
+      "@type": "xsd:string"
+    },
+    "Backend_GeneratorIndexProviders": "fusio:Backend_GeneratorIndexProviders",
+    "providers": {
+      "@id": "fusio:providers",
+      "@container": "@list"
+    },
+    "Backend_OperationSchema": "fusio:Backend_OperationSchema",
+    "format": {
+      "@id": "fusio:format",
+      "@type": "xsd:string"
+    },
+    "enum": {
+      "@id": "fusio:enum",
+      "@type": "xsd:string"
+    },
+    "Consumer_Grant": "fusio:Consumer_Grant",
+    "createDate": {
+      "@id": "fusio:createDate",
+      "@type": "xsd:dateTime"
+    },
+    "Consumer_GrantCollection": "fusio:Consumer_GrantCollection",
+    "Backend_IdentityIndex": "fusio:Backend_IdentityIndex",
+    "Backend_IdentityCollection": "fusio:Backend_IdentityCollection",
+    "Backend_IdentityIndexEntry": "fusio:Backend_IdentityIndexEntry",
+    "Backend_Identity": "fusio:Backend_Identity",
+    "appId": {
+      "@id": "fusio:appId",
+      "@type": "xsd:integer"
+    },
+    "allowCreate": {
+      "@id": "fusio:allowCreate",
+      "@type": "xsd:boolean"
+    },
+    "Consumer_IdentityCollection": "fusio:Consumer_IdentityCollection",
+    "Consumer_Identity": "fusio:Consumer_Identity",
+    "redirect": {
+      "@id": "fusio:redirect",
+      "@type": "xsd:string"
+    },
+    "Backend_Log": "fusio:Backend_Log",
+    "userAgent": {
+      "@id": "fusio:userAgent",
+      "@type": "xsd:string"
+    },
+    "header": {
+      "@id": "fusio:header",
+      "@type": "xsd:string"
+    },
+    "Backend_LogCollection": "fusio:Backend_LogCollection",
+    "Backend_LogErrorCollection": "fusio:Backend_LogErrorCollection",
+    "Backend_LogError": "fusio:Backend_LogError",
+    "logId": {
+      "@id": "fusio:logId",
+      "@type": "xsd:integer"
+    },
+    "Consumer_Log": "fusio:Consumer_Log",
+    "Consumer_LogCollection": "fusio:Consumer_LogCollection",
+    "MarketplaceActionCollection": "fusio:MarketplaceActionCollection",
+    "MarketplaceBundleCronjob": "fusio:MarketplaceBundleCronjob",
+    "MarketplaceBundleConfig": "fusio:MarketplaceBundleConfig",
+    "events": {
+      "@id": "fusio:events",
+      "@container": "@list"
+    },
+    "cronjobs": {
+      "@id": "fusio:cronjobs",
+      "@container": "@list"
+    },
+    "triggers": {
+      "@id": "fusio:triggers",
+      "@container": "@list"
+    },
+    "MarketplaceAppCollection": "fusio:MarketplaceAppCollection",
+    "MarketplaceBundleEvent": "fusio:MarketplaceBundleEvent",
+    "MarketplaceBundleCollection": "fusio:MarketplaceBundleCollection",
+    "MarketplaceBundleSchema": "fusio:MarketplaceBundleSchema",
+    "MarketplaceObject": "fusio:MarketplaceObject",
+    "author": {
+      "@id": "fusio:author",
+      "@type": "@id"
+    },
+    "updateDate": {
+      "@id": "fusio:updateDate",
+      "@type": "xsd:dateTime"
+    },
+    "MarketplaceBundleTrigger": "fusio:MarketplaceBundleTrigger",
+    "MarketplaceInstall": "fusio:MarketplaceInstall",
+    "MarketplaceMessage": "fusio:MarketplaceMessage"
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Fusio API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Fusio's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-20) from openapi/fusio-account-api-openapi.yml, openapi/fusio-action-api-openapi.yml, openapi/fusio-agent-api-openapi.yml.",
+  "dcterms:created": "2026-10-20",
+  "dcterms:source": [
+    "openapi/fusio-account-api-openapi.yml",
+    "openapi/fusio-action-api-openapi.yml",
+    "openapi/fusio-agent-api-openapi.yml",
+    "openapi/fusio-app-api-openapi.yml",
+    "openapi/fusio-audit-api-openapi.yml"
+  ]
+}

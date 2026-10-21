@@ -485,92 +485,6 @@ paths:
     - url: https://demo.fusio-project.org
 components:
   schemas:
-    Backend_User:
-      description: This object represents a user
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        roleId:
-          description: A role which is assigned to the user
-          type: integer
-        planId:
-          description: A plan which is assigned to the user
-          type: integer
-        status:
-          description: Status of the object either 1 = active, 2 = disabled or 0 = deleted
-          type: integer
-        name:
-          description: Unique name of the object
-          type: string
-        email:
-          description: The email address of the user
-          type: string
-        points:
-          description: Points assigned to the user
-          type: integer
-        scopes:
-          description: List of scopes which are assigned to the user
-          type: array
-          items:
-            type: string
-        apps:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend_App'
-        metadata:
-          $ref: '#/components/schemas/Common_Metadata'
-        date:
-          description: The insert date
-          type: string
-          format: date-time
-    Common_Message:
-      description: Common error message
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        id:
-          type: string
-    Backend_AccountChangePassword:
-      type: object
-      properties:
-        oldPassword:
-          description: The old password
-          type: string
-        newPassword:
-          description: The new password
-          type: string
-        verifyPassword:
-          description: To verify the new password must contain the same value as the new password
-          type: string
-    Backend_Token:
-      description: This object represents a token, this an access token which was requested by a user
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the object
-          type: integer
-        status:
-          description: Status of the object either 1 = active or 2 = deleted
-          type: integer
-        name:
-          type: string
-        scopes:
-          type: array
-          items:
-            type: string
-        ip:
-          type: string
-        expire:
-          type: string
-          format: date-time
-        date:
-          type: string
-          format: date-time
     Backend_UserUpdate:
       $ref: '#/components/schemas/Backend_User'
     Backend_App:
@@ -616,10 +530,144 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Backend_Token'
+    Common_Message:
+      description: Common error message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
     Common_Metadata:
       type: object
       additionalProperties:
         type: string
+    Backend_User:
+      description: This object represents a user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        roleId:
+          description: A role which is assigned to the user
+          type: integer
+        planId:
+          description: A plan which is assigned to the user
+          type: integer
+        status:
+          description: Status of the object either 1 = active, 2 = disabled or 0 = deleted
+          type: integer
+        name:
+          description: Unique name of the object
+          type: string
+        email:
+          description: The email address of the user
+          type: string
+        points:
+          description: Points assigned to the user
+          type: integer
+        scopes:
+          description: List of scopes which are assigned to the user
+          type: array
+          items:
+            type: string
+        apps:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend_App'
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+        date:
+          description: The insert date
+          type: string
+          format: date-time
+    Backend_Token:
+      description: This object represents a token, this an access token which was requested by a user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object
+          type: integer
+        status:
+          description: Status of the object either 1 = active or 2 = deleted
+          type: integer
+        name:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        ip:
+          type: string
+        expire:
+          type: string
+          format: date-time
+        date:
+          type: string
+          format: date-time
+    Backend_AccountChangePassword:
+      type: object
+      properties:
+        oldPassword:
+          description: The old password
+          type: string
+        newPassword:
+          description: The new password
+          type: string
+        verifyPassword:
+          description: To verify the new password must contain the same value as the new password
+          type: string
+    Consumer_Scope:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/Common_Metadata'
+    Consumer_AuthorizeResponse:
+      type: object
+      properties:
+        type:
+          type: string
+        code:
+          type: string
+        error:
+          type: string
+        state:
+          type: string
+        redirectUri:
+          type: string
+    Consumer_UserRegister:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        captcha:
+          type: string
+    Consumer_UserPlan:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        price:
+          type: integer
+        points:
+          type: integer
+        period:
+          type: integer
     Consumer_UserPasswordReset:
       type: object
       properties:
@@ -638,77 +686,21 @@ components:
           type: array
           items:
             type: string
-    Consumer_AuthorizeResponse:
+    Consumer_AuthorizeRequest:
       type: object
       properties:
-        type:
+        responseType:
           type: string
-        code:
-          type: string
-        error:
-          type: string
-        state:
+        clientId:
           type: string
         redirectUri:
           type: string
-    Consumer_AuthorizeMeta:
-      type: object
-      properties:
-        name:
+        scope:
           type: string
-        url:
+        state:
           type: string
-        scopes:
-          type: array
-          items:
-            $ref: '#/components/schemas/Consumer_Scope'
-    Consumer_UserEmail:
-      type: object
-      properties:
-        email:
-          type: string
-        captcha:
-          type: string
-    Consumer_UserRefresh:
-      type: object
-      properties:
-        refresh_token:
-          type: string
-    Consumer_UserRegister:
-      type: object
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        password:
-          type: string
-        captcha:
-          type: string
-    Consumer_Scope:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        description:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/Common_Metadata'
-    Consumer_UserPlan:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        price:
-          type: integer
-        points:
-          type: integer
-        period:
-          type: integer
+        allow:
+          type: boolean
     Consumer_UserAccount:
       type: object
       properties:
@@ -737,26 +729,6 @@ components:
         date:
           type: string
           format: date-time
-    Consumer_UserActivate:
-      type: object
-      properties:
-        token:
-          type: string
-    Consumer_AuthorizeRequest:
-      type: object
-      properties:
-        responseType:
-          type: string
-        clientId:
-          type: string
-        redirectUri:
-          type: string
-        scope:
-          type: string
-        state:
-          type: string
-        allow:
-          type: boolean
     Consumer_UserJWT:
       type: object
       properties:
@@ -767,6 +739,34 @@ components:
         refresh_token:
           type: string
         scope:
+          type: string
+    Consumer_UserActivate:
+      type: object
+      properties:
+        token:
+          type: string
+    Consumer_AuthorizeMeta:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        scopes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consumer_Scope'
+    Consumer_UserRefresh:
+      type: object
+      properties:
+        refresh_token:
+          type: string
+    Consumer_UserEmail:
+      type: object
+      properties:
+        email:
+          type: string
+        captcha:
           type: string
   securitySchemes:
     app:
