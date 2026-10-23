@@ -25,6 +25,9 @@ checked:
 - https://n8n.io/integrations/fusio/
 - https://zapier.com/apps/fusio/integrations
 - vs-code-marketplace/integrations/vs-code-marketplace-integration-edges.yml
+- https://hex.pm/api
+- https://packagist.org/packages
+- https://pub.dev/api
 summary: null
 marketplace_apps: []
 edges:
@@ -117,4 +120,358 @@ edges:
   badges:
   - Verified publisher
   - Verified domain
+- partner_name: Packagist
+  partner: packagist
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (PHP)
+  evidence: https://packagist.org/packages/fusio/adapter-ai
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Packagist (public registry JSON)
+    spec_file: null
+    language: PHP
+    packages:
+    - name: fusio/adapter-ai
+      version: v0.6.0
+      released: '2026-09-25'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-ai
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-amqp
+      version: v6.2.0
+      released: '2025-12-22'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-amqp
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-aws
+      version: v6.2.0
+      released: '2025-12-23'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-aws
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-beanstalk
+      version: v6.2.0
+      released: '2025-12-23'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-beanstalk
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-cassandra
+      version: v0.5.1
+      released: '2019-08-15'
+      released_field: time
+      lapsed: true
+      page: https://packagist.org/packages/fusio/adapter-cassandra
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-cli
+      version: v6.2.0
+      released: '2025-12-23'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-cli
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-elasticsearch
+      version: v6.3.0
+      released: '2026-05-01'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-elasticsearch
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-fcgi
+      version: v6.2.0
+      released: '2025-12-23'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-fcgi
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-file
+      version: v6.2.1
+      released: '2026-10-07'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-file
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-ftp
+      version: v0.1.0
+      released: '2026-10-07'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-ftp
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-gcp
+      version: v6.2.0
+      released: '2025-12-23'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-gcp
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-graphql
+      version: v6.2.0
+      released: '2025-12-23'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-graphql
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-hadoop
+      version: v6.0.2
+      released: '2023-07-15'
+      released_field: time
+      lapsed: true
+      page: https://packagist.org/packages/fusio/adapter-hadoop
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-http
+      version: v6.2.1
+      released: '2026-01-17'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-http
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-laravel
+      version: v6.2.0
+      released: '2025-12-23'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-laravel
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-ldap
+      version: v6.2.0
+      released: '2025-12-23'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-ldap
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-memcache
+      version: v6.2.0
+      released: '2025-12-25'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-memcache
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-mongodb
+      version: v6.2.1
+      released: '2025-12-25'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-mongodb
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-mqtt
+      version: v6.2.0
+      released: '2025-12-23'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-mqtt
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-neo4j
+      version: v6.2.0
+      released: '2025-12-23'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-neo4j
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-openstack
+      version: v6.0.2
+      released: '2023-07-15'
+      released_field: time
+      lapsed: true
+      page: https://packagist.org/packages/fusio/adapter-openstack
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-paypal
+      version: v5.0.0
+      released: '2022-01-08'
+      released_field: time
+      lapsed: true
+      page: https://packagist.org/packages/fusio/adapter-paypal
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-php
+      version: v6.2.0
+      released: '2025-12-23'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-php
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-redis
+      version: v6.2.0
+      released: '2025-12-23'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-redis
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-sample
+      version: v0.4.0
+      released: '2017-05-28'
+      released_field: time
+      lapsed: true
+      page: https://packagist.org/packages/fusio/adapter-sample
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-sdkfabric
+      version: v6.2.0
+      released: '2025-12-23'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-sdkfabric
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-smtp
+      version: v6.2.0
+      released: '2025-12-23'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-smtp
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-soap
+      version: v6.2.0
+      released: '2025-12-23'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-soap
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-sql
+      version: v6.4.0
+      released: '2026-10-07'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-sql
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-stripe
+      version: v6.2.0
+      released: '2025-12-24'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-stripe
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-symfony
+      version: v5.0.0
+      released: '2022-01-07'
+      released_field: time
+      lapsed: true
+      page: https://packagist.org/packages/fusio/adapter-symfony
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-v8
+      version: v3.1.0
+      released: '2018-12-29'
+      released_field: time
+      lapsed: true
+      page: https://packagist.org/packages/fusio/adapter-v8
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/adapter-worker
+      version: v6.3.0
+      released: '2026-03-08'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/adapter-worker
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/fusio
+      version: v7.2.1
+      released: '2026-10-21'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/fusio
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/sdk
+      version: v7.0.14
+      released: '2026-09-20'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/sdk
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/sdk-laravel
+      version: v0.2.3
+      released: '2022-08-06'
+      released_field: time
+      lapsed: true
+      page: https://packagist.org/packages/fusio/sdk-laravel
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    - name: fusio/worker-sdk
+      version: v0.2.1
+      released: '2025-03-22'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/fusio/worker-sdk
+      repo_leg: github-org:apioo
+      publisher_leg: org:fusio
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-php-dart-elixir-package-registries.py
+    detected: '2026-10-22'
+  detected_by: sweep-php-dart-elixir-package-registries.py
+  first_seen: '2026-10-22'
 templates: []
