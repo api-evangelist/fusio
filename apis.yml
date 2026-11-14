@@ -37,7 +37,7 @@ accessModel:
   - rate-limits
   - security
   - sandbox
-  generated: '2026-11-06'
+  generated: '2026-11-13'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/fusio.png
 access: 3rd-Party
@@ -226,6 +226,10 @@ common:
     description: Use RabbitMQ for asynchronous message processing in API workflows.
   - name: Docker
     description: Deploy Fusio and worker containers using Docker and Docker Compose.
+- type: UsageTerms
+  url: terms/fusio-terms-of-service.yml
+- type: DataLicense
+  url: data-license/fusio-data-license.yml
 apis:
 - aid: fusio:fusio-worker-api
   name: Fusio Worker API

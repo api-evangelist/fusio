@@ -14,6 +14,12 @@ artifacts:
   capabilities/fusio-capability-edges.yml:
     method: unknown
     evidence: no authorship recorded
+  certification/observations-2026-11-11.jsonl:
+    method: unknown
+    evidence: no authorship recorded
+  certification/status.yml:
+    method: unknown
+    evidence: no authorship recorded
   changelog/fusio-changelog.yml:
     method: searched
     evidence: declared in the artifact
@@ -28,6 +34,9 @@ artifacts:
     evidence: declared in the artifact
   conventions/fusio-conventions.yml:
     method: searched
+    evidence: declared in the artifact
+  data-license/fusio-data-license.yml:
+    method: harvested
     evidence: declared in the artifact
   data-model/fusio-data-model.yml:
     method: derived
@@ -45,6 +54,9 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   heartbeat/2026-11-06.yml:
+    method: unknown
+    evidence: no authorship recorded
+  heartbeat/2026-11-13.yml:
     method: unknown
     evidence: no authorship recorded
   hosts/fusio-hosts.yml:
@@ -554,7 +566,7 @@ artifacts:
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-02T082323.yml:
+  kin/checks-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -618,6 +630,9 @@ artifacts:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-11-02T082323.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   lifecycle/fusio-lifecycle.yml:
@@ -824,6 +839,9 @@ artifacts:
     evidence: declared in the artifact
   skills/fusio-restore-a-deleted-record.md:
     method: generated
+    evidence: declared in the artifact
+  terms/fusio-terms-of-service.yml:
+    method: harvested
     evidence: declared in the artifact
   typeapi/fusio-backend-openrpc.json:
     method: unknown
