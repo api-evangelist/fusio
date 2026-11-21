@@ -37,7 +37,7 @@ accessModel:
   - rate-limits
   - security
   - sandbox
-  generated: '2026-11-13'
+  generated: '2026-11-20'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/fusio.png
 access: 3rd-Party
@@ -239,6 +239,11 @@ apis:
   humanURL: https://docs.fusio-project.org/docs/internal/worker_api
   baseURL: http://{worker_host}:9092
   tags:
+  - Multi-language
+  - REST API
+  - Serverless
+  - Worker
+  tags_raw:
   - Multi-Language
   - REST API
   - Serverless
